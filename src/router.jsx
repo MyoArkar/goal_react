@@ -4,7 +4,7 @@ import Register from './views/register.jsx';
 import DefaultLayout from './Components/DefaultLayout.jsx';
 import GuestLayout from './Components/GuestLayout.jsx';
 import Users from './views/users.jsx';
-
+import Goal from './views/goal.jsx';
 const router = createBrowserRouter([
   {
     path: '/',
@@ -13,6 +13,10 @@ const router = createBrowserRouter([
       {
         path: '/users',
         element: <Users />
+      },
+      {
+        path: '/goal',
+        element: <Goal />
       },
     ]
   },
