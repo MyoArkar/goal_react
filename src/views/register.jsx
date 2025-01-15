@@ -31,21 +31,48 @@ export default function register(){
 }
 
     return(
-        <div className="login-signup-form animated fadeinDown">
-            <div className="form">
-                <h1 className="title">
-                    Create A New Account
-                </h1>
-                <form onSubmit={Submit}>
-                    <input ref={nameRef} type="name" placeholder="Name" />
-                    <input ref={emailRef} type="email" placeholder="Email" />
-                    <input ref={passwordRef} type="password" placeholder="Password" />
-                    <button className="btn btn-block">Register</button>
-                    <p className="message">
-                        Already Have An Account? <Link to= '/login'>Login</Link>
-                    </p>
-                </form>
-            </div>
-        </div>
+        <div className="flex justify-center items-center min-h-screen bg-gray-100">
+  <div className="w-full max-w-md bg-white shadow-lg rounded-lg p-8">
+    <h1 className="text-2xl font-bold text-center mb-6 text-gray-800">
+      Create A New Account
+    </h1>
+    <form onSubmit={Submit} className="space-y-4">
+      <input
+        ref={nameRef}
+        type="text"
+        placeholder="Name"
+        className="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none"
+      />
+      <input
+        ref={emailRef}
+        type="email"
+        placeholder="Email"
+        className="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none"
+      />
+      <input
+        ref={passwordRef}
+        type="password"
+        placeholder="Password"
+        className="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none"
+      />
+      <button
+        type="submit"
+        className="w-full bg-blue-600 text-white py-2 rounded-lg hover:bg-blue-700 transition duration-200"
+      >
+        Register
+      </button>
+      <p className="text-sm text-gray-600 text-center">
+        Already Have An Account?{" "}
+        <Link
+          to="/login"
+          className="text-blue-500 hover:underline"
+        >
+          Login
+        </Link>
+      </p>
+    </form>
+  </div>
+</div>
+
     )
 }
