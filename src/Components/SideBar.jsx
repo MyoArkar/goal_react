@@ -1,7 +1,24 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import { useStateContext } from "../contexts/contextprovider";
+import axiosClient from "../axiosClient";
 
 const Sidebar = () => {
+   const { user, token, setUser, setToken } = useStateContext();
+  const onLogout = (ev) => {
+    ev.preventDefault()
+
+    axiosClient.get("/auth/logout").then((response) => {
+      if (response.status === 200) {
+        localStorage.clear();
+        setUser(null)
+        setToken(null)
+        console.log("Logout successful");
+      }
+    })
+
+
+  }
   return (
     <div className="h-screen w-64 bg-gray-800 text-gray-200 flex flex-col shadow-lg">
       <div className="p-6 border-b border-gray-700">
@@ -47,6 +64,13 @@ const Sidebar = () => {
           </li>
         </ul>
       </nav>
+      <a
+            href="#"
+            onClick={onLogout}
+            className="text-red-500 hover:text-red-700 transition-colors"
+          >
+            Logout
+          </a>
     </div>
   );
 };
