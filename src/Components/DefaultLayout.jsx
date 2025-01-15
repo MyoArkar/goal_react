@@ -9,19 +9,19 @@ export default function DefaultLayout() {
     return <Navigate to="/login" />;
   }
 
- 
+
 
 
 
 
 
   return (
-    
-        <main className="flex flex-row justify-between relative">
-          <div className="fixed"><Sidebar/></div>
-          <div className="ml-[256px]"><Outlet/></div>
- </main>
-      
-    
+
+    <main className="flex flex-row justify-between relative">
+      <div className="fixed"><Sidebar /></div>
+      <div className="w-full min-h-screen ml-[256px]"><Outlet /></div>
+    </main>
+
+
   );
 }
