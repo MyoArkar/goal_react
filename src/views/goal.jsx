@@ -15,7 +15,7 @@ export default function Goal() {
                 <div className="card flex flex-row">
                     < div div className="border-solid border-2 border-sky-500 flex flex-col w-56 gap-3 rounded-md shadow-md p-5 text-sm">
                         <h2>Goal</h2>
-                        <p className="">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Vel quae molestiae tempore earum doloribus, similique at quia aut</p>
+                        <p className="">Lorem ipsum dolor sit amet consectetur adipisicing elit. Sit consequatur ad iusto fugiat voluptas sequi, necessitatibus impedit, voluptates cupiditate</p>
                         <div className='flex flex-row justify-between'>
                             <div className="flex flex-col">
                                 <h5>Start Date</h5>
