@@ -37,7 +37,7 @@ const Sidebar = () => {
           </li>
           <li>
             <Link
-              to="/goals"
+              to="/goal"
               className="flex items-center gap-2 p-2 rounded-lg hover:bg-gray-700 transition-colors"
             >
               <span className="text-lg">🎯</span>
