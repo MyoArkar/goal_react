@@ -1,76 +1,101 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import { useStateContext } from "../contexts/contextprovider";
 import axiosClient from "../axiosClient";
 
 const Sidebar = () => {
-   const { user, token, setUser, setToken } = useStateContext();
+  const { user, token, setUser, setToken } = useStateContext();
   const onLogout = (ev) => {
-    ev.preventDefault()
+    ev.preventDefault();
 
-    axiosClient.get("/auth/logout").then((response) => {
+    axiosClient.post("/auth/logout").then((response) => {
       if (response.status === 200) {
         localStorage.clear();
-        setUser(null)
-        setToken(null)
+        setUser(null);
+        setToken(null);
         console.log("Logout successful");
       }
-    })
+    });
+  };
 
-
-  }
   return (
-    <div className="h-screen w-64 bg-gray-800 text-gray-200 flex flex-col shadow-lg">
-      <div className="p-6 border-b border-gray-700">
-        <h1 className="text-2xl font-bold text-white">My App</h1>
+    <div className="h-screen w-64 bg-gray-800 flex flex-col shadow-lg border-r-2 border-gray-600">
+      <div className="p-6">
+        <h1 className="text-2xl font-bold text-gray-100">My App</h1>
       </div>
       <nav className="flex-1 p-4">
         <ul className="space-y-4">
           <li>
-            <Link
-              to="/dashboard"
-              className="flex items-center gap-2 p-2 rounded-lg hover:bg-gray-700 transition-colors"
+            <NavLink
+              to="/users"
+              className={({ isActive }) =>
+                `flex items-center gap-2 p-2 text-xl font-medium  rounded-lg transition-border ${ 
+                  isActive
+                    ? "bg-gray-700 border-2 border-b-4 border-gray-600 text-yellow-500"
+                    : "hover:bg-gray-700 text-gray-100 border-2 border-b-4 border-transparent"
+                }`
+              }
             >
               <span className="text-lg">📊</span>
               <span>Dashboard</span>
-            </Link>
+            </NavLink>
           </li>
           <li>
-            <Link
-              to="/goal"
-              className="flex items-center gap-2 p-2 rounded-lg hover:bg-gray-700 transition-colors"
+
+            <NavLink
+              to="/goals"
+              className={({ isActive }) =>
+                `flex items-center gap-2 p-2 text-xl font-medium  rounded-lg transition-border ${
+                  isActive
+                    ? "bg-gray-700 border-2 border-b-4 border-gray-600 text-yellow-500"
+                    : "hover:bg-gray-700 text-gray-100 border-2 border-b-4 border-transparent"
+                }`
+              }
+
             >
               <span className="text-lg">🎯</span>
               <span>Goals</span>
-            </Link>
+            </NavLink>
           </li>
           <li>
-            <Link
+            <NavLink
               to="/milestones"
-              className="flex items-center gap-2 p-2 rounded-lg hover:bg-gray-700 transition-colors"
+              className={({ isActive }) =>
+                `flex items-center gap-2 p-2 text-xl font-medium rounded-lg transition-border ${
+                  isActive
+                    ? "bg-gray-700 border-2 border-b-4 border-gray-600 text-yellow-500"
+                    : "hover:bg-gray-700  text-gray-100"
+                }`
+              }
             >
               <span className="text-lg">🏆</span>
               <span>Milestones</span>
-            </Link>
+            </NavLink>
           </li>
           <li>
-            <Link
+            <NavLink
               to="/tasks"
-              className="flex items-center gap-2 p-2 rounded-lg hover:bg-gray-700 transition-colors"
+              className={({ isActive }) =>
+                `flex items-center gap-2 p-2 text-xl font-medium rounded-lg transition-border ${
+                  isActive
+                    ? "bg-gray-700 border-2 border-b-4 border-gray-600 text-yellow-500"
+                    : "hover:bg-gray-700  text-gray-100"
+                }`
+              }
             >
               <span className="text-lg">✅</span>
               <span>Tasks</span>
-            </Link>
+            </NavLink>
           </li>
         </ul>
       </nav>
       <a
-            href="#"
-            onClick={onLogout}
-            className="text-red-500 hover:text-red-700 transition-colors"
-          >
-            Logout
-          </a>
+        href="#"
+        onClick={onLogout}
+        className="text-red-500 hover:text-red-700 transition-colors p-4"
+      >
+        Logout
+      </a>
     </div>
   );
 };
