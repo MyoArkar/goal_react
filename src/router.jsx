@@ -1,4 +1,4 @@
-import {  createBrowserRouter } from 'react-router-dom';
+import { createBrowserRouter } from 'react-router-dom';
 import Login from './views/login.jsx';
 import Register from './views/register.jsx';
 import DefaultLayout from './Components/DefaultLayout.jsx';
@@ -13,7 +13,7 @@ const router = createBrowserRouter([
       {
         path: '/users',
         element: <Users />
-      }
+      },
     ]
   },
   {
@@ -26,8 +26,8 @@ const router = createBrowserRouter([
       },
       {
         path: '/register',
-        element : <Register />,
-        }
+        element: <Register />,
+      }
     ]
   }
 ]);
