@@ -29,10 +29,9 @@ const Sidebar = () => {
             <NavLink
               to="/users"
               className={({ isActive }) =>
-                `flex items-center gap-2 p-2 text-xl font-medium  rounded-lg transition-border ${ 
-                  isActive
-                    ? "bg-gray-700 border-2 border-b-4 border-gray-600 text-yellow-500"
-                    : "hover:bg-gray-700 text-gray-100 border-2 border-b-4 border-transparent"
+                `flex items-center gap-2 p-2 text-xl font-medium  rounded-lg transition-border ${isActive
+                  ? "bg-gray-700 border-2 border-b-4 border-gray-600 text-yellow-500"
+                  : "hover:bg-gray-700 text-gray-100 border-2 border-b-4 border-transparent"
                 }`
               }
             >
@@ -43,28 +42,26 @@ const Sidebar = () => {
           <li>
 
             <NavLink
-              to="/goals"
+              to="/goal"
               className={({ isActive }) =>
-                `flex items-center gap-2 p-2 text-xl font-medium  rounded-lg transition-border ${
-                  isActive
-                    ? "bg-gray-700 border-2 border-b-4 border-gray-600 text-yellow-500"
-                    : "hover:bg-gray-700 text-gray-100 border-2 border-b-4 border-transparent"
+                `flex items-center gap-2 p-2 text-xl font-medium  rounded-lg transition-border ${isActive
+                  ? "bg-gray-700 border-2 border-b-4 border-gray-600 text-yellow-500"
+                  : "hover:bg-gray-700 text-gray-100 border-2 border-b-4 border-transparent"
                 }`
               }
 
             >
               <span className="text-lg">🎯</span>
-              <span>Goals</span>
+              <span>Goal</span>
             </NavLink>
           </li>
           <li>
             <NavLink
               to="/milestones"
               className={({ isActive }) =>
-                `flex items-center gap-2 p-2 text-xl font-medium rounded-lg transition-border ${
-                  isActive
-                    ? "bg-gray-700 border-2 border-b-4 border-gray-600 text-yellow-500"
-                    : "hover:bg-gray-700  text-gray-100"
+                `flex items-center gap-2 p-2 text-xl font-medium rounded-lg transition-border ${isActive
+                  ? "bg-gray-700 border-2 border-b-4 border-gray-600 text-yellow-500"
+                  : "hover:bg-gray-700  text-gray-100"
                 }`
               }
             >
@@ -76,10 +73,9 @@ const Sidebar = () => {
             <NavLink
               to="/tasks"
               className={({ isActive }) =>
-                `flex items-center gap-2 p-2 text-xl font-medium rounded-lg transition-border ${
-                  isActive
-                    ? "bg-gray-700 border-2 border-b-4 border-gray-600 text-yellow-500"
-                    : "hover:bg-gray-700  text-gray-100"
+                `flex items-center gap-2 p-2 text-xl font-medium rounded-lg transition-border ${isActive
+                  ? "bg-gray-700 border-2 border-b-4 border-gray-600 text-yellow-500"
+                  : "hover:bg-gray-700  text-gray-100"
                 }`
               }
             >

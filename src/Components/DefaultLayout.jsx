@@ -5,9 +5,9 @@ import Sidebar from "./SideBar";
 
 export default function DefaultLayout() {
   const { user, token, setUser, setToken } = useStateContext();
-  if (!token) {
-    return <Navigate to="/login" />;
-  }
+  // if (!token) {
+  //   return <Navigate to="/login" />;
+  // }
 
 
 
