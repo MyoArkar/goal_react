@@ -9,7 +9,7 @@ export default function register(){
     const nameRef = useRef();
     const emailRef = useRef();
   const passwordRef = useRef();
-  //const confirmPasswordRef = useRef();
+  const confirmPasswordRef = useRef();
 
     const {setUser, setToken} = useStateContext();
 
@@ -19,12 +19,12 @@ export default function register(){
             name: nameRef.current.value,
             email: emailRef.current.value,
           password: passwordRef.current.value,
-          //password_confitmation: confirmPasswordRef.current.value
+          password_confirmation: confirmPasswordRef.current.value,
           
         }
         axiosClient.post("auth/register",payload).then(({data})=>{
             setUser(data.data.user.email);
-            setToken(data.data.token);
+            setToken(data.data.authorization.token);
     }).catch(err => {
         const response = err.response;
         if(response && response.status === 422){
@@ -62,13 +62,13 @@ export default function register(){
               className="text-xl w-full px-4 py-3 bg-gray-800 text-white placeholder:text-gray-50 border-2 border-gray-600 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500"
               required
             />
-            {/*<input
+            <input
               ref={confirmPasswordRef}
               type="password"
               placeholder="Confirm Password"
               className="text-xl w-full px-4 py-3 bg-gray-800 text-white placeholder:text-gray-50 border-2 border-gray-600 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500"
               required
-            />*/}
+            />
           </div>
           <button
             type="submit"
