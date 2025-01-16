@@ -10,7 +10,7 @@ export default function Model({ visible, onClose }) {
             <div className="w-[30rem] flex flex-col justify-center items-center text-slate-300 bg-gray-700 p-8 rounded-sm gap-5">
                 <div className='w-full flex justify-end'>
                     <button onClick={onClose}>
-                        <ion-icon size="large" name="close-circle-outline">X</ion-icon>
+                        <ion-icon size="large" name="close-circle-outline"></ion-icon>
                     </button>
                 </div>
                 <h3>Create New Goal</h3>
