@@ -5,6 +5,7 @@ import DefaultLayout from './Components/DefaultLayout.jsx';
 import GuestLayout from './Components/GuestLayout.jsx';
 import Users from './views/users.jsx';
 import Goal from './views/goal.jsx';
+import GoalDetail from './views/Goal/GoalDetail.jsx';
 
 
 const router = createBrowserRouter([
@@ -19,6 +20,10 @@ const router = createBrowserRouter([
       {
         path: '/goal',
         element: <Goal />
+      },
+      {
+        path: '/goal/detail',
+        element: <GoalDetail />
       }
     ]
   },
