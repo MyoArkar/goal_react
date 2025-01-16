@@ -15,7 +15,7 @@ export default function Login() {
     }
     axiosClient.post("auth/login", payload).then(({ data }) => {
       setUser(data.data.user.email);
-      setToken(data.data.token)
+      setToken(data.data.authorization.token)
     }).catch(err => {
       const response = err.response;
       if (response && response.status === 422) {

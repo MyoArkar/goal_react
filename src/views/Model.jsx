@@ -1,12 +1,10 @@
 import React from 'react'
 
 export default function Model({ visible, onClose }) {
-    const handleOnClose = () => {
-        onClose()
-    }
+
     if (!visible) return null;
     return (
-        <div className="fixed inset-0 bg-black bg-opacity-30 backdrop-blur-sm flex justify-center items-center z-10" onClick={handleOnClose}>
+        <div className="fixed inset-0 bg-black bg-opacity-30 backdrop-blur-sm flex justify-center items-center z-10">
             <div className="w-[30rem] flex flex-col justify-center items-center text-slate-300 bg-gray-700 p-8 rounded-sm gap-5">
                 <div className='w-full flex justify-end'>
                     <button onClick={onClose}>
