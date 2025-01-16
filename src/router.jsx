@@ -8,6 +8,7 @@ import Goal from './views/goal.jsx';
 import GoalDetail from './views/Goal/GoalDetail.jsx';
 
 
+
 const router = createBrowserRouter([
   {
     path: '/',

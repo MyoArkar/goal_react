@@ -56,7 +56,7 @@ const Sidebar = () => {
             </NavLink>
           </li>
           <li>
-            <NavLink
+                <NavLink
               to="/milestones"
               className={({ isActive }) =>
                 `flex items-center gap-2 p-2 text-xl font-medium rounded-lg transition-border ${isActive
@@ -64,6 +64,7 @@ const Sidebar = () => {
                   : "hover:bg-gray-700  text-gray-100"
                 }`
               }
+
             >
               <span className="text-lg">🏆</span>
               <span>Milestones</span>
@@ -88,7 +89,9 @@ const Sidebar = () => {
       <a
         href="#"
         onClick={onLogout}
+
         className="text-red-500 hover:text-red-700 transition-colors p-4"
+ main
       >
         Logout
       </a>
