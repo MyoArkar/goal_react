@@ -6,6 +6,7 @@ import GuestLayout from './Components/GuestLayout.jsx';
 import Users from './views/users.jsx';
 import Goal from './views/goal.jsx';
 import GoalDetail from './views/Goal/GoalDetail.jsx';
+import Milestone from './views/Milestone.jsx';
 
 
 
@@ -25,7 +26,11 @@ const router = createBrowserRouter([
       {
         path: '/goal/detail',
         element: <GoalDetail />
-      }
+      },
+      {
+        path: '/milestone',
+        element: <Milestone />
+      },
     ]
   },
   {
