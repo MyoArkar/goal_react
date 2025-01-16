@@ -11,9 +11,8 @@ export default function Goal() {
         <div className='container min-h-screen bg-gray-800 text-slate-300'>
             <Model visible={showModel} onClose={handleClose} />
             <div className='w-[1000px] mx-auto p-10 flex flex-col gap-10'>
-                <div className="flex flex-row justify-between w-full rounded-md">
-                    <h3>Goal</h3>
-                    <button className='bg-sky-500 px-3 py-2 rounded-sm text-white hover:bg-sky-600' onClick={() => setShowModel(true)}>Create Goal</button>
+                <div className="flex w-full rounded-sm text-sm">
+                    <button className='bg-sky-500 px-3 py-2 rounded-md text-white hover:bg-sky-600' onClick={() => setShowModel(true)}>Create Goal</button>
                 </div>
                 <div className='flex flex-row justify-center w-full rounded-md item border-2 border-sky-500 '>
                     <button className='bg-gray-800 pt-1 pl-3 rounded-l-md'>

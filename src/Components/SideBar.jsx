@@ -4,7 +4,7 @@ import { useStateContext } from "../contexts/contextprovider";
 import axiosClient from "../axiosClient";
 
 const Sidebar = () => {
-   const { user, token, setUser, setToken } = useStateContext();
+  const { user, token, setUser, setToken } = useStateContext();
   const onLogout = (ev) => {
     ev.preventDefault()
 
@@ -46,7 +46,7 @@ const Sidebar = () => {
           </li>
           <li>
             <Link
-              to="/milestones"
+              to="/milestone"
               className="flex items-center gap-2 p-2 rounded-lg hover:bg-gray-700 transition-colors"
             >
               <span className="text-lg">🏆</span>
@@ -65,12 +65,12 @@ const Sidebar = () => {
         </ul>
       </nav>
       <a
-            href="#"
-            onClick={onLogout}
-            className="text-red-500 hover:text-red-700 transition-colors"
-          >
-            Logout
-          </a>
+        href="#"
+        onClick={onLogout}
+        className="text-red-500 hover:text-red-700 transition-colors"
+      >
+        Logout
+      </a>
     </div>
   );
 };
