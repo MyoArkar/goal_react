@@ -1,6 +1,7 @@
+import React from 'react'
 import React, { useState } from 'react'
 import { Link, Navigate } from 'react-router-dom'
-import Model from './Model';
+import Model from './Model'
 
 export default function Goal() {
     const [active, setActive] = useState('All');
