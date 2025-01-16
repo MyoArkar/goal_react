@@ -42,7 +42,7 @@ const Sidebar = () => {
           <li>
 
             <NavLink
-              to="/goal"
+              to="/goals"
               className={({ isActive }) =>
                 `flex items-center gap-2 p-2 text-xl font-medium  rounded-lg transition-border ${isActive
                   ? "bg-gray-700 border-2 border-b-4 border-gray-600 text-yellow-500"
@@ -57,7 +57,7 @@ const Sidebar = () => {
           </li>
           <li>
             <NavLink
-              to="/milestone"
+              to="/milestones"
               className={({ isActive }) =>
                 `flex items-center gap-2 p-2 text-xl font-medium rounded-lg transition-border ${isActive
                   ? "bg-gray-700 border-2 border-b-4 border-gray-600 text-yellow-500"
