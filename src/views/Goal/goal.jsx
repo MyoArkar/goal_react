@@ -67,8 +67,9 @@ export default function Goal() {
     const filteredGoals = filterGoals();
 
     return (
-        <div className='container min-h-screen bg-gray-800 text-slate-300'>
+        <div className='w-[1100px] bg-slate-50  mx-auto p-10 flex flex-col gap-10'>
             <Model visible={showModel} onClose={handleClose} />
+
             <div className='w-100 mx-auto p-10 flex flex-col gap-10'>
                 <div className="flex flex-row justify-between w-full rounded-md">
                     <h3>Goal</h3>
@@ -142,4 +143,5 @@ export default function Goal() {
             </div>
         </div>
     );
+
 }
