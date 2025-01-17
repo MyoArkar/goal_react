@@ -7,7 +7,7 @@ export default function Goal() {
     const [showModel, setShowModel] = useState(false);
     const handleClose = () => setShowModel(false);
     return (
-        <div className='w-[1000px]  p-10 flex flex-col items-center gap-10'>
+        <div className='w-[1000px] p-10 flex flex-col gap-10'>
             <Model visible={showModel} onClose={handleClose} />
             <div className="flex w-full rounded-sm text-sm">
                 <button className='bg-[#0e0e0e] px-3 py-2 rounded-sm text-white hover:bg-gray-800' onClick={() => setShowModel(true)}>Create Goal</button>

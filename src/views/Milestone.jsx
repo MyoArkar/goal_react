@@ -2,7 +2,7 @@ import React from 'react'
 
 export default function Milestone() {
     return (
-        <div className='w-[1100px] bg-slate-50 mx-auto p-10 flex flex-col gap-10'>
+        <div className='w-[1100px] mx-auto p-10 flex flex-col gap-10'>
             <h1>Milestone</h1>
             <div className='w-full flex flex-row justify-between border-2 border-sky-500 text-slate-900 p-5 rounded-md shadow-sm hover:transition-transform
                 '>

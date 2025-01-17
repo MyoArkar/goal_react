@@ -11,19 +11,19 @@ import { Link, Outlet } from "react-router-dom";
 
 const Menu = () => {
     const menus = [
-        { name: "dashboard", link: "/", icon: MdOutlineDashboard },
-        { name: "user", link: "/", icon: AiOutlineUser },
-        { name: "goal", link: "/goals", icon: GoGoal },
-        { name: "milestone", link: "/milestones", icon: VscMilestone },
-        { name: "task", link: "/tasks", icon: GoTasklist },
+        { name: "Dashboard", link: "/", icon: MdOutlineDashboard },
+        { name: "User", link: "/", icon: AiOutlineUser },
+        { name: "Goal", link: "/goals", icon: GoGoal },
+        { name: "Milestone", link: "/milestones", icon: VscMilestone },
+        { name: "Task", link: "/tasks", icon: GoTasklist },
         { name: "Saved", link: "/", icon: AiOutlineHeart, margin: true },
         { name: "Account", link: "/", icon: RiAccountPinCircleLine },
     ];
     const [open, setOpen] = useState(true);
     return (
-        <section className="flex">
+        <section className="flex font-roboto">
             <div
-                className={`bg-[#0e0e0e] min-h-screen ${open ? "w-72" : "w-16"
+                className={`bg-sidebar min-h-screen ${open ? "w-72" : "w-16"
                     } duration-500 text-gray-100 px-4`}
             >
                 <div className="py-3 flex justify-end">
@@ -65,7 +65,7 @@ const Menu = () => {
                     ))}
                 </div>
             </div>
-            <div className="flex w-full">
+            <div className="flex font-Poppins">
                 <Outlet />
             </div>
         </section>
