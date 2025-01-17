@@ -28,4 +28,15 @@
     --nav-hover-color: #1977cc;
     --nav-mobile-background-color: #ffffff;
   }
+
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+  
+  
+  .no-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none; 
+  }
+  
 }
