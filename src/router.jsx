@@ -23,7 +23,7 @@ const router = createBrowserRouter([
         element: <Goal />
       },
       {
-        path: '/goal/detail',
+        path: '/goals/:id',
         element: <GoalDetail />
       },
       {

@@ -4,7 +4,8 @@ import { useStateContext } from "../contexts/contextprovider";
 import axiosClient from "../axiosClient";
 
 const Sidebar = () => {
-  const { user, token, setUser, setToken } = useStateContext();
+  const { setUser, setToken } = useStateContext();
+
   const onLogout = (ev) => {
     ev.preventDefault();
 
@@ -19,7 +20,7 @@ const Sidebar = () => {
   };
 
   return (
-    <div className="h-screen w-64 bg-gray-800 flex flex-col shadow-lg border-r-2 border-gray-600">
+    <div className="h-full flex flex-col border-r border-gray-600">
       <div className="p-6">
         <h1 className="text-2xl font-bold text-gray-100">My App</h1>
       </div>
@@ -91,7 +92,7 @@ const Sidebar = () => {
         onClick={onLogout}
 
         className="text-red-500 hover:text-red-700 transition-colors p-4"
-        main
+      
       >
         Logout
       </a>
