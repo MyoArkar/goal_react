@@ -65,7 +65,7 @@ const Menu = () => {
                     ))}
                 </div>
             </div>
-            <div className="flex font-Poppins">
+            <div className="w-full  font-Poppins">
                 <Outlet />
             </div>
         </section>

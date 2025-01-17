@@ -1,6 +1,6 @@
 import { useStateContext } from "../contexts/contextprovider";
 import { Navigate } from "react-router-dom";
-import axiosClient from "../axiosClient";
+
 import Menu from "./Menu";
 
 export default function DefaultLayout() {
@@ -9,7 +9,7 @@ export default function DefaultLayout() {
     return <Navigate to="/login" />;
   }
   return (
-    <main className="flex">
+    <main>
       <Menu />
     </main>
   );

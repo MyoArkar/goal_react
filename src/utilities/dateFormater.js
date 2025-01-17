@@ -15,3 +15,9 @@ export const convertToISOString = (datetimeString) => {
   // Return in the desired format
   return `${date.toISOString().split(".")[0]}.000000Z`;
 };
+
+export const convertToDateTime = (isoString) => {
+  const date = new Date(isoString);
+
+  return  date.toISOString().slice(0, 16);
+}
