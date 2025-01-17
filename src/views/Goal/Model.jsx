@@ -22,9 +22,9 @@ export default function Model({ visible, onClose }) {
             start_date: convertToISOString(startRef.current.value),
             end_date: convertToISOString(endRef.current.value),
             priority: priorityRef.current.value,
-            statusRef: startRef.current.value,
+            status: statusRef.current.value,
         }
-        axiosClient.post("/goals", payload).then(({ data }) => {
+        axiosClient.post("/goals", payload).then(() => {
             onClose();
             
         }).catch(err => {
@@ -77,10 +77,10 @@ export default function Model({ visible, onClose }) {
                     </div>
                     <div className="w-1/2 flex flex-col">
                         <label htmlFor="">Status</label>
-                        <select ref={statusRef} defaultValue="Complete" className="outline-none p-2 bg-gray-800 rounded-sm">
-                            <option value="Complete">Complete</option>
-                            <option value="In Process">In Process</option>
-                            <option value="Pending">Pending</option>
+                        <select ref={statusRef} defaultValue="completed" className="outline-none p-2 bg-gray-800 rounded-sm">
+                            <option value="completed">Complete</option>
+                            <option value="in progress">In Progress</option>
+                            <option value="pending">Pending</option>
                         </select>
                     </div>
                 </div>
