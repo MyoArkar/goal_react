@@ -113,7 +113,7 @@ export default function Goal() {
                     ))}
             </div>
             <div className="card flex flex-row gap-5 w-full">
-            <div onClick={() => setShowModel(true)}
+            <div onClick={handleCreateClick}
                     className="border-solid border-2 border-[#0e0e0e] flex flex-col w-60 gap-5 rounded-md shadow-md p-5 text-sm justify-center items-center">
                     <ion-icon name="add-circle-outline" size="large"></ion-icon>
                     <h5>Add New Goal</h5>

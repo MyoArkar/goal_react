@@ -105,13 +105,14 @@ export default function Model({ visible, onClose, update, goal }) {
                         <label htmlFor="">Status</label>
                         <select ref={statusRef} defaultValue="completed" name="" id="" className='outline-none p-2 bg-gray-800 rounded-sm'>
                             <option value="completed" selected>Complete</option>
-                            <option value="in progress">In Process</option>
-                            <option value="in progress">Pending</option>
+                            <option value="in progress">In Progress</option>
+                            <option value="pendings">Pending</option>
                         </select>
                     </div>
                 </div>
                 <div className="w-full flex flex-row-reverse gap-3">
-                    <button className='bg-gray-800 px-3 py-2 rounded'>Cancel</button>
+                    <button onClick={onClose}
+                        className='bg-gray-800 px-3 py-2 rounded'>Cancel</button>
                     
                     {update ? (
                         <button
