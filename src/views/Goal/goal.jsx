@@ -139,10 +139,10 @@ export default function Goal() {
                 <div className="flex flex-col gap-3">
                     <div className="flex flex-row justify-between">
                         <h5>Progress</h5>
-                        <h5>{goal.progress}%</h5>
+                        <h5>{goal.progress_percentage}%</h5>
                     </div>
                     <div className='relative w-full bg-black h-1'>
-                        <div style={{ width: `${goal.progress}%` }} className='absolute h-1 bg-sky-500'></div>
+                        <div style={{ width: `${goal.progress_percentage}%` }} className='absolute h-1 bg-sky-500'></div>
                     </div>
                 </div>
                 <div className='flex flex-row justify-between'>
