@@ -94,7 +94,7 @@ const handleClose = () => {
             <div className="progressbar relative w-48 h-2 rounded-lg border-[#0e0e0e] border-2">
               <span className="absolute top-0 left-0 w-24 h-2 bg-[#0e0e0e] rounded-lg"></span>
             </div>
-            <p className="text-[#0e0e0e]">40%</p>
+            <p className="text-[#0e0e0e]">{goal.progress_percentage}</p>
           </div>
         </div>
 
