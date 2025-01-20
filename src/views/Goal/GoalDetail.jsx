@@ -3,7 +3,7 @@ import { useParams } from 'react-router-dom';
 import { formatDate } from '../../utilities/dateFormater';
 import axiosClient from '../../axiosClient';
 import MilestoneModal from './MilestoneModal';
-import MilestoneAndTask from './MilestoneAndTask';
+import MilestoneAndTask from './MilestoneList';
 import { BsPlusCircleDotted } from "react-icons/bs";
 import { LuGoal } from "react-icons/lu";
 import { TbFileDescription } from "react-icons/tb";
@@ -32,7 +32,7 @@ export default function GoalDetail() {
   const fetchMilestoneList = async () => {
     try {
       const { data } = await axiosClient.get(`/goals/${id}/milestones`);
-      setMilestones(data.data);
+      setMilestones(data.data.milestones);
       console.log(data.message);
     } catch (error) {
       console.error("Error fetching MileStones:", error);
@@ -119,7 +119,8 @@ export default function GoalDetail() {
               <GiProgression />
               <h3>Progress</h3>
             </div>
-            <div className=' relative w-40  bg-sidebar h-1 before:content[""] before:absolute before:w-36 before:h-1 before:bg-gray-300 before:rounded-md rounded-md'>
+            <div className='relative w-[300px] bg-black rounded overflow-hidden h-2'>
+              <div style={{ width: `${goal.progress_percentage}%` }} className='absolute h-2 bg-sky-500'></div>
             </div>
           </div>
           <div className='flex flex-col bg-gray-200 p-1 rounded-md'>
@@ -152,7 +153,7 @@ export default function GoalDetail() {
           <BsPlusCircleDotted />
         </button>
         {milestones.map((milestone) => (
-          <MilestoneAndTask milestone={milestone} milestoneUpdate={handleUpdateClick} milestoneDelete={handleDelete} />
+          <MilestoneAndTask goalId={id} milestone={milestone} milestoneUpdate={handleUpdateClick} milestoneDelete={handleDelete} fetchGoal={fetchGoal} fetchMilestoneList={fetchMilestoneList} />
         ))}
       </div>
     </div>

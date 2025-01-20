@@ -9,7 +9,6 @@ export default function Model({ visible, onClose, update, goal }) {
     const startRef = useRef();
     const endRef = useRef();
     const priorityRef = useRef();
-    const statusRef = useRef();
 
     useEffect(() => {
         if (update && goal) {
@@ -18,7 +17,6 @@ export default function Model({ visible, onClose, update, goal }) {
             startRef.current.value = convertToDateTime(goal.start_date);
             endRef.current.value = convertToDateTime(goal.end_date);
             priorityRef.current.value = goal.priority;
-            statusRef.current.value = goal.status;
         }
     }, [update, goal]);
 
@@ -30,8 +28,7 @@ export default function Model({ visible, onClose, update, goal }) {
             description: descriptionRef.current.value,
             start_date: startRef.current.value,
             end_date: endRef.current.value,
-            priority: priorityRef.current.value,
-            status: statusRef.current.value,
+            priority: priorityRef.current.value
         };
 
         axiosClient.post("/goals", payload).then(() => {
@@ -52,7 +49,6 @@ export default function Model({ visible, onClose, update, goal }) {
             start_date: convertToISOString(startRef.current.value),
             end_date: convertToISOString(endRef.current.value),
             priority: priorityRef.current.value,
-            status: statusRef.current.value,
         };
 
         axiosClient.put(`/goals/${goal.id}`, payload).then(() => {
@@ -99,14 +95,6 @@ export default function Model({ visible, onClose, update, goal }) {
                             <option value="high" selected>High</option>
                             <option value="medium">Medium</option>
                             <option value="low">Low</option>
-                        </select>
-                    </div>
-                    <div className='w-1/2 flex flex-col'>
-                        <label htmlFor="">Status</label>
-                        <select ref={statusRef} defaultValue="completed" name="" id="" className='outline-none p-2 bg-gray-800 rounded-sm'>
-                            <option value="completed" selected>Complete</option>
-                            <option value="in progress">In Progress</option>
-                            <option value="pending">Pending</option>
                         </select>
                     </div>
                 </div>
