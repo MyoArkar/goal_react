@@ -5,28 +5,29 @@ import { MdOutlineDashboard } from "react-icons/md";
 import { GoGoal } from "react-icons/go";
 import { GoTasklist } from "react-icons/go";
 import { VscMilestone } from "react-icons/vsc";
-import { AiOutlineUser, AiOutlineHeart } from "react-icons/ai";
-import { RiAccountPinCircleLine } from "react-icons/ri";
+import { AiOutlineUser } from "react-icons/ai";
+import { GiProgression } from "react-icons/gi";
+import { RiLogoutCircleLine } from "react-icons/ri";
 import { Link, Outlet } from "react-router-dom";
 
 const Menu = () => {
     const menus = [
-        { name: "Dashboard", link: "/", icon: MdOutlineDashboard },
-        { name: "User", link: "/", icon: AiOutlineUser },
+        { name: "Home", link: "/", icon: MdOutlineDashboard },
+        { name: "Profile", link: "/profile", icon: AiOutlineUser },
         { name: "Goal", link: "/goals", icon: GoGoal },
         { name: "Milestone", link: "/milestones", icon: VscMilestone },
         { name: "Task", link: "/tasks", icon: GoTasklist },
-        { name: "Saved", link: "/", icon: AiOutlineHeart, margin: true },
-        { name: "Account", link: "/", icon: RiAccountPinCircleLine },
+        { name: "My Progress", link: "/progress", icon: GiProgression, margin: true },
+        { name: "Log out", link: "/", icon: RiLogoutCircleLine },
     ];
     const [open, setOpen] = useState(true);
     return (
-        <section className="flex font-roboto">
+        <section className="flex w-full font-roboto">
             <div
-                className={`bg-sidebar min-h-screen ${open ? "w-72" : "w-16"
+                className={`bg-sidebar py-5 min-h-screen ${open ? "w-72" : "w-16"
                     } duration-500 text-gray-100 px-4`}
             >
-                <div className="py-3 flex justify-end">
+                <div className=" flex justify-end">
                     {open ? <HiMenuAlt3
                         size={26}
                         className="cursor-pointer"
@@ -42,8 +43,7 @@ const Menu = () => {
                         <Link
                             to={menu.link}
                             key={i}
-                            className={` ${menu.margin && "mt-5"
-                                } group flex items-center text-sm  gap-3.5 font-medium p-2 hover:bg-gray-800 rounded-md`}
+                            className={`group flex items-center text-sm  gap-3.5 font-medium p-2 hover:bg-gray-800 rounded-md`}
                         >
                             <div>{React.createElement(menu.icon, { size: "20" })}</div>
                             <h2
@@ -65,7 +65,7 @@ const Menu = () => {
                     ))}
                 </div>
             </div>
-            <div className="flex font-Poppins">
+            <div className="flex flex-col" style={{ width: "calc(100% - 72px)" }} >
                 <Outlet />
             </div>
         </section>
@@ -73,3 +73,6 @@ const Menu = () => {
 };
 
 export default Menu;
+
+
+// 

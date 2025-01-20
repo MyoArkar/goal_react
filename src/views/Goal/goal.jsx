@@ -1,15 +1,20 @@
 import React from 'react'
 import { useState } from 'react'
 import Model from './Model'
+import { motion } from 'framer-motion';
+
 
 export default function Goal() {
     const [active, setActive] = useState('All');
     const [showModel, setShowModel] = useState(false);
     const handleClose = () => setShowModel(false);
     return (
-        <div className='w-[1000px] p-10 flex flex-col gap-10'>
+        <motion.div className='max-w-screen-inner px-10 py-5 mx-auto gap-10  flex flex-col min-h-screen'
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}>
             <Model visible={showModel} onClose={handleClose} />
-            <div className="flex w-full rounded-sm text-sm">
+            <div className="flex rounded-sm text-sm">
                 <button className='bg-[#0e0e0e] px-3 py-2 rounded-sm text-white hover:bg-gray-800' onClick={() => setShowModel(true)}>Create Goal</button>
             </div>
             <div className='flex flex-row justify-center items-center w-full rounded-md'>
@@ -25,7 +30,7 @@ export default function Goal() {
                 <button onClick={() => setActive('Complete')} className={`${active === 'Complete' ? 'border-2 border-sky-500  px-3 py-1 rounded-md' : ''}`}>Complete</button>
             </div>
             <div className="card flex flex-row gap-5 w-full">
-                < div div className="bg-[#0e0e0e] flex flex-col w-60 gap-5 rounded-md shadow-md p-5 text-sm text-slate-50">
+                <div className="bg-[#0e0e0e] flex flex-col w-60 gap-5 rounded-md shadow-md p-5 text-sm text-slate-50">
                     <h2>Goal</h2>
                     <p className="">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Vel quae molestiae tempore earum doloribus, similique at quia aut</p>
                     <div className='flex flex-row justify-between '>
@@ -50,11 +55,11 @@ export default function Goal() {
                         <button className='bg-sky-500 px-3 py-2 rounded-sm text-white hover:bg-sky-600'>Detail</button>
                     </div>
                 </div >
-                < div div className="border-solid border-2 border-sky-500 flex flex-col w-60 gap-5 rounded-md shadow-md p-5 text-sm justify-center items-center">
+                <div className="border-solid border-2 border-sky-500 flex flex-col w-60 gap-5 rounded-md shadow-md p-5 text-sm justify-center items-center">
                     <ion-icon name="add-circle-outline" size="large"></ion-icon>
                     <h5>Add New Goal</h5>
                 </div >
             </div>
-        </div>
+        </motion.div>
     )
 }
