@@ -6,9 +6,9 @@ export default function MilestoneAndTask({ milestone, milestoneUpdate, milestone
 
   const [tasks, setTasks] = useState([]);
   const [activeMilestone, setActiveMilestone] = useState(null);
-   const [showModel, setShowModel] = useState(false);
-    const [update, setUpdate] = useState(false);
-    const [selectedTask, setSelectedTask] = useState(null);
+  const [showModel, setShowModel] = useState(false);
+  const [update, setUpdate] = useState(false);
+  const [selectedTask, setSelectedTask] = useState(null);
 
   const fetchTaksList = async () => {
     try {
@@ -17,23 +17,23 @@ export default function MilestoneAndTask({ milestone, milestoneUpdate, milestone
       console.log(data.message);
     } catch (error) {
       console.error("Error fetching Task:", error);
-      alert("Failed to fetch Task. Please try again.");
+      // alert("Failed to fetch Task. Please try again.");
     }
   };
   const handleUpdateClick = (task) => {
     setUpdate(true);
-    setSelectedTask(task); 
+    setSelectedTask(task);
     setShowModel(true);
   };
   const handleCreateClick = () => {
     setUpdate(false);
     setShowModel(true);
-};
-const handleClose = () => {
+  };
+  const handleClose = () => {
     setShowModel(false);
     fetchTaksList();
-};
-  
+  };
+
   const handleDelete = async (taskId) => {
     try {
       await axiosClient.delete(`milestones/${milestone.id}/tasks/${taskId}`);
@@ -41,7 +41,7 @@ const handleClose = () => {
       fetchTaksList();
     } catch (error) {
       console.error("Error deleting Task:", error);
-      alert("Failed to delete Task. Please try again.");
+      // alert("Failed to delete Task. Please try again.");
     }
   };
   useEffect(() => {
@@ -56,14 +56,14 @@ const handleClose = () => {
   return <>
     <div key={milestone.id} className="border-[#0e0e0e] border-2 rounded-md">
       <TaskModal
-        milestoneId ={milestone.id}
+        milestoneId={milestone.id}
         visible={showModel}
         onClose={handleClose}
         update={update}
-        task={selectedTask} 
+        task={selectedTask}
       />
       <div
-        className="flex justify-between items-center bg-[#0e0e0e] text-slate-50 px-4 py-3 cursor-pointer"
+        className="flex justify-between items-center bg-slate-950 text-defaultText px-4 py-3 cursor-pointer"
       >
         <h3
           onClick={() => toggleMilestone(milestone.id)} className="font-medium">{milestone.title}</h3>
@@ -71,11 +71,11 @@ const handleClose = () => {
         <span onClick={() => { milestoneDelete(milestone.id) }} > <ion-icon name="trash-outline"></ion-icon></span>
       </div>
 
-      
+
       {activeMilestone === milestone.id && (
         <div className="bg-slate-100 px-4 py-3">
           <h4 className="text-[#0e0e0e] font-semibold mb-2">{milestone.id}</h4>
-          <div  onClick={handleCreateClick}
+          <div onClick={handleCreateClick}
             className='bg-[#0e0e0e] hover:pr-1  rounded-lg text-[#0e0e0e] transition duration-300  mb-4 '>
             <div class="bg-teal-200 rounded-lg border-2 border-[#0e0e0e] hover:border-b-4 flex items-center justify-center transition duration-300">
               <ion-icon name="add-outline" size="large"></ion-icon>

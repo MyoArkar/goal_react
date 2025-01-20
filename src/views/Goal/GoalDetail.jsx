@@ -4,7 +4,12 @@ import { formatDate } from '../../utilities/dateFormater';
 import axiosClient from '../../axiosClient';
 import MilestoneModal from './MilestoneModal';
 import MilestoneAndTask from './MilestoneAndTask';
-
+import { BsPlusCircleDotted } from "react-icons/bs";
+import { LuGoal } from "react-icons/lu";
+import { TbFileDescription } from "react-icons/tb";
+import { MdLowPriority } from "react-icons/md";
+import { GiProgression } from "react-icons/gi";
+import { CiCalendarDate } from "react-icons/ci";
 export default function GoalDetail() {
   const { id } = useParams();
   const [goal, setGoal] = useState([]);
@@ -21,7 +26,7 @@ export default function GoalDetail() {
       console.log(data)
     } catch (error) {
       console.error("Error fetching goal:", error);
-      alert("Failed to fetch goal. Please try again.");
+      // alert("Failed to fetch goal. Please try again.");
     }
   };
   const fetchMilestoneList = async () => {
@@ -31,24 +36,24 @@ export default function GoalDetail() {
       console.log(data.message);
     } catch (error) {
       console.error("Error fetching MileStones:", error);
-      alert("Failed to fetch MileStones. Please try again.");
+      // alert("Failed to fetch MileStones. Please try again.");
     }
   };
 
   const handleUpdateClick = (milestone) => {
     setUpdate(true);
-    setSelectedMile(milestone); 
+    setSelectedMile(milestone);
     setShowModel(true);
   };
   const handleCreateClick = () => {
     setUpdate(false);
     setShowModel(true);
-};
-const handleClose = () => {
+  };
+  const handleClose = () => {
     setShowModel(false);
     fetchMilestoneList();
-};
-  
+  };
+
   const handleDelete = async (milestoneId) => {
     try {
       await axiosClient.delete(`/goals/${id}/milestones/${milestoneId}`);
@@ -61,84 +66,95 @@ const handleClose = () => {
   };
 
   useEffect(() => {
-
-
     fetchGoal();
     fetchMilestoneList();
   }, []);
-  return <>
-    <div className="container text-[#0e0e0e] px-10 py-10">
-      <div className="border-[#0e0e0e] border-2 px-10 py-3 rounded">
-        {/* Goal Header */}
-        <div className="bg-[#0e0e0e] text-slate-50 px-4 py-3 rounded-t-md">
-          <h2 className="font-semibold">{goal.title}</h2>
+  return (
+    <div className="w-full px-5 py-5 mx-auto gap-5 flex  min-h-screen text-sm pt-16">
+      <MilestoneModal
+        goalId={id}
+        visible={showModel}
+        onClose={handleClose}
+        update={update}
+        milestone={selectedMile} />
+      {/* Goal Header */}
+      <div className='flex flex-col basis-3/4 gap-5 border-2 border-slate-300 p-5 h-fit rounded-md'>
+        <div className="text-bodyText flex justify-between items-center">
+          <div className='flex gap-1 items-center'>
+            <LuGoal />
+            <h3>Title</h3>
+          </div>
+          <h2 className="">{goal.title}</h2>
         </div>
-
-        <MilestoneModal
-          goalId={id}
-          visible={showModel}
-          onClose={handleClose}
-          update={update}
-          milestone={selectedMile} />
-        <div className="mt-4 flex justify-between items-center">
+        <div className='text-bodyText flex justify-between items-center'>
+          <div className='flex gap-1 items-center'>
+            <TbFileDescription />
+            <h3>Description</h3>
+          </div>
           <div>
-            <span className="border-[#0e0e0e] text-[#0e0e0e] px-2 py-1 rounded-full text-xs mr-3 border-2">
-              {goal.priority} Priority
-            </span>
-            <span className="border-[#0e0e0e] text-[#0e0e0e] px-2 py-1 rounded-full text-xs border-2">
-              {goal.status}
-            </span>
-          </div>
-          <div className="flex justify-between items-center gap-3">
-            <h3 className="text-[#0e0e0e] font-medium">Progress:</h3>
-            <div className="progressbar relative w-48 h-2 rounded-lg border-[#0e0e0e] border-2">
-              <span className="absolute top-0 left-0 w-24 h-2 bg-[#0e0e0e] rounded-lg"></span>
-            </div>
-            <p className="text-[#0e0e0e]">{goal.progress_percentage}</p>
+            <p> {goal.description}</p>
           </div>
         </div>
-
-
-        <div className="grid grid-cols-2 gap-2">
-          <div className="mt-3 border-[#0e0e0e] px-4 py-3 h-[150px] rounded-md border-2">
-            <h3 className="text-slate-50 font-medium">Description</h3>
-            <p className="h-[100px] overflow-scroll no-scrollbar text-[#0e0e0e]">
-              {goal.description}
-            </p>
+        <div className='text-bodyText flex justify-between items-center'>
+          <div className='flex gap-1 items-center'>
+            <TbFileDescription />
+            <h3>Status</h3>
           </div>
-          <div className="mt-3 border-[#0e0e0e] px-4 py-3 h-[150px] rounded-md border-2">
-            <h3 className="text-slate-50 font-medium">Timeline</h3>
-            <div className="flex items-center justify-between my-3">
-              <div className="flex items-center gap-3 text-[#0e0e0e]">
-                <ion-icon size="large" name="calendar-outline"></ion-icon>
-                <h4>Start Date:</h4>
-              </div>
-              <p>{formatDate(goal.start_date)}</p>
-            </div>
-            <div className="flex items-center justify-between my-3">
-              <div className="flex items-center gap-3 text-[#0e0e0e]">
-                <ion-icon size="large" name="flag-outline"></ion-icon>
-                <h4>End Date:</h4>
-              </div>
-              <p>{formatDate(goal.end_date)}</p>
-            </div>
+          <div className='bg-gray-200 p-1 rounded-md'>
+            <p className='text-[12px]'> {goal.status}</p>
           </div>
         </div>
-
-        <div className='mt-4'>
-          <div  onClick={handleCreateClick}
-            className='bg-[#0e0e0e] hover:pr-1  rounded-lg text-[#0e0e0e] transition duration-300  mb-4 '>
-            <div class="bg-teal-200 rounded-lg border-2 border-[#0e0e0e] hover:border-b-4 flex items-center justify-center transition duration-300">
-              <ion-icon name="add-outline" size="large"></ion-icon>
+        <div className='text-bodyText flex justify-between items-center'>
+          <div className='flex gap-1 items-center'>
+            <MdLowPriority />
+            <h3>Priority</h3>
+          </div>
+          <div className='bg-gray-200 p-1 rounded-md'>
+            <p className='text-[12px]'> {goal.priority}</p>
+          </div>
+        </div>
+        <div className='text-bodyText flex justify-between items-center'>
+          <div className='flex flex-col gap-3 items-start'>
+            <div className='flex gap-1'>
+              <GiProgression />
+              <h3>Progress</h3>
+            </div>
+            <div className=' relative w-40  bg-sidebar h-1 before:content[""] before:absolute before:w-36 before:h-1 before:bg-gray-300 before:rounded-md rounded-md'>
             </div>
           </div>
-          {milestones.map((milestone) => (
-            <MilestoneAndTask milestone={milestone} milestoneUpdate={handleUpdateClick} milestoneDelete={handleDelete} />
-          ))}
+          <div className='flex flex-col bg-gray-200 p-1 rounded-md'>
+            <p className='text-[12px]'> {goal.progress_percentage}</p>
+          </div>
+        </div>
+        <div className='text-bodyText flex justify-between items-center'>
+          <div className='flex gap-1 items-center'>
+            <CiCalendarDate />
+            <h3>Start Date</h3>
+          </div>
+          <div className='bg-gray-200  p-1 rounded-md'>
+            <p className='text-[12px]'> {formatDate(goal.start_date)}</p>
+          </div>
+        </div>
+        <div className='text-bodyText  flex justify-between items-center'>
+          <div className='flex gap-1 items-center'>
+            <CiCalendarDate />
+            <h3>End Date</h3>
+          </div>
+          <div className='bg-gray-200 p-1 rounded-md'>
+            <p className='text-[12px]'> {formatDate(goal.end_date)}</p>
+          </div>
         </div>
       </div>
+      {/* milestone section */}
+      <div className='flex flex-col gap-5 basis-2/4'>
+        <button onClick={handleCreateClick} class="bg-slate-950 rounded-md text-sm text-defaultText flex items-center justify-between py-2 px-2">
+          <span className='text-[12px]'>Add New Milestone</span>
+          <BsPlusCircleDotted />
+        </button>
+        {milestones.map((milestone) => (
+          <MilestoneAndTask milestone={milestone} milestoneUpdate={handleUpdateClick} milestoneDelete={handleDelete} />
+        ))}
+      </div>
     </div>
-  </>
-
-
+  )
 }

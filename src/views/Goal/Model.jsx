@@ -15,7 +15,7 @@ export default function Model({ visible, onClose, update, goal }) {
         if (update && goal) {
             titleRef.current.value = goal.title;
             descriptionRef.current.value = goal.description;
-            startRef.current.value = convertToDateTime(goal.start_date); 
+            startRef.current.value = convertToDateTime(goal.start_date);
             endRef.current.value = convertToDateTime(goal.end_date);
             priorityRef.current.value = goal.priority;
             statusRef.current.value = goal.status;
@@ -76,7 +76,7 @@ export default function Model({ visible, onClose, update, goal }) {
                 <h3>{update ? 'Update Goal' : 'Create New Goal'}</h3>
                 <div className='w-full flex flex-col'>
                     <label htmlFor="">Title</label>
-                    <input  ref={titleRef} type="text" name="" id="" className='outline-none p-2 bg-gray-800 rounded-sm' />
+                    <input ref={titleRef} type="text" name="" id="" className='outline-none p-2 bg-gray-800 rounded-sm' />
                 </div>
                 <div className='w-full flex flex-col'>
                     <label htmlFor="">Description</label>
@@ -106,14 +106,14 @@ export default function Model({ visible, onClose, update, goal }) {
                         <select ref={statusRef} defaultValue="completed" name="" id="" className='outline-none p-2 bg-gray-800 rounded-sm'>
                             <option value="completed" selected>Complete</option>
                             <option value="in progress">In Progress</option>
-                            <option value="pendings">Pending</option>
+                            <option value="pending">Pending</option>
                         </select>
                     </div>
                 </div>
                 <div className="w-full flex flex-row-reverse gap-3">
                     <button onClick={onClose}
                         className='bg-gray-800 px-3 py-2 rounded'>Cancel</button>
-                    
+
                     {update ? (
                         <button
                             className='bg-sky-500 px-3 py-2 rounded-sm text-white hover:bg-sky-600'

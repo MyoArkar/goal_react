@@ -22,7 +22,7 @@ const Menu = () => {
     ];
     const [open, setOpen] = useState(true);
     return (
-        <section className="flex w-full font-roboto">
+        <section className="flex w-full font-Pridi">
             <div
                 className={`bg-sidebar py-5 min-h-screen ${open ? "w-72" : "w-16"
                     } duration-500 text-gray-100 px-4`}
@@ -65,7 +65,7 @@ const Menu = () => {
                     ))}
                 </div>
             </div>
-            <div className="flex flex-col" style={{ width: "calc(100% - 72px)" }} >
+            <div className="flex flex-col font-Poppins" style={{ width: "calc(100% - 72px)" }} >
                 <Outlet />
             </div>
         </section>

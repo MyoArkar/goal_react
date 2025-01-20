@@ -14,6 +14,7 @@ export default {
       fontFamily: {
         Poppins: "var(--heading-font)",
         roboto: "var(--default-font)",
+        Pridi: "var(--sidebar-font)",
       },
       colors: {
         bgColor: "var( --background-color)",

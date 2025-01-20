@@ -2,33 +2,33 @@ import React from 'react'
 
 export default function Progress() {
     return (
-        <div className='max-w-screen-inner px-10 py-5 mx-auto gap-5 flex flex-col min-h-screen'>
+        <div className='w-full px-10 py-5 mx-auto gap-5 flex flex-col min-h-screen'>
             <h1 className='text-sm font-semibold text-bodyText font-Poppins mb-5'>Progress Overview</h1>
             <div className="flex flex-col gap-8">
                 <div className="grid grid-cols-4 place-content-center gap-5 text-sm text-bodyText">
-                    <div className='flex flex-col gap-1 border-2 border-slate-500 rounded-md shadow-md text-bodyText text-[12px] w-44 p-2 h-20 justify-center'>
+                    <div className='flex flex-col gap-1 border-2 border-slate-500 rounded-md shadow-md text-bodyText text-[12px]  p-2 h-20 justify-center'>
                         <span className=''>Total Goals</span>
                         <p className='text-green-400 font-semibold text-[18px]'>5</p>
                         <p>Due: </p>
                     </div>
-                    <div className='flex flex-col gap-1 border-2 border-slate-500 rounded-md shadow-md text-bodyText text-[12px] w-44 p-2 h-20 justify-center'>
+                    <div className='flex flex-col gap-1 border-2 border-slate-500 rounded-md shadow-md text-bodyText text-[12px]  p-2 h-20 justify-center'>
                         <h5>Completed Tasks</h5>
                         <p className='text-green-400 font-semibold text-lg'>5</p>
                         <p>Due: </p>
                     </div>
-                    <div className='flex flex-col gap-1 border-2 border-slate-500 rounded-md shadow-md text-bodyText text-[12px] w-44 p-2 h-20 justify-center'>
+                    <div className='flex flex-col gap-1 border-2 border-slate-500 rounded-md shadow-md text-bodyText text-[12px]  p-2 h-20 justify-center'>
                         <h5>Active Milestone</h5>
                         <p className='text-green-400 font-semibold text-lg'>5</p>
                         <p>Due: </p>
                     </div>
-                    <div className='flex flex-col gap-1 border-2 border-slate-500 rounded-md shadow-md text-bodyText text-[12px] w-44 p-2 h-20 justify-center'>
+                    <div className='flex flex-col gap-1 border-2 border-slate-500 rounded-md shadow-md text-bodyText text-[12px]  p-2 h-20 justify-center'>
                         <h5>Achievement Rate</h5>
                         <p className='text-green-400 font-semibold text-lg'>5</p>
                         <p>Due: </p>
                     </div>
                 </div>
                 <div className="grid grid-cols-4 place-content-center gap-5 text-sm text-bodyText">
-                    <div className='flex flex-col items-center gap-3 border-2 border-slate-500 rounded-md shadow-md text-bodyText text-sm w-44 p-3'>
+                    <div className='flex flex-col items-center gap-3 border-2 border-slate-500 rounded-md shadow-md text-bodyText text-sm  p-3'>
                         <div>
                             <img src="../../assets/badge/b2.pngs" className='w-[50%]' alt="c" />
                         </div>
@@ -36,17 +36,17 @@ export default function Progress() {
                         <p className='text-green-400 font-semibold text-lg'>5</p>
                         <p>Due: </p>
                     </div>
-                    <div className='flex flex-col gap-3 border-2 border-slate-500 rounded-md shadow-md text-bodyText text-sm w-44 p-3'>
+                    <div className='flex flex-col gap-3 border-2 border-slate-500 rounded-md shadow-md text-bodyText text-sm  p-3'>
                         <h5>Completed Tasks</h5>
                         <p className='text-green-400 font-semibold text-lg'>5</p>
                         <p>Due: </p>
                     </div>
-                    <div className='flex flex-col gap-3 border-2 border-slate-500 rounded-md shadow-md text-bodyText text-sm w-44 p-3'>
+                    <div className='flex flex-col gap-3 border-2 border-slate-500 rounded-md shadow-md text-bodyText text-sm  p-3'>
                         <h5>Active Milestone</h5>
                         <p className='text-green-400 font-semibold text-lg'>5</p>
                         <p>Due: </p>
                     </div>
-                    <div className='flex flex-col gap-3 border-2 border-slate-500 rounded-md shadow-md text-bodyText text-sm w-44 p-3'>
+                    <div className='flex flex-col gap-3 border-2 border-slate-500 rounded-md shadow-md text-bodyText text-sm  p-3'>
                         <h5>Achievement Rate</h5>
                         <p className='text-green-400 font-semibold text-lg'>5</p>
                         <p>Due: </p>

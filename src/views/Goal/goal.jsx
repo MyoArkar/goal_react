@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import Model from './Model';
 import axiosClient from '../../axiosClient';
 import { formatDate } from '../../utilities/dateFormater';
+import { MdManageSearch } from "react-icons/md";
 
 export default function Goal() {
     const [goals, setGoals] = useState([]);
@@ -87,16 +88,17 @@ export default function Goal() {
                 goal={selectedGoal}
             />
             <div className="flex rounded-sm text-sm">
-                <button className='bg-[#0e0e0e] px-3 py-2 rounded-sm text-white hover:bg-gray-800' onClick={() => setShowModel(true)}>Create Goal</button>
+                <button className='bg-[#0e0e0e] px-3 py-2 rounded-md text-white hover:bg-gray-800' onClick={() => setShowModel(true)}>Create Goal</button>
             </div>
             <div className='flex flex-row justify-center items-center w-full rounded-md'>
-                <button className='bg-[#0e0e0e]  py-1.5 px-1.5 rounded-l-md'>
-                    <ion-icon name="search-circle-outline" className="" style={{ color: 'white', fontSize: '25px' }}></ion-icon>
+                <button className='bg-[#0e0e0e]  py-2 px-2 rounded-l-md'>
+                    <MdManageSearch size={26}
+                        className="cursor-pointer text-white" />
                 </button>
                 <input
                     type="text"
                     name="search"
-                    className='w-full  py-2 px-1 rounded-r-md outline-none border-2 border-[#0e0e0e]   text-slate-900 flex' placeholder='Search goal...'
+                    className='w-full  py-2 px-1 rounded-r-md outline-none border-2   text-slate-900 flex border-gray-300' placeholder='Search'
                     value={searchQuery}
                     onChange={(e) => setSearchQuery(e.target.value)}
                 />
