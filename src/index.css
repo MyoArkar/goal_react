@@ -17,4 +17,15 @@
     --default-text: rgb(245 245 245);
     --body-text: rgb(15 23 42);
   }
+
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+  
+  
+  .no-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none; 
+  }
+  
 }
