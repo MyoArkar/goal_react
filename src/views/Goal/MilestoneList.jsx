@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import axiosClient from "../../axiosClient";
 import TaskModal from "./TaskModal";
 import TaskList from "./TaskList";
-export default function MilestoneAndTask({ milestone, milestoneUpdate, milestoneDelete }) {
+export default function MilestoneAndTask({goalId,fetchGoal, milestone, milestoneUpdate, milestoneDelete, fetchMilestoneList }) {
 
   const [tasks, setTasks] = useState([]);
   const [activeMilestone, setActiveMilestone] = useState(null);
@@ -44,6 +44,52 @@ export default function MilestoneAndTask({ milestone, milestoneUpdate, milestone
       // alert("Failed to delete Task. Please try again.");
     }
   };
+  const handleStatus = async (milestone) => {
+    if (milestone.status == "pending") {
+      const payload = {
+        status: "in_progress",
+      };
+  
+      axiosClient.put(`/goals/${goalId}/milestones/${milestone.id}`, payload).then(() => {
+        console.log('Status Updated')
+      }).catch(err => {
+        const response = err.response;
+        if (response && response.status === 422) {
+          console.log(response.data.errors);
+        }
+      });
+    }
+    if (milestone.status == "in_progress") {
+      const payload = {
+        status: "completed",
+      };
+  
+      axiosClient.put(`/goals/${goalId}/milestones/${milestone.id}`, payload).then(() => {
+        console.log('Status Updated')
+      }).catch(err => {
+        const response = err.response;
+        if (response && response.status === 422) {
+          console.log(response.data.errors);
+        }
+      });
+    }
+    if (milestone.status == "completed") {
+      const payload = {
+        status: "in_progress",
+      };
+  
+      axiosClient.put(`/goals/${goalId}/milestones/${milestone.id}`, payload).then(() => {
+        console.log('Status Updated')
+      }).catch(err => {
+        const response = err.response;
+        if (response && response.status === 422) {
+          console.log(response.data.errors);
+        }
+      });
+    }
+    fetchGoal();
+    fetchMilestoneList();
+}
   useEffect(() => {
     fetchTaksList();
   }, [])
@@ -67,10 +113,23 @@ export default function MilestoneAndTask({ milestone, milestoneUpdate, milestone
       >
         <h3
           onClick={() => toggleMilestone(milestone.id)} className="font-medium">{milestone.title}</h3>
+        {
+          milestone.task_count == 0 && (
+            <button
+              onClick={() => handleStatus(milestone)}
+              className='bg-sky-500 px-3 py-2 rounded-sm text-white hover:bg-sky-600'>
+              {milestone.status == "pending" && (<b>Start</b>)}
+              {milestone.status == "in_progress" && (<b>In Progress</b>)}
+              {milestone.status == "completed" && (<b>Completed</b>)}
+            </button>
+          )
+        }
         <span onClick={() => milestoneUpdate(milestone)} ><ion-icon name="cloud-upload-outline"></ion-icon></span>
         <span onClick={() => { milestoneDelete(milestone.id) }} > <ion-icon name="trash-outline"></ion-icon></span>
       </div>
-
+      <div className='relative w-full bg-white rounded overflow-hidden h-2'>
+        <div style={{ width: `${milestone.progress_percentage}%` }} className='absolute h-2 bg-sky-500'></div>
+      </div>
 
       {activeMilestone === milestone.id && (
         <div className="bg-slate-100 px-4 py-3">
@@ -83,7 +142,7 @@ export default function MilestoneAndTask({ milestone, milestoneUpdate, milestone
           </div>
           <ul className="space-y-2">
             {tasks.map((task) => (
-              <TaskList task={task} taskUpdate={handleUpdateClick} taskDelete={handleDelete} />
+              <TaskList milestoneId={milestone.id} task={task} taskUpdate={handleUpdateClick} taskDelete={handleDelete} fetchGoal={fetchGoal} fetchMilestoneList={fetchMilestoneList} fetchTaksList={fetchTaksList} />
             ))}
           </ul>
         </div>
