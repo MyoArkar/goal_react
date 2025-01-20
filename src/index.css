@@ -8,25 +8,14 @@
 
 @layer base {
   :root {
-    --default-font: "Roboto", system-ui, "Segoe UI", "Helvetica Neue", Arial,
-      "Noto Sans", "Liberation Sans", sans-serif, "Apple Color Emoji",
-      "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+    --default-font: "Roboto", system-ui, sans-serif;
     --heading-font: "Poppins", sans-serif;
-    --nav-font: "Raleway", sans-serif;
-    --fa-font-solid: "Font Awesome 6 Free";
   }
   :root {
     --background-color: #ffffff;
     --side-bar: #0e0e0e;
-    --default-color: #444444;
-    --title-border: rgba(128, 128, 128, 0.338);
-    --heading-color: #2c4964;
-    --accent-color: #1977cc;
-    --surface-color: #f1f7fc;
-    --contrast-color: #87bff0e7;
-    --nav-color: #2c4964;
-    --nav-hover-color: #1977cc;
-    --nav-mobile-background-color: #ffffff;
+    --default-text: rgb(245 245 245);
+    --body-text: rgb(15 23 42);
   }
 
   .no-scrollbar::-webkit-scrollbar {

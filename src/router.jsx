@@ -8,6 +8,8 @@ import Goal from './views/Goal/goal.jsx';
 import GoalDetail from './views/Goal/GoalDetail.jsx';
 import Milestone from './views/Milestone.jsx';
 import Task from './views/Task/Task.jsx';
+import Profile from './views/User/Profile.jsx';
+import Progress from './views/User/Progress.jsx';
 
 const router = createBrowserRouter([
   {
@@ -15,8 +17,12 @@ const router = createBrowserRouter([
     element: <DefaultLayout />,
     children: [
       {
-        path: '/users',
-        element: <Users />
+        path: '/profile',
+        element: <Profile />
+      },
+      {
+        path: '/progress',
+        element: <Progress />
       },
       {
         path: '/goals',

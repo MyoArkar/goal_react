@@ -7,12 +7,12 @@ export default function Task() {
     const handleClose = () => setShowModel(false);
 
     return (
-        <div className='w-[1100px]  p-10 flex flex-col gap-10'>
+        <div className='max-w-screen-inner px-10 py-5 mx-auto gap-10  flex flex-col min-h-screen'>
             <Model visible={showModel} onClose={handleClose} />
-            <div className="flex w-full rounded-sm text-sm">
+            <div className="flex rounded-sm text-sm">
                 <button className='bg-[#0e0e0e] px-3 py-2 rounded-sm text-white hover:bg-gray-800' onClick={() => setShowModel(true)}>Create Task</button>
             </div>
-            <div className="w-full grid grid-cols-3 place-content-center gap-5 text-sm text-slate-900">
+            <div className="grid grid-cols-3 place-content-center gap-5 text-sm text-slate-900">
                 <div className='flex flex-col gap-3'>
                     <h5 className='font-semibold'>To Do</h5>
                     <div className='flex flex-row border-2 border-sky-500 rounded-md shadow-md px-5 py-5 gap-3'>

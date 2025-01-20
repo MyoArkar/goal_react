@@ -79,84 +79,95 @@ export default function Goal() {
 
     return (
         <div className='w-full p-10 flex flex-col gap-10'>
-            <Model 
-                visible={showModel} 
-                onClose={handleClose} 
-                update={update} 
-                goal={selectedGoal} 
+            <Model
+                visible={showModel}
+                onClose={handleClose}
+                update={update}
+                goal={selectedGoal}
             />
             <div className="flex w-full rounded-sm text-sm">
-                <button className='bg-[#0e0e0e] px-3 py-2 rounded-sm text-white hover:bg-gray-800' onClick={() => setShowModel(true)}>Create Goal</button>
-            </div>
-            <div className='flex flex-row justify-center items-center w-full rounded-md'>
-                <button className='bg-[#0e0e0e]  py-1.5 px-1.5 rounded-l-md'>
-                    <ion-icon name="search-circle-outline" className="" style={{ color: 'white', fontSize: '25px' }}></ion-icon>
-                </button>
-                <input
-                        type="text"
-                        name="search"
-                        className='w-full  py-2 px-1 rounded-r-md outline-none border-2 border-[#0e0e0e]   text-slate-900 flex'                        placeholder='Search goal...'
-                        value={searchQuery}
-                        onChange={(e) => setSearchQuery(e.target.value)}
-                    />
-            </div>
-            <div className='w-full flex flex-row gap-8'>
-                
-                {['All', 'Pending', 'In Progress', 'Completed'].map((status) => (
-                        <button 
-                            key={status}
-                            onClick={() => setActive(status)}
-                            className={`${active === status ? 'border-2 border-[#0e0e0e]  px-3 py-1 rounded-md' : ''}`}
-                        >
-                            {status}
+                <motion.div className='max-w-screen-inner px-10 py-5 mx-auto gap-10  flex flex-col min-h-screen'
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    exit={{ opacity: 0 }}>
+                    <Model visible={showModel} onClose={handleClose} />
+                    <div className="flex rounded-sm text-sm">
+                        <button className='bg-[#0e0e0e] px-3 py-2 rounded-sm text-white hover:bg-gray-800' onClick={() => setShowModel(true)}>Create Goal</button>
+                    </div>
+                    <div className='flex flex-row justify-center items-center w-full rounded-md'>
+                        <button className='bg-[#0e0e0e]  py-1.5 px-1.5 rounded-l-md'>
+                            <ion-icon name="search-circle-outline" className="" style={{ color: 'white', fontSize: '25px' }}></ion-icon>
                         </button>
-                    ))}
+                        <input
+                            type="text"
+                            name="search"
+                            className='w-full  py-2 px-1 rounded-r-md outline-none border-2 border-[#0e0e0e]   text-slate-900 flex' placeholder='Search goal...'
+                            value={searchQuery}
+                            onChange={(e) => setSearchQuery(e.target.value)}
+                        />
+                    </div>
+                    <div className='w-full flex flex-row gap-8'>
+
+                        {['All', 'Pending', 'In Progress', 'Completed'].map((status) => (
+                            <button
+                                key={status}
+                                onClick={() => setActive(status)}
+                                className={`${active === status ? 'border-2 border-[#0e0e0e]  px-3 py-1 rounded-md' : ''}`}
+                            >
+                                {status}
+                            </button>
+                        ))}
+                    </div>
+                    <div className="card flex flex-row gap-5 w-full">
+                        <div onClick={handleCreateClick}
+                            className="border-solid border-2 border-[#0e0e0e] flex flex-col w-60 gap-5 rounded-md shadow-md p-5 text-sm justify-center items-center">
+                            <ion-icon name="add-circle-outline" size="large"></ion-icon>
+                            <h5>Add New Goal</h5>
+                        </div >
+                        {filteredGoals.map((goal) => (
+                            <div key={goal.id} className="bg-[#0e0e0e] flex flex-col w-60 gap-5 rounded-md shadow-md p-5 text-sm text-slate-50">
+                                <div className='flex justify-between items-center'>
+                                    <h2>{goal.title}</h2>
+                                    <span onClick={() => handleUpdateClick(goal)} ><ion-icon name="cloud-upload-outline"></ion-icon></span>
+                                    <span onClick={() => { handleDelete(goal.id) }} > <ion-icon name="trash-outline"></ion-icon></span>
+                                </div>
+                                <p className="">{goal.description}</p>
+                                <div className='flex flex-row justify-between '>
+                                    <div className="flex flex-col">
+                                        <h5 className='text-slate-500'>Start Date</h5>
+                                        <p className='pr-3'>{formatDate(goal.start_date)}</p>
+                                    </div>
+                                    <div className="flex flex-col">
+                                        <h5 className='text-slate-500'>End Date</h5>
+                                        <p className='pr-3'>{formatDate(goal.end_date)}</p>
+                                    </div>
+                                </div>
+                                <div className="flex flex-col gap-3">
+                                    <div className="flex flex-row justify-between">
+                                        <h5>Progress</h5>
+                                        <h5>{goal.progress_percentage}%</h5>
+                                    </div>
+                                    <div className='relative w-full bg-black h-1'>
+                                        <div style={{ width: `${goal.progress_percentage}%` }} className='absolute h-1 bg-sky-500'></div>
+                                    </div>
+                                </div>
+                                <div className='flex flex-row justify-between'>
+                                    <button
+                                        onClick={() => handleDetail(goal.id)}
+                                        className='bg-sky-500 px-3 py-2 rounded-sm text-white hover:bg-sky-600'>
+                                        Detail
+                                    </button>
+                                </div>
+                            </div>
+
+                        ))}
+
+                    </div >
+                    <div className="border-solid border-2 border-sky-500 flex flex-col w-60 gap-5 rounded-md shadow-md p-5 text-sm justify-center items-center">
+                        <ion-icon name="add-circle-outline" size="large"></ion-icon>
+                        <h5>Add New Goal</h5>
+                    </div >
             </div>
-            <div className="card flex flex-row gap-5 w-full">
-            <div onClick={handleCreateClick}
-                    className="border-solid border-2 border-[#0e0e0e] flex flex-col w-60 gap-5 rounded-md shadow-md p-5 text-sm justify-center items-center">
-                    <ion-icon name="add-circle-outline" size="large"></ion-icon>
-                    <h5>Add New Goal</h5>
-                </div >
-            {filteredGoals.map((goal) => (
-                <div key={goal.id} className="bg-[#0e0e0e] flex flex-col w-60 gap-5 rounded-md shadow-md p-5 text-sm text-slate-50">
-                <div className='flex justify-between items-center'>
-                    <h2>{goal.title}</h2>
-                    <span onClick={() => handleUpdateClick(goal)} ><ion-icon name="cloud-upload-outline"></ion-icon></span>
-                    <span onClick={() => { handleDelete(goal.id) }} > <ion-icon name="trash-outline"></ion-icon></span>
-                </div>
-                <p className="">{goal.description}</p>
-                <div className='flex flex-row justify-between '>
-                    <div className="flex flex-col">
-                        <h5 className='text-slate-500'>Start Date</h5>
-                        <p className='pr-3'>{formatDate(goal.start_date)}</p>
-                    </div>
-                    <div className="flex flex-col">
-                        <h5 className='text-slate-500'>End Date</h5>
-                        <p className='pr-3'>{formatDate(goal.end_date)}</p>
-                    </div>
-                </div>
-                <div className="flex flex-col gap-3">
-                    <div className="flex flex-row justify-between">
-                        <h5>Progress</h5>
-                        <h5>{goal.progress_percentage}%</h5>
-                    </div>
-                    <div className='relative w-full bg-black h-1'>
-                        <div style={{ width: `${goal.progress_percentage}%` }} className='absolute h-1 bg-sky-500'></div>
-                    </div>
-                </div>
-                <div className='flex flex-row justify-between'>
-                    <button 
-                        onClick={() => handleDetail(goal.id)}
-                        className='bg-sky-500 px-3 py-2 rounded-sm text-white hover:bg-sky-600'>
-                        Detail
-                    </button>
-                </div>
-            </div>
-            
-            ))}
-                
-            </div>
-        </div>
+        </motion.div>
     )
 }

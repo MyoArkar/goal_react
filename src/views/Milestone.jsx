@@ -1,43 +1,43 @@
 import React, { useEffect, useState } from 'react'
 import axiosClient from '../axiosClient';
 
-function Item({goalId}) {
+function Item({ goalId }) {
     const [milestones, setMilestones] = useState([]);
 
     const fetchMilestoneList = async () => {
         try {
-          const { data } = await axiosClient.get(`/goals/${goalId}/milestones`);
-          setMilestones(data.data);
-          console.log(data.message);
+            const { data } = await axiosClient.get(`/goals/${goalId}/milestones`);
+            setMilestones(data.data);
+            console.log(data.message);
         } catch (error) {
-          console.error("Error fetching MileStones:", error);
-          alert("Failed to fetch MileStones. Please try again.");
+            console.error("Error fetching MileStones:", error);
+            alert("Failed to fetch MileStones. Please try again.");
         }
     };
     useEffect(() => {
         fetchMilestoneList();
-}, []);
+    }, []);
     return <>
         {milestones.map((milestone) => (
             <div className='w-full flex flex-row justify-between border-2 border-sky-500 text-slate-900 p-5 rounded-md shadow-sm hover:transition-transform
             '>
-            <div className='flex flex-col gap-3 text-sm'>
+                <div className='flex flex-col gap-3 text-sm'>
                     <h4 className='font-semibold text-slate-900'>{milestone.titl}</h4>
                     <p>{milestone.description}</p>
                     <p>{milestone.due_date}</p>
-            </div>
-            <div>
+                </div>
+                <div>
                     <button className='bg-sky-500 px-3 py-1 rounded-md text-slate-100 hover:bg-sky-600 text-[10px]'>{milestone.status}</button>
+                </div>
             </div>
-        </div>
-       ))}
-    
+        ))}
+
     </>
 }
 
 export default function Milestone() {
     const [goals, setGoals] = useState([]);
-    
+
     const fetchGoals = async () => {
         try {
             const { data } = await axiosClient.get("/goals");
@@ -49,24 +49,24 @@ export default function Milestone() {
         }
     };
     useEffect(() => {
-            fetchGoals();
+        fetchGoals();
     }, []);
-    
+
     return (
-        <div className='w-[1100px] mx-auto p-10 flex flex-col gap-10'>
+        <div className='max-w-screen-inner px-10 py-5 mx-auto gap-10  flex flex-col min-h-screen'>
             <h1>Milestone</h1>
             {
                 goals.map((goal) => (
                     <div>
                         <h2>{goal.title}</h2>
-                    <Item goalId={goal.id} />
+                        <Item goalId={goal.id} />
                     </div>
                 ))
             }
             <div className='w-full flex flex-row justify-between border-2 border-sky-500 text-slate-900 p-5 rounded-md shadow-sm hover:transition-transform
                 '>
                 <div className='flex flex-col gap-3 text-sm'>
-                    <h4 className='font-semibold text-slate-900'>Complete Basic Language Tutorials</h4>
+                    <h4 className='font-semibold text-bodyText'>Complete Basic Language Tutorials</h4>
                     <p>Finished fundenmental concept including components</p>
                     <p>Completed on January 11, 2024</p>
                 </div>
@@ -74,7 +74,7 @@ export default function Milestone() {
                     <button className='bg-sky-500 px-3 py-1 rounded-md text-slate-100 hover:bg-sky-600 text-[10px]'>Completed</button>
                 </div>
             </div>
-            
+
         </div>
     )
 }
