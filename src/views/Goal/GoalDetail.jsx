@@ -10,6 +10,7 @@ import { TbFileDescription } from "react-icons/tb";
 import { MdLowPriority } from "react-icons/md";
 import { GiProgression } from "react-icons/gi";
 import { CiCalendarDate } from "react-icons/ci";
+import { motion } from 'framer-motion';
 export default function GoalDetail() {
   const { id } = useParams();
   const [goal, setGoal] = useState([]);
@@ -72,13 +73,14 @@ export default function GoalDetail() {
   return (
     <div className="w-full px-5 py-5 mx-auto gap-5 flex  min-h-screen text-sm pt-16">
       <MilestoneModal
+
         goalId={id}
         visible={showModel}
         onClose={handleClose}
         update={update}
         milestone={selectedMile} />
       {/* Goal Header */}
-      <div className='flex flex-col basis-3/4 gap-5 border-2 border-slate-300 p-5 h-fit rounded-md'>
+      <motion.div whileHover={{ scale: 1.05 }} className='flex flex-col basis-3/4 gap-5  p-5 h-fit  bg-white/10    rounded-md  text-sm text-bodyText shadow-lg ring-1 ring-black/5'>
         <div className="text-bodyText flex justify-between items-center">
           <div className='flex gap-1 items-center'>
             <LuGoal />
@@ -145,13 +147,13 @@ export default function GoalDetail() {
             <p className='text-[12px]'> {formatDate(goal.end_date)}</p>
           </div>
         </div>
-      </div>
+      </motion.div>
       {/* milestone section */}
       <div className='flex flex-col gap-5 basis-2/4'>
-        <button onClick={handleCreateClick} class="bg-slate-950 rounded-md text-sm text-defaultText flex items-center justify-between py-2 px-2">
+        <motion.button whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.6 }} onClick={handleCreateClick} class="bg-slate-950 rounded-md text-sm text-defaultText flex items-center justify-between py-2 px-3">
           <span className='text-[12px]'>Add New Milestone</span>
           <BsPlusCircleDotted />
-        </button>
+        </motion.button>
         {milestones.map((milestone) => (
           <MilestoneAndTask goalId={id} milestone={milestone} milestoneUpdate={handleUpdateClick} milestoneDelete={handleDelete} fetchGoal={fetchGoal} fetchMilestoneList={fetchMilestoneList} />
         ))}

@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import axiosClient from "../../axiosClient";
 import TaskModal from "./TaskModal";
 import TaskList from "./TaskList";
-export default function MilestoneAndTask({goalId,fetchGoal, milestone, milestoneUpdate, milestoneDelete, fetchMilestoneList }) {
+export default function MilestoneAndTask({ goalId, fetchGoal, milestone, milestoneUpdate, milestoneDelete, fetchMilestoneList }) {
 
   const [tasks, setTasks] = useState([]);
   const [activeMilestone, setActiveMilestone] = useState(null);
@@ -49,7 +49,7 @@ export default function MilestoneAndTask({goalId,fetchGoal, milestone, milestone
       const payload = {
         status: "in_progress",
       };
-  
+
       axiosClient.put(`/goals/${goalId}/milestones/${milestone.id}`, payload).then(() => {
         console.log('Status Updated')
       }).catch(err => {
@@ -63,7 +63,7 @@ export default function MilestoneAndTask({goalId,fetchGoal, milestone, milestone
       const payload = {
         status: "completed",
       };
-  
+
       axiosClient.put(`/goals/${goalId}/milestones/${milestone.id}`, payload).then(() => {
         console.log('Status Updated')
       }).catch(err => {
@@ -77,7 +77,7 @@ export default function MilestoneAndTask({goalId,fetchGoal, milestone, milestone
       const payload = {
         status: "in_progress",
       };
-  
+
       axiosClient.put(`/goals/${goalId}/milestones/${milestone.id}`, payload).then(() => {
         console.log('Status Updated')
       }).catch(err => {
@@ -89,7 +89,7 @@ export default function MilestoneAndTask({goalId,fetchGoal, milestone, milestone
     }
     fetchGoal();
     fetchMilestoneList();
-}
+  }
   useEffect(() => {
     fetchTaksList();
   }, [])
