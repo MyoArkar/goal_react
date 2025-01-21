@@ -58,23 +58,16 @@ export default function Goal() {
             alert("Failed to delete goal. Please try again.");
         }
     };
-    const handleStatus = async (goal) => {
-        if (goal.status == "pending" && goal.milestone_count == 0) {
-            const payload = {
-                status: "completed"
-            };
-            axiosClient.put(`/goals/${goal.id}`, payload).then(() => {
-                console.log('hello')
-            }).catch(err => {
-                const response = err.response;
-                if (response && response.status === 422) {
-                    console.log(response.data.errors);
-                }
-            });
+    const confirmDelete = (goalId) => {
+        const confirmed = window.confirm("Are you sure you want to delete this goal?");
+        if (confirmed) {
+            handleDelete(goalId); // Call your delete function here
         }
-        if (goal.status == "completed" && goal.milestone_count == 0) {
+    };
+    const handleStatus = async (goal) => {
+        if (goal.status == "pending") {
             const payload = {
-                status: "pending"
+                status: "in_progress"
             };
             axiosClient.put(`/goals/${goal.id}`, payload).then(() => {
                 console.log('Status Updated')
@@ -85,9 +78,10 @@ export default function Goal() {
                 }
             });
         }
-        if (goal.status == "in progress") {
+        if (goal.status == "in_progress") {
             const payload = {
-                status: "completed"
+                status: "completed",
+                progress_percentage: 100
             };
             axiosClient.put(`/goals/${goal.id}`, payload).then(() => {
                 console.log('Status Updated')
@@ -100,7 +94,8 @@ export default function Goal() {
         }
         if (goal.status == "completed") {
             const payload = {
-                status: "in progress"
+                status: "in_progress",
+                progress_percentage: 0
             };
             axiosClient.put(`/goals/${goal.id}`, payload).then(() => {
                 console.log('Status Updated')
@@ -187,11 +182,27 @@ export default function Goal() {
                     <motion.div whileHover={{ scale: 1.05 }} key={goal.id} className="bg-white/10  flex flex-col w-1/2 gap-8 rounded-md p-5 text-sm text-bodyText shadow-lg ring-1 ring-black/5">
                         <div className='flex justify-between items-center'>
                             <h2>{goal.title}</h2>
-                            <div className='flex gap-5'>
-                                <GrUpdate size={15}
-                                    className="cursor-pointer" onClick={() => handleUpdateClick(goal)} />
-                                <AiOutlineDelete size={18}
-                                    className="cursor-pointer" onClick={() => { handleDelete(goal.id) }} />
+                            <div className="relative group">
+
+                                <span className="cursor-pointer">
+                                    <ion-icon name="ellipsis-horizontal-outline"></ion-icon>
+                                </span>
+
+
+                                <div className="absolute right-0 mt-2 p-2 bg-white border rounded shadow-md opacity-0 group-hover:opacity-100 transition-opacity duration-200">
+                                    <span
+                                        onClick={() => handleUpdateClick(goal)}
+                                        className="flex items-center cursor-pointer text-blue-500 hover:text-blue-700 mb-1"
+                                    >
+                                        <ion-icon name="cloud-upload-outline" className="mr-1"></ion-icon> Update
+                                    </span>
+                                    <span
+                                        onClick={() => confirmDelete(goal.id)}
+                                        className="flex items-center cursor-pointer text-red-500 hover:text-red-700"
+                                    >
+                                        <ion-icon name="trash-outline" className="mr-1"></ion-icon> Delete
+                                    </span>
+                                </div>
                             </div>
 
                         </div>
@@ -221,17 +232,38 @@ export default function Goal() {
                                 className='bg-sky-500 px-3 py-1 rounded-md text-white hover:bg-sky-600'>
                                 Detail
                             </motion.button>
-                            {
-                                goal.status == 0 && (
-                                    <button
-                                        onClick={() => handleStatus(goal)}
-                                        className='bg-sky-500 px-3 py-2 rounded-sm text-white hover:bg-sky-600'>
-                                        {goal.status == "pending" && (<b>Start</b>)}
-                                        {goal.status == "in_progress" && (<b>In Progress</b>)}
-                                        {goal.status == "completed" && (<b>Completed</b>)}
-                                    </button>
-                                )
-                            }
+                            {(goal.milestone_count > 0 && goal.status != 'completed') && (
+                                <button
+                                    onClick={() => handleDetail(goal.id)}
+                                    className="w-32 h-12 rounded-lg font-bold text-white shadow-md transition-all duration-200 flex items-center justify-center bg-purple-500 hover:bg-purple-600"
+                                >
+                                    Finish the Milestones
+                                </button>
+                            )}
+                            {(goal.milestone_count > 0 && goal.status == 'completed') && (
+                                <button
+                                    onClick={() => handleDetail(goal.id)}
+                                    className="w-32 h-12 rounded-lg font-bold text-white shadow-md transition-all duration-200 flex items-center justify-center bg-purple-500 hover:bg-purple-600"
+                                >
+                                    Completed
+                                </button>
+                            )}
+                            {goal.milestone_count == 0 && (
+                                <button
+                                    onClick={() => handleStatus(goal)}
+                                    className={`w-32 h-12 rounded-lg font-bold text-white shadow-md transition-all duration-200 flex items-center justify-center ${goal.status === "pending"
+                                            ? "bg-yellow-500 hover:bg-yellow-600"
+                                            : goal.status === "in_progress"
+                                                ? "bg-blue-500 hover:bg-blue-600"
+                                                : "bg-green-500 hover:bg-green-600"
+                                        }`}
+                                >
+                                    {goal.status === "pending" && <b>Start</b>}
+                                    {goal.status === "in_progress" && <b>In Progress</b>}
+                                    {goal.status === "completed" && <b>Completed</b>}
+                                </button>
+                            )}
+
 
                         </div>
                     </motion.div>

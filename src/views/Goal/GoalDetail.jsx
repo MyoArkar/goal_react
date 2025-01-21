@@ -3,7 +3,6 @@ import { useParams } from 'react-router-dom';
 import { formatDate } from '../../utilities/dateFormater';
 import axiosClient from '../../axiosClient';
 import MilestoneModal from './MilestoneModal';
-import MilestoneAndTask from './MilestoneList';
 import { BsPlusCircleDotted } from "react-icons/bs";
 import { LuGoal } from "react-icons/lu";
 import { TbFileDescription } from "react-icons/tb";
@@ -11,6 +10,7 @@ import { MdLowPriority } from "react-icons/md";
 import { GiProgression } from "react-icons/gi";
 import { CiCalendarDate } from "react-icons/ci";
 import { motion } from 'framer-motion';
+import MileStoneList from './MilestoneList';
 export default function GoalDetail() {
   const { id } = useParams();
   const [goal, setGoal] = useState([]);
@@ -59,12 +59,19 @@ export default function GoalDetail() {
     try {
       await axiosClient.delete(`/goals/${id}/milestones/${milestoneId}`);
       console.log('MileStone deleted successfully');
+      fetchGoal();
       fetchMilestoneList();
     } catch (error) {
       console.error("Error deleting goals:", error);
       alert("Failed to delete goal. Please try again.");
     }
   };
+  const confirmDelete = (milestoneId) => {
+    const confirmed = window.confirm("Are you sure you want to delete this milestone?");
+    if (confirmed) {
+        handleDelete(milestoneId); 
+    }
+};
 
   useEffect(() => {
     fetchGoal();
@@ -154,9 +161,9 @@ export default function GoalDetail() {
           <span className='text-[12px]'>Add New Milestone</span>
           <BsPlusCircleDotted />
         </motion.button>
-        {/* {milestones.map((milestone) => (
-          <MilestoneAndTask goalId={id} milestone={milestone} milestoneUpdate={handleUpdateClick} milestoneDelete={handleDelete} fetchGoal={fetchGoal} fetchMilestoneList={fetchMilestoneList} />
-        ))} */}
+        {milestones.map((milestone) => (
+          <MileStoneList goalId={id} milestone={milestone} milestoneUpdate={handleUpdateClick} milestoneDelete={confirmDelete} fetchGoal={fetchGoal} fetchMilestoneList={fetchMilestoneList} />
+        ))}
       </div>
     </div>
   )
