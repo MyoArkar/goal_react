@@ -5,6 +5,8 @@ import axiosClient from '../../axiosClient';
 import { formatDate } from '../../utilities/dateFormater';
 import { MdManageSearch } from "react-icons/md";
 import { BsPlusCircleDotted } from "react-icons/bs";
+import { GrUpdate } from "react-icons/gr";
+import { AiOutlineDelete } from "react-icons/ai";
 import { motion } from 'framer-motion';
 export default function Goal() {
     const [goals, setGoals] = useState([]);
@@ -185,8 +187,13 @@ export default function Goal() {
                     <motion.div whileHover={{ scale: 1.05 }} key={goal.id} className="bg-white/10  flex flex-col w-1/2 gap-8 rounded-md p-5 text-sm text-bodyText shadow-lg ring-1 ring-black/5">
                         <div className='flex justify-between items-center'>
                             <h2>{goal.title}</h2>
-                            <span onClick={() => handleUpdateClick(goal)} ><ion-icon name="cloud-upload-outline"></ion-icon></span>
-                            <span onClick={() => { handleDelete(goal.id) }} > <ion-icon name="trash-outline"></ion-icon></span>
+                            <div className='flex gap-5'>
+                                <GrUpdate size={15}
+                                    className="cursor-pointer" onClick={() => handleUpdateClick(goal)} />
+                                <AiOutlineDelete size={18}
+                                    className="cursor-pointer" onClick={() => { handleDelete(goal.id) }} />
+                            </div>
+
                         </div>
                         <p className="">{goal.description}</p>
                         <div className='flex flex-row justify-between'>
