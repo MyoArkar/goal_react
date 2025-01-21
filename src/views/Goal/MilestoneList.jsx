@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import axiosClient from "../../axiosClient";
 import TaskModal from "./TaskModal";
 import TaskList from "./TaskList";
-export default function MilestoneAndTask({ goalId, fetchGoal, milestone, milestoneUpdate, milestoneDelete, fetchMilestoneList }) {
+export default function MileStoneList({ goalId, fetchGoal, milestone, milestoneUpdate, milestoneDelete, fetchMilestoneList }) {
 
   const [tasks, setTasks] = useState([]);
   const [activeMilestone, setActiveMilestone] = useState(null);
@@ -38,10 +38,18 @@ export default function MilestoneAndTask({ goalId, fetchGoal, milestone, milesto
     try {
       await axiosClient.delete(`milestones/${milestone.id}/tasks/${taskId}`);
       console.log('Task deleted successfully');
+      fetchGoal();
+      fetchMilestoneList();
       fetchTaksList();
     } catch (error) {
       console.error("Error deleting Task:", error);
       // alert("Failed to delete Task. Please try again.");
+    }
+  };
+  const confirmDelete = (taskId) => {
+    const confirmed = window.confirm("Are you sure you want to delete this Task?");
+    if (confirmed) {
+      handleDelete(taskId);
     }
   };
   const handleStatus = async (milestone) => {
@@ -62,6 +70,7 @@ export default function MilestoneAndTask({ goalId, fetchGoal, milestone, milesto
     if (milestone.status == "in_progress") {
       const payload = {
         status: "completed",
+        progress_percentage: 100
       };
 
       axiosClient.put(`/goals/${goalId}/milestones/${milestone.id}`, payload).then(() => {
@@ -91,6 +100,8 @@ export default function MilestoneAndTask({ goalId, fetchGoal, milestone, milesto
     fetchMilestoneList();
   }
   useEffect(() => {
+    fetchGoal();
+    fetchMilestoneList();
     fetchTaksList();
   }, [])
 
@@ -113,19 +124,59 @@ export default function MilestoneAndTask({ goalId, fetchGoal, milestone, milesto
       >
         <h3
           onClick={() => toggleMilestone(milestone.id)} className="font-medium">{milestone.title}</h3>
-        {
-          milestone.task_count == 0 && (
-            <button
-              onClick={() => handleStatus(milestone)}
-              className='bg-sky-500 px-3 py-2 rounded-sm text-white hover:bg-sky-600'>
-              {milestone.status == "pending" && (<b>Start</b>)}
-              {milestone.status == "in_progress" && (<b>In Progress</b>)}
-              {milestone.status == "completed" && (<b>Completed</b>)}
-            </button>
-          )
-        }
-        <span onClick={() => milestoneUpdate(milestone)} ><ion-icon name="cloud-upload-outline"></ion-icon></span>
-        <span onClick={() => { milestoneDelete(milestone.id) }} > <ion-icon name="trash-outline"></ion-icon></span>
+        {(milestone.task_count > 0 && milestone.status != 'completed') && (
+          <button
+            onClick={() => toggleMilestone(milestone.id)}
+            className="w-32 h-12 rounded-lg font-bold text-white shadow-md transition-all duration-200 flex items-center justify-center bg-purple-500 hover:bg-purple-600"
+          >
+            Finish the Tasks
+          </button>
+        )}
+        {(milestone.task_count > 0 && milestone.status == 'completed') && (
+          <button
+            onClick={() => handleDetail(goal.id)}
+            className="w-32 h-12 rounded-lg font-bold text-white shadow-md transition-all duration-200 flex items-center justify-center bg-purple-500 hover:bg-purple-600"
+          >
+            Completed
+          </button>
+        )}
+        {milestone.task_count == 0 && (
+          <button
+            onClick={() => handleStatus(milestone)}
+            className={`w-32 h-12 rounded-lg font-bold text-white shadow-md transition-all duration-200 flex items-center justify-center ${milestone.status === "pending"
+              ? "bg-yellow-500 hover:bg-yellow-600"
+              : milestone.status === "in_progress"
+                ? "bg-blue-500 hover:bg-blue-600"
+                : "bg-green-500 hover:bg-green-600"
+              }`}
+          >
+            {milestone.status === "pending" && <b>Start</b>}
+            {milestone.status === "in_progress" && <b>In Progress</b>}
+            {milestone.status === "completed" && <b>Completed</b>}
+          </button>
+        )}
+        <div className="relative group">
+
+          <span className="cursor-pointer">
+            <ion-icon name="ellipsis-horizontal-outline"></ion-icon>
+          </span>
+
+
+          <div className="absolute z-50 right-0 mt-2 p-2 bg-white border rounded shadow-md opacity-0 group-hover:opacity-100 transition-opacity duration-200">
+            <span
+              onClick={() => milestoneUpdate(milestone)}
+              className="flex items-center cursor-pointer text-blue-500 hover:text-blue-700 mb-1"
+            >
+              <ion-icon name="cloud-upload-outline" className="mr-1"></ion-icon> Update
+            </span>
+            <span
+              onClick={() => milestoneDelete(milestone.id)}
+              className="flex items-center cursor-pointer text-red-500 hover:text-red-700"
+            >
+              <ion-icon name="trash-outline" className="mr-1"></ion-icon> Delete
+            </span>
+          </div>
+        </div>
       </div>
       <div className='relative w-full bg-white rounded overflow-hidden h-2'>
         <div style={{ width: `${milestone.progress_percentage}%` }} className='absolute h-2 bg-sky-500'></div>
@@ -142,7 +193,7 @@ export default function MilestoneAndTask({ goalId, fetchGoal, milestone, milesto
           </div>
           <ul className="space-y-2">
             {tasks.map((task) => (
-              <TaskList milestoneId={milestone.id} task={task} taskUpdate={handleUpdateClick} taskDelete={handleDelete} fetchGoal={fetchGoal} fetchMilestoneList={fetchMilestoneList} fetchTaksList={fetchTaksList} />
+              <TaskList milestoneId={milestone.id} task={task} taskUpdate={handleUpdateClick} taskDelete={confirmDelete} fetchGoal={fetchGoal} fetchMilestoneList={fetchMilestoneList} fetchTaksList={fetchTaksList} />
             ))}
           </ul>
         </div>
