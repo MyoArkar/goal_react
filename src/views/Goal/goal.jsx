@@ -15,6 +15,8 @@ export default function Goal() {
     const [searchQuery, setSearchQuery] = useState('');
     const navigate = useNavigate();
 
+
+
     const fetchGoals = async () => {
         try {
             const { data } = await axiosClient.get("/goals");
@@ -54,7 +56,61 @@ export default function Goal() {
             alert("Failed to delete goal. Please try again.");
         }
     };
-
+    const handleStatus = async (goal) => {
+        if (goal.status == "pending" && goal.milestone_count == 0) {
+            const payload = {
+                status: "completed"
+            };
+            axiosClient.put(`/goals/${goal.id}`, payload).then(() => {
+                console.log('hello')
+            }).catch(err => {
+                const response = err.response;
+                if (response && response.status === 422) {
+                    console.log(response.data.errors);
+                }
+            });
+        }
+        if (goal.status == "completed" && goal.milestone_count == 0) {
+            const payload = {
+                status: "pending"
+            };
+            axiosClient.put(`/goals/${goal.id}`, payload).then(() => {
+                console.log('Status Updated')
+            }).catch(err => {
+                const response = err.response;
+                if (response && response.status === 422) {
+                    console.log(response.data.errors);
+                }
+            });
+        }
+        if (goal.status == "in progress") {
+            const payload = {
+                status: "completed"
+            };
+            axiosClient.put(`/goals/${goal.id}`, payload).then(() => {
+                console.log('Status Updated')
+            }).catch(err => {
+                const response = err.response;
+                if (response && response.status === 422) {
+                    console.log(response.data.errors);
+                }
+            });
+        }
+        if (goal.status == "completed") {
+            const payload = {
+                status: "in progress"
+            };
+            axiosClient.put(`/goals/${goal.id}`, payload).then(() => {
+                console.log('Status Updated')
+            }).catch(err => {
+                const response = err.response;
+                if (response && response.status === 422) {
+                    console.log(response.data.errors);
+                }
+            });
+        }
+        fetchGoals();
+    }
     useEffect(() => {
         fetchGoals();
     }, []);
@@ -158,6 +214,18 @@ export default function Goal() {
                                 className='bg-sky-500 px-3 py-1 rounded-md text-white hover:bg-sky-600'>
                                 Detail
                             </motion.button>
+                            {
+                                goal.status == 0 && (
+                                    <button
+                                        onClick={() => handleStatus(goal)}
+                                        className='bg-sky-500 px-3 py-2 rounded-sm text-white hover:bg-sky-600'>
+                                        {goal.status == "pending" && (<b>Start</b>)}
+                                        {goal.status == "in_progress" && (<b>In Progress</b>)}
+                                        {goal.status == "completed" && (<b>Completed</b>)}
+                                    </button>
+                                )
+                            }
+
                         </div>
                     </motion.div>
 
