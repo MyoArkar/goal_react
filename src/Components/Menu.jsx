@@ -67,7 +67,7 @@ const Menu = () => {
                     ))}
                 </div>
             </div>
-            <div className="flex flex-col font-Poppins bg-black" style={{ width: "calc(100% - 72px)" }} >
+            <div className="flex flex-col font-Poppins" style={{ width: "calc(100% - 72px)" }} >
                 <Outlet />
             </div>
         </section>
