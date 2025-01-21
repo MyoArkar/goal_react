@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import axiosClient from "../../axiosClient";
 import TaskModal from "./TaskModal";
 import TaskList from "./TaskList";
+import { motion } from "framer-motion";
 export default function MilestoneAndTask({ milestone, milestoneUpdate, milestoneDelete }) {
 
   const [tasks, setTasks] = useState([]);
@@ -62,21 +63,19 @@ export default function MilestoneAndTask({ milestone, milestoneUpdate, milestone
         update={update}
         task={selectedTask}
       />
-      <div
-        className="flex justify-between items-center bg-slate-950 text-defaultText px-4 py-3 cursor-pointer"
+      <motion.div whileHover={{ scale: 1.05 }}
+        className="flex justify-between items-center bg-slate-950 text-defaultText py-3 px-3 cursor-pointer"
       >
         <h3
           onClick={() => toggleMilestone(milestone.id)} className="font-medium">{milestone.title}</h3>
         <span onClick={() => milestoneUpdate(milestone)} ><ion-icon name="cloud-upload-outline"></ion-icon></span>
         <span onClick={() => { milestoneDelete(milestone.id) }} > <ion-icon name="trash-outline"></ion-icon></span>
-      </div>
-
-
+      </motion.div>
       {activeMilestone === milestone.id && (
         <div className="bg-slate-100 px-4 py-3">
-          <h4 className="text-[#0e0e0e] font-semibold mb-2">{milestone.id}</h4>
+          <h4 className="text-bodyText font-semibold mb-2">{milestone.id}</h4>
           <div onClick={handleCreateClick}
-            className='bg-[#0e0e0e] hover:pr-1  rounded-lg text-[#0e0e0e] transition duration-300  mb-4 '>
+            className='bg-bodyText hover:pr-1  rounded-lg text-[#0e0e0e] transition duration-300  mb-4 '>
             <div class="bg-teal-200 rounded-lg border-2 border-[#0e0e0e] hover:border-b-4 flex items-center justify-center transition duration-300">
               <ion-icon name="add-outline" size="large"></ion-icon>
             </div>

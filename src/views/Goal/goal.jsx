@@ -4,7 +4,8 @@ import Model from './Model';
 import axiosClient from '../../axiosClient';
 import { formatDate } from '../../utilities/dateFormater';
 import { MdManageSearch } from "react-icons/md";
-
+import { BsPlusCircleDotted } from "react-icons/bs";
+import { motion } from 'framer-motion';
 export default function Goal() {
     const [goals, setGoals] = useState([]);
     const [active, setActive] = useState('All');
@@ -79,7 +80,7 @@ export default function Goal() {
     const filteredGoals = filterGoals();
 
     return (
-        <div className='max-w-screen-inner px-10 py-5 mx-auto gap-10  flex flex-col min-h-screen'
+        <div className='w-full px-10 py-5 mx-auto gap-10  flex flex-col min-h-screen'
         >
             <Model
                 visible={showModel}
@@ -87,56 +88,59 @@ export default function Goal() {
                 update={update}
                 goal={selectedGoal}
             />
-            <div className="flex rounded-sm text-sm">
-                <button className='bg-[#0e0e0e] px-3 py-2 rounded-md text-white hover:bg-gray-800' onClick={() => setShowModel(true)}>Create Goal</button>
+            <div className="flex justify-between items-center text-sm">
+                <motion.button whileHover={{ scale: 1.1 }}
+                    whileTap={{ scale: 0.7 }} className='bg-transparent ring-2 ring-black/5 shadow-md px-3 py-2 rounded-md text-bodyText hover:bg-sidebar hover:text-defaultText' onClick={() => setShowModel(true)}>Create Goal</motion.button>
+                <motion.div whileHover={{ scale: 1.05 }} className='flex flex-row justify-center items-center w-96 rounded-md border border-gray-300 shadow-md'>
+                    <button className='bg-transparent py-2 px-2 rounded-l-md ring-1 ring-black/5'>
+                        <MdManageSearch size={26}
+                            className="cursor-pointer text-bodyText" />
+                    </button>
+                    <input
+                        type="text"
+                        name="search"
+                        className='w-full  py-2 px-1 rounded-r-md outline-none   text-slate-900 flex' placeholder='Search'
+                        value={searchQuery}
+                        onChange={(e) => setSearchQuery(e.target.value)}
+                    />
+                </motion.div>
             </div>
-            <div className='flex flex-row justify-center items-center w-full rounded-md'>
-                <button className='bg-[#0e0e0e]  py-2 px-2 rounded-l-md'>
-                    <MdManageSearch size={26}
-                        className="cursor-pointer text-white" />
-                </button>
-                <input
-                    type="text"
-                    name="search"
-                    className='w-full  py-2 px-1 rounded-r-md outline-none border-2   text-slate-900 flex border-gray-300' placeholder='Search'
-                    value={searchQuery}
-                    onChange={(e) => setSearchQuery(e.target.value)}
-                />
-            </div>
+
             <div className='w-full flex flex-row gap-8'>
 
                 {['All', 'Pending', 'In Progress', 'Completed'].map((status) => (
-                    <button
+                    <motion.button whileTap={{ scale: 0.5 }}
                         key={status}
                         onClick={() => setActive(status)}
-                        className={`${active === status ? 'border-2 border-[#0e0e0e]  px-3 py-1 rounded-md' : ''}`}
+                        className={`${active === status ? 'border-2 border-sidebar  px-3 py-1 rounded-md text-sm' : ''}`}
                     >
                         {status}
-                    </button>
+                    </motion.button>
                 ))}
             </div>
             <div className="card flex flex-row gap-5 w-full">
-                <div onClick={handleCreateClick}
-                    className="border-solid border-2 border-[#0e0e0e] flex flex-col w-60 gap-5 rounded-md shadow-md p-5 text-sm justify-center items-center">
-                    <ion-icon name="add-circle-outline" size="large"></ion-icon>
+                <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.7 }} onClick={handleCreateClick}
+                    className="flex flex-col w-60 gap-5 rounded-md p-5 text-sm justify-center items-center bg-white/10 shadow-lg ring-1 ring-black/5">
+                    <BsPlusCircleDotted size={26}
+                        className="cursor-pointer" />
                     <h5>Add New Goal</h5>
-                </div >
+                </motion.div >
                 {filteredGoals.map((goal) => (
-                    <div key={goal.id} className="bg-[#0e0e0e] flex flex-col w-60 gap-5 rounded-md shadow-md p-5 text-sm text-slate-50">
+                    <motion.div whileHover={{ scale: 1.05 }} key={goal.id} className="bg-white/10  flex flex-col w-1/2 gap-8 rounded-md p-5 text-sm text-bodyText shadow-lg ring-1 ring-black/5">
                         <div className='flex justify-between items-center'>
                             <h2>{goal.title}</h2>
                             <span onClick={() => handleUpdateClick(goal)} ><ion-icon name="cloud-upload-outline"></ion-icon></span>
                             <span onClick={() => { handleDelete(goal.id) }} > <ion-icon name="trash-outline"></ion-icon></span>
                         </div>
                         <p className="">{goal.description}</p>
-                        <div className='flex flex-row justify-between '>
+                        <div className='flex flex-row justify-between'>
                             <div className="flex flex-col">
                                 <h5 className='text-slate-500'>Start Date</h5>
-                                <p className='pr-3'>{formatDate(goal.start_date)}</p>
+                                <p className=''>{formatDate(goal.start_date)}</p>
                             </div>
                             <div className="flex flex-col">
-                                <h5 className='text-slate-500'>End Date</h5>
-                                <p className='pr-3'>{formatDate(goal.end_date)}</p>
+                                <h5 className='text-slate-500 text-right'>End Date</h5>
+                                <p className=''>{formatDate(goal.end_date)}</p>
                             </div>
                         </div>
                         <div className="flex flex-col gap-3">
@@ -149,13 +153,13 @@ export default function Goal() {
                             </div>
                         </div>
                         <div className='flex flex-row justify-between'>
-                            <button
+                            <motion.button whileHover={{ scale: 1.1 }}
                                 onClick={() => handleDetail(goal.id)}
-                                className='bg-sky-500 px-3 py-2 rounded-sm text-white hover:bg-sky-600'>
+                                className='bg-sky-500 px-3 py-1 rounded-md text-white hover:bg-sky-600'>
                                 Detail
-                            </button>
+                            </motion.button>
                         </div>
-                    </div>
+                    </motion.div>
 
                 ))}
 
