@@ -154,9 +154,9 @@ export default function GoalDetail() {
           <span className='text-[12px]'>Add New Milestone</span>
           <BsPlusCircleDotted />
         </motion.button>
-        {milestones.map((milestone) => (
+        {/* {milestones.map((milestone) => (
           <MilestoneAndTask goalId={id} milestone={milestone} milestoneUpdate={handleUpdateClick} milestoneDelete={handleDelete} fetchGoal={fetchGoal} fetchMilestoneList={fetchMilestoneList} />
-        ))}
+        ))} */}
       </div>
     </div>
   )

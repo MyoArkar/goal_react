@@ -9,6 +9,7 @@ import { AiOutlineUser } from "react-icons/ai";
 import { GiProgression } from "react-icons/gi";
 import { RiLogoutCircleLine } from "react-icons/ri";
 import { Link, Outlet } from "react-router-dom";
+import UserProfile from "./UserProfile";
 
 const Menu = () => {
     const menus = [
@@ -38,6 +39,7 @@ const Menu = () => {
                         onClick={() => setOpen(!open)}
                     />}
                 </div>
+                <UserProfile open={open} />
                 <div className="mt-4 flex flex-col gap-4 relative">
                     {menus.map((menu, i) => (
                         <Link
@@ -65,7 +67,7 @@ const Menu = () => {
                     ))}
                 </div>
             </div>
-            <div className="flex flex-col font-Poppins" style={{ width: "calc(100% - 72px)" }} >
+            <div className="flex flex-col font-Poppins bg-black" style={{ width: "calc(100% - 72px)" }} >
                 <Outlet />
             </div>
         </section>
