@@ -38,7 +38,7 @@ export default function Profile() {
     }
 
     return (
-        <div className="min-h-screen bg-gray-50">
+        <div className="w-full min-h-screen bg-gray-50">
             <ProfileHeader>
                 <ProfilePicture 
                     userData={userData} 
@@ -48,11 +48,11 @@ export default function Profile() {
             </ProfileHeader>
 
             {/* Main Content */}
-            <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="px-4 mx-auto max-w-5xl sm:px-6 lg:px-8">
                 <div className="pt-32">
                     {/* Name and Email */}
                     <motion.div 
-                        className="text-center mb-12"
+                        className="mb-12 text-center"
                         initial={{ opacity: 0, y: 20 }}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ delay: 0.2 }}
