@@ -69,25 +69,24 @@ export default function GoalDetail() {
   const confirmDelete = (milestoneId) => {
     const confirmed = window.confirm("Are you sure you want to delete this milestone?");
     if (confirmed) {
-        handleDelete(milestoneId); 
+      handleDelete(milestoneId);
     }
-};
+  };
 
   useEffect(() => {
     fetchGoal();
     fetchMilestoneList();
   }, []);
   return (
-    <div className="w-full px-5 py-5 mx-auto gap-5 flex  min-h-screen text-sm pt-16">
+    <div className="w-full px-5 py-5 mx-auto grid grid-cols-1 lg:grid-cols-2 gap-3 min-h-screen text-sm">
       <MilestoneModal
-
         goalId={id}
         visible={showModel}
         onClose={handleClose}
         update={update}
         milestone={selectedMile} />
       {/* Goal Header */}
-      <motion.div whileHover={{ scale: 1.05 }} className='flex flex-col basis-3/4 gap-5  p-5 h-fit  bg-white/10    rounded-md  text-sm text-bodyText shadow-lg ring-1 ring-black/5'>
+      <motion.div whileHover={{ scale: 1.05 }} className='flex flex-col gap-5 p-5 h-fit bg-white/10 rounded-md  text-sm text-bodyText shadow-lg ring-1 ring-black/5'>
         <div className="text-bodyText flex justify-between items-center">
           <div className='flex gap-1 items-center'>
             <LuGoal />
@@ -156,7 +155,7 @@ export default function GoalDetail() {
         </div>
       </motion.div>
       {/* milestone section */}
-      <div className='flex flex-col gap-5 basis-2/4'>
+      <div className='flex flex-col gap-5'>
         <motion.button whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.6 }} onClick={handleCreateClick} class="bg-slate-950 rounded-md text-sm text-defaultText flex items-center justify-between py-2 px-3">
           <span className='text-[12px]'>Add New Milestone</span>
           <BsPlusCircleDotted />

@@ -1,20 +1,17 @@
 import React, { useState } from "react";
 import { HiMenuAlt3 } from "react-icons/hi";
 import { HiMenuAlt2 } from "react-icons/hi";
-import { MdOutlineDashboard } from "react-icons/md";
 import { GoGoal } from "react-icons/go";
 import { GoTasklist } from "react-icons/go";
 import { VscMilestone } from "react-icons/vsc";
-import { AiOutlineUser } from "react-icons/ai";
 import { GiProgression } from "react-icons/gi";
 import { RiLogoutCircleLine } from "react-icons/ri";
+import { FaRegCalendarAlt } from "react-icons/fa";
 import { Link, Outlet } from "react-router-dom";
 import UserProfile from "./UserProfile";
 import Calendar from "./Calendar";
 const Menu = () => {
     const menus = [
-        { name: "Home", link: "/", icon: MdOutlineDashboard },
-        { name: "Profile", link: "/profile", icon: AiOutlineUser },
         { name: "Goal", link: "/goals", icon: GoGoal },
         { name: "Milestone", link: "/milestones", icon: VscMilestone },
         { name: "Task", link: "/tasks", icon: GoTasklist },
@@ -23,7 +20,7 @@ const Menu = () => {
     ];
     const [open, setOpen] = useState(true);
     return (
-        <section className="flex w-full font-Pridi">
+        <section className="flex w-full font-Pridi overflow-x-hidden">
             <div
                 className={`bg-sidebar py-5 min-h-screen ${open ? "w-72" : "w-16"
                     } duration-500 text-gray-100 px-4`}
@@ -67,7 +64,9 @@ const Menu = () => {
                         </Link>
                     ))}
                 </div>
-                <Calendar />
+                {open ? <Calendar open={open} className="" /> :
+                    <FaRegCalendarAlt className="mt-5 cursor-pointer flex items-center ml-2" size={20}
+                    />}
             </div>
             <div className="flex flex-col font-Poppins" style={{ width: "calc(100% - 72px)" }} >
                 <Outlet />
