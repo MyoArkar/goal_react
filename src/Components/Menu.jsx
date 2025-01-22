@@ -1,21 +1,18 @@
 import React, { useState } from "react";
 import { HiMenuAlt3 } from "react-icons/hi";
 import { HiMenuAlt2 } from "react-icons/hi";
-import { MdOutlineDashboard } from "react-icons/md";
 import { GoGoal } from "react-icons/go";
 import { GoTasklist } from "react-icons/go";
 import { VscMilestone } from "react-icons/vsc";
-import { AiOutlineUser } from "react-icons/ai";
 import { GiProgression } from "react-icons/gi";
 import { RiLogoutCircleLine } from "react-icons/ri";
+import { FaRegCalendarAlt } from "react-icons/fa";
 import { Link, Outlet } from "react-router-dom";
 import UserProfile from "./UserProfile";
 import Calendar from "./Calendar";
 
 const Menu = () => {
     const menus = [
-        { name: "Home", link: "/", icon: MdOutlineDashboard },
-        { name: "Profile", link: "/profile", icon: AiOutlineUser },
         { name: "Goal", link: "/goals", icon: GoGoal },
         { name: "Milestone", link: "/milestones", icon: VscMilestone },
         { name: "Task", link: "/tasks", icon: GoTasklist },
@@ -25,8 +22,7 @@ const Menu = () => {
     const [open, setOpen] = useState(true);
 
     return (
-        <div className="flex min-h-screen">
-            {/* Fixed Sidebar */}
+        <section className="flex overflow-x-hidden w-full font-Pridi">
             <div
                 className={`fixed left-0 top-0 h-screen bg-sidebar py-5 ${
                     open ? "w-72" : "w-16"
@@ -48,7 +44,7 @@ const Menu = () => {
                     )}
                 </div>
                 <UserProfile open={open} />
-                <div className="mt-4 flex flex-col gap-4 relative">
+                <div className="flex relative flex-col gap-4 mt-4">
                     {menus.map((menu, i) => (
                         <Link
                             to={menu.link}
@@ -76,7 +72,9 @@ const Menu = () => {
                         </Link>
                     ))}
                 </div>
-                <Calendar />
+                {open ? <Calendar open={open} className="" /> :
+                    <FaRegCalendarAlt className="flex items-center mt-5 ml-2 cursor-pointer" size={20}
+                    />}
             </div>
 
             {/* Main Content with Left Margin */}
@@ -89,7 +87,7 @@ const Menu = () => {
                     <Outlet />
                 </div>
             </div>
-        </div>
+        </section>
     );
 };
 
