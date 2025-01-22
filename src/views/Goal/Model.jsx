@@ -27,6 +27,7 @@ export default function Model({ visible, onClose, update, goal }) {
             title: titleRef.current.value,
             description: descriptionRef.current.value,
             start_date: startRef.current.value,
+            status: "in_progress",
             end_date: endRef.current.value,
             priority: priorityRef.current.value
         };
@@ -62,7 +63,7 @@ export default function Model({ visible, onClose, update, goal }) {
     };
 
     return (
-        <div className="fixed inset-0 bg-black bg-opacity-30 backdrop-blur-sm flex justify-center items-center z-10">
+        <div className="fixed inset-0 bg-black bg-opacity-30 backdrop-blur-sm flex justify-center items-center z-50">
             <div className="w-[32rem] flex flex-col justify-center items-center text-bodyText p-5 rounded-md gap-5 bg-white/50 backdrop-blur-3xl shadow-lg ring-1 ring-black/5 text-sm">
                 <div className='w-full flex justify-end'>
                     <button onClick={onClose}>

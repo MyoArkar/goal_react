@@ -159,7 +159,7 @@ export default function Goal() {
                 </motion.div>
             </div>
             <div className='w-full grid grid-cols-2 lg:grid-cols-4 lg:gap-5 gap-3 text-sm'>
-                {['All', 'Pending', 'In_Progress', 'Completed'].map((status) => (
+                {['All', 'In_Progress', 'Completed'].map((status) => (
                     <motion.button whileTap={{ scale: 0.5 }} whileHover={{ scale: 1.08 }}
                         key={status}
                         onClick={() => setActive(status)}
@@ -224,9 +224,9 @@ export default function Goal() {
                             {(goal.milestone_count > 0 && goal.status != 'completed') && (
                                 <button
                                     onClick={() => handleDetail(goal.id)}
-                                    className="w-32 h-12 rounded-lg font-bold text-white shadow-md transition-all duration-200 flex items-center justify-center bg-purple-500 hover:bg-purple-600"
+                                    className="w-32 h-12 rounded-lg font-bold text-white shadow-md transition-all duration-200 flex items-center justify-center bg-amber-500 hover:bg-purple-600"
                                 >
-                                    Finish the Milestones
+                                    In Progress
                                 </button>
                             )}
                             {(goal.milestone_count > 0 && goal.status == 'completed') && (
@@ -240,15 +240,13 @@ export default function Goal() {
                             {goal.milestone_count == 0 && (
                                 <button
                                     onClick={() => handleStatus(goal)}
-                                    className={`w-32 h-12 rounded-lg font-bold text-white shadow-md transition-all duration-200 flex items-center justify-center ${goal.status === "pending"
-                                        ? "bg-yellow-500 hover:bg-yellow-600"
-                                        : goal.status === "in_progress"
+                                    className={`w-32 h-12 rounded-lg font-bold text-white shadow-md transition-all duration-200 flex items-center justify-center ${
+                                        goal.status === "in_progress"
                                             ? "bg-blue-500 hover:bg-blue-600"
                                             : "bg-green-500 hover:bg-green-600"
                                         }`}
                                 >
-                                    {goal.status === "pending" && <b>Start</b>}
-                                    {goal.status === "in_progress" && <b>In Progress</b>}
+                                    { goal.status === "in_progress" && <b>In Progress</b>}
                                     {goal.status === "completed" && <b>Completed</b>}
                                 </button>
                             )}
