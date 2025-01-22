@@ -9,12 +9,13 @@ import { RiLogoutCircleLine } from "react-icons/ri";
 import { FaRegCalendarAlt } from "react-icons/fa";
 import { Link, Outlet } from "react-router-dom";
 import UserProfile from "./UserProfile";
+import { AiOutlineUser } from "react-icons/ai";
 import Calendar from "./Calendar";
 
 const Menu = () => {
     const menus = [
         { name: "Goal", link: "/goals", icon: GoGoal },
-        { name: "Milestone", link: "/milestones", icon: VscMilestone },
+        { name: "Profile", link: "/profile", icon: AiOutlineUser },        { name: "Milestone", link: "/milestones", icon: VscMilestone },
         { name: "Task", link: "/tasks", icon: GoTasklist },
         { name: "My Progress", link: "/progress", icon: GiProgression, margin: true },
         { name: "Log out", link: "/", icon: RiLogoutCircleLine },
