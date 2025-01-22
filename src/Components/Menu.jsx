@@ -10,7 +10,7 @@ import { GiProgression } from "react-icons/gi";
 import { RiLogoutCircleLine } from "react-icons/ri";
 import { Link, Outlet } from "react-router-dom";
 import UserProfile from "./UserProfile";
-
+import Calendar from "./Calendar";
 const Menu = () => {
     const menus = [
         { name: "Home", link: "/", icon: MdOutlineDashboard },
@@ -39,7 +39,8 @@ const Menu = () => {
                         onClick={() => setOpen(!open)}
                     />}
                 </div>
-                <UserProfile open={open} />
+                <UserProfile open={open}
+                />
                 <div className="mt-4 flex flex-col gap-4 relative">
                     {menus.map((menu, i) => (
                         <Link
@@ -66,6 +67,7 @@ const Menu = () => {
                         </Link>
                     ))}
                 </div>
+                <Calendar />
             </div>
             <div className="flex flex-col font-Poppins" style={{ width: "calc(100% - 72px)" }} >
                 <Outlet />
