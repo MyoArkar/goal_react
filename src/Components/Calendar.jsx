@@ -3,10 +3,10 @@ import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { DateCalendar } from '@mui/x-date-pickers/DateCalendar';
 
-export default function Calendar() {
+export default function Calendar({ open }) {
     return (
         <LocalizationProvider dateAdapter={AdapterDayjs}>
-            <DateCalendar
+            <DateCalendar className={`${!open ? "opacity-0 -translate-x-10 overflow-x-hidden duration-500 delay-100" : "opacity-1 translate-x-0 duration-500 delay-100"}`}
                 sx={{
                     width: '200px',
                     height: '250px',
