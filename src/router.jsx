@@ -4,13 +4,12 @@ import Register from './views/register.jsx';
 import DefaultLayout from './Components/DefaultLayout.jsx';
 import GuestLayout from './Components/GuestLayout.jsx';
 import ErrorBoundary from './Components/ErrorBoundary.jsx';
-import Users from './views/users.jsx';
 import Goal from './views/Goal/goal.jsx';
 import GoalDetail from './views/Goal/GoalDetail.jsx';
-import Milestone from './views/Milestone.jsx';
 import Task from './views/Task/Task.jsx';
 import Progress from './views/User/Progress.jsx';
 import Profile from './views/User/Profile.jsx';
+import Milestone from './views/Milestone/Milestone.jsx';
 
 const router = createBrowserRouter([
   {

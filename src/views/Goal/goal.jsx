@@ -224,7 +224,7 @@ export default function Goal() {
                             {(goal.milestone_count > 0 && goal.status != 'completed') && (
                                 <button
                                     onClick={() => handleDetail(goal.id)}
-                                    className="w-32 h-12 rounded-lg font-bold text-white shadow-md transition-all duration-200 flex items-center justify-center bg-amber-500 hover:bg-purple-600"
+                                    className="w-32 h-12 rounded-lg font-bold text-white shadow-md transition-all duration-200 flex items-center justify-center bg-blue-500 hover:bg-blue-600"
                                 >
                                     In Progress
                                 </button>
@@ -232,7 +232,7 @@ export default function Goal() {
                             {(goal.milestone_count > 0 && goal.status == 'completed') && (
                                 <button
                                     onClick={() => handleDetail(goal.id)}
-                                    className="w-32 h-12 rounded-lg font-bold text-white shadow-md transition-all duration-200 flex items-center justify-center bg-purple-500 hover:bg-purple-600"
+                                    className="w-32 h-12 rounded-lg font-bold text-white shadow-md transition-all duration-200 flex items-center justify-center bg-green-500 hover:bg-green-600"
                                 >
                                     Completed
                                 </button>
