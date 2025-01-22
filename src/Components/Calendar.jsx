@@ -13,6 +13,9 @@ export default function Calendar() {
                     '& .MuiPickersDay-root': {
                         color: 'white',
                     },
+                    '& .css-q5we01-MuiDayCalendar-root': {
+                        marginTop: '15px',
+                    },
                     '& .MuiPickersDay-root.Mui-selected': {
                         backgroundColor: 'gray',
                     },
@@ -23,14 +26,14 @@ export default function Calendar() {
                         backgroundColor: 'gray',
                     },
                     '& .MuiPickersDay-root.MuiPickersDay-today': {
-                        border: '1px solid white', // Add border to today date
-                        color: 'white', // Change color of today date
+                        border: '1px solid white',
+                        color: 'white',
                     },
                     '& .MuiPickersCalendarHeader-root': {
                         display: 'none',
                     },
-                    '& .MuiPickersCalendarHeader-dayLabel': {
-                        color: 'white', // Correct class selector for date labels
+                    '& .css-17f9e7e-MuiTypography-root-MuiDayCalendar-weekDayLabel': {
+                        color: 'white',
                     },
                 }}
             />
