@@ -2,17 +2,43 @@ import React, { useEffect, useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { useStateContext } from '../contexts/contextprovider';
 
+// Create a custom event for profile picture updates
+export const PROFILE_PICTURE_UPDATE = 'PROFILE_PICTURE_UPDATE';
+
 export default function UserProfile({ open }) {
     const [showTooltip, setShowTooltip] = useState(false);
     const [imageError, setImageError] = useState(false);
+    const [localImageUrl, setLocalImageUrl] = useState(null);
     const { user, refreshUserData } = useStateContext();
 
     useEffect(() => {
         refreshUserData();
     }, [refreshUserData]);
 
+    // Listen for profile picture updates
+    useEffect(() => {
+        const handleProfilePictureUpdate = (event) => {
+            const { localUrl } = event.detail;
+            setLocalImageUrl(localUrl);
+            setImageError(false);
+        };
+
+        // Subscribe to profile picture updates
+        window.addEventListener(PROFILE_PICTURE_UPDATE, handleProfilePictureUpdate);
+
+        return () => {
+            window.removeEventListener(PROFILE_PICTURE_UPDATE, handleProfilePictureUpdate);
+        };
+    }, []);
+
+    // Reset local image URL when user data changes
+    useEffect(() => {
+        setLocalImageUrl(null);
+    }, [user?.profile_picture]);
+
     const handleImageError = () => {
         setImageError(true);
+        setLocalImageUrl(null);
     };
 
     if (!user) {
@@ -42,14 +68,20 @@ export default function UserProfile({ open }) {
             >
                 <motion.div 
                     whileHover={{ scale: 1.1 }}
-                    className="min-w-[3rem] h-[3rem] p-1 relative group overflow-hidden"
+                    className="min-w-[3rem] w-12 h-12 p-1 relative group overflow-hidden flex-shrink-0"
                 >
-                    {user.profile_picture && !imageError ? (
+                    {(localImageUrl || (user.profile_picture && !imageError)) ? (
                         <img 
-                            src={user.profile_picture}
+                            src={localImageUrl || user.profile_picture}
                             alt={user.name}
                             onError={handleImageError}
                             className='object-cover w-full h-full rounded-full ring-2 ring-sky-500 ring-offset-2 transition-all duration-300'
+                            style={{
+                                aspectRatio: '1/1',
+                                objectFit: 'cover',
+                                minWidth: '100%',
+                                minHeight: '100%'
+                            }}
                         />
                     ) : (
                         <div className='flex justify-center items-center w-full h-full bg-gradient-to-br from-sky-400 to-sky-600 rounded-full ring-2 ring-sky-500 ring-offset-2 transition-all duration-300'>

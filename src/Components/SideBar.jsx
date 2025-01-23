@@ -4,20 +4,6 @@ import { useStateContext } from "../contexts/contextprovider";
 import axiosClient from "../axiosClient";
 
 const Sidebar = () => {
-  const { setUser, setToken } = useStateContext();
-
-  const onLogout = (ev) => {
-    ev.preventDefault();
-
-    axiosClient.post("/auth/logout").then((response) => {
-      if (response.status === 200) {
-        localStorage.clear();
-        setUser(null);
-        setToken(null);
-        console.log("Logout successful");
-      }
-    });
-  };
 
   return (
     <div className="flex flex-col h-full border-r border-gray-600">
@@ -30,9 +16,10 @@ const Sidebar = () => {
             <NavLink
               to="/users"
               className={({ isActive }) =>
-                `flex items-center gap-2 p-2 text-xl font-medium  rounded-lg transition-border ${isActive
-                  ? "bg-gray-700 border-2 border-b-4 border-gray-600 text-yellow-500"
-                  : "hover:bg-gray-700 text-gray-100 border-2 border-b-4 border-transparent"
+                `flex items-center gap-2 p-2 text-xl font-medium  rounded-lg transition-border ${
+                  isActive
+                    ? "bg-gray-700 border-2 border-b-4 border-gray-600 text-yellow-500"
+                    : "hover:bg-gray-700 text-gray-100 border-2 border-b-4 border-transparent"
                 }`
               }
             >
@@ -41,13 +28,13 @@ const Sidebar = () => {
             </NavLink>
           </li>
           <li>
-
             <NavLink
               to="/goals"
               className={({ isActive }) =>
-                `flex items-center gap-2 p-2 text-xl font-medium  rounded-lg transition-border ${isActive
-                  ? "bg-gray-700 border-2 border-b-4 border-gray-600 text-yellow-500"
-                  : "hover:bg-gray-700 text-gray-100 border-2 border-b-4 border-transparent"
+                `flex items-center gap-2 p-2 text-xl font-medium  rounded-lg transition-border ${
+                  isActive
+                    ? "bg-gray-700 border-2 border-b-4 border-gray-600 text-yellow-500"
+                    : "hover:bg-gray-700 text-gray-100 border-2 border-b-4 border-transparent"
                 }`
               }
             >
@@ -59,12 +46,12 @@ const Sidebar = () => {
             <NavLink
               to="/milestones"
               className={({ isActive }) =>
-                `flex items-center gap-2 p-2 text-xl font-medium rounded-lg transition-border ${isActive
-                  ? "bg-gray-700 border-2 border-b-4 border-gray-600 text-yellow-500"
-                  : "hover:bg-gray-700  text-gray-100"
+                `flex items-center gap-2 p-2 text-xl font-medium rounded-lg transition-border ${
+                  isActive
+                    ? "bg-gray-700 border-2 border-b-4 border-gray-600 text-yellow-500"
+                    : "hover:bg-gray-700  text-gray-100"
                 }`
               }
-
             >
               <span className="text-lg">🏆</span>
               <span>Milestones</span>
@@ -74,9 +61,10 @@ const Sidebar = () => {
             <NavLink
               to="/tasks"
               className={({ isActive }) =>
-                `flex items-center gap-2 p-2 text-xl font-medium rounded-lg transition-border ${isActive
-                  ? "bg-gray-700 border-2 border-b-4 border-gray-600 text-yellow-500"
-                  : "hover:bg-gray-700  text-gray-100"
+                `flex items-center gap-2 p-2 text-xl font-medium rounded-lg transition-border ${
+                  isActive
+                    ? "bg-gray-700 border-2 border-b-4 border-gray-600 text-yellow-500"
+                    : "hover:bg-gray-700  text-gray-100"
                 }`
               }
             >
@@ -86,15 +74,6 @@ const Sidebar = () => {
           </li>
         </ul>
       </nav>
-      <a
-        href="#"
-        onClick={onLogout}
-
-        className="p-4 text-red-500 transition-colors hover:text-red-700"
-      
-      >
-        Logout
-      </a>
     </div>
   );
 };
