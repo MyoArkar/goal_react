@@ -160,7 +160,7 @@ const Menu = () => {
                 className={`flex-1 transition-all duration-500 ${open ? "ml-72" : "ml-16"
                     }`}
             >
-                <div className="min-h-screen">
+                <div className="min-h-screen font-Poppins">
                     <Outlet />
                 </div>
             </div>
