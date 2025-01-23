@@ -101,14 +101,20 @@ export default function TaskList({ milestoneId, task, taskUpdate, taskDelete, fe
       <div className="flex flex-col items-end  gap-2">
         <span className="text-gray-500"><b>Due Date:</b> {formatDate(task.due_date)}</span>
         <button
-          onClick={() => handleStatus(task)}
-          className={`w-36 h-10 rounded-md text-sm font-medium text-white shadow-md transition-all duration-200 flex items-center justify-center ${task.status === "in_progress"
-            ? "bg-blue-500 hover:bg-blue-600"
-            : "bg-green-500 hover:bg-green-600"
+            onClick={() => handleStatus(task)}
+            className={`w-32 h-12 rounded-lg font-bold text-white shadow-md transition-all duration-200 flex items-center justify-center ${
+              task.status === "in_progress" && "bg-blue-500 hover:bg-blue-600"
+            } ${
+            task.status === "pending" && "bg-blue-500 hover:bg-blue-600"
+            } ${
+          task.status === "completed" && "bg-green-500 hover:bg-green-600"
             }`}
-        >
-          {task.status === "in_progress" ? "In Progress" : "Completed"}
-        </button>
+            >   
+                {  task.status === "pending" && <b>In Progress</b>}
+                {  task.status === "in_progress" && <b>In Progress</b>}
+                { task.status === "completed" && <b>Completed</b>}
+            </button>
+        
       </div>
     </li>
 

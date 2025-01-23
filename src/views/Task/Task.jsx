@@ -20,7 +20,7 @@ const TasksList = () => {
       const goalsData = goalsResponse.data.data.data;
 
       // Fetch milestones for each goal
-     
+
       const tasksData = {};
       for (const goal of goalsData) {
         const milestonesResponse = await axiosClient.get(`/goals/${goal.id}/milestones`);
@@ -110,11 +110,11 @@ const TasksList = () => {
         }
       });
     }
-    
+
     fetchData();
   }
   useEffect(() => {
-    
+
 
     fetchData();
   }, []);
@@ -128,13 +128,13 @@ const TasksList = () => {
   return (
     <div className="w-full px-10 py-5 mx-auto  flex flex-col min-h-screen bg-[#0e0e0e] text-white">
       {selectedTask && (
-         <TaskModal
-                milestoneId={selectedTask.milestone_id}
-                visible={showModel}
-                onClose={handleClose}
-                update={true}
-                task={selectedTask}
-              />
+        <TaskModal
+          milestoneId={selectedTask.milestone_id}
+          visible={showModel}
+          onClose={handleClose}
+          update={true}
+          task={selectedTask}
+        />
       )}
       <h1 className="text-2xl font-bold mb-4 text-center">Tasks</h1>
 
@@ -203,11 +203,12 @@ const TasksList = () => {
 
                                 <button
                                   onClick={() => handleStatus(task)}
-                                  className={`capitalize w-[150px] px-4 py-3 rounded text-sm text-center font-bold ${task.status === "in_progress"
-                                    ? "bg-blue-500 hover:bg-blue-600"
-                                    : "bg-green-500 hover:bg-green-600"
+                                  className={`w-32 h-12 rounded-lg font-bold text-white shadow-md transition-all duration-200 flex items-center justify-center ${task.status === "in_progress" && "bg-blue-500 hover:bg-blue-600"
+                                    } ${task.status === "pending" && "bg-blue-500 hover:bg-blue-600"
+                                    } ${task.status === "completed" && "bg-green-500 hover:bg-green-600"
                                     }`}
                                 >
+                                  {task.status === "pending" && <b>In Progress</b>}
                                   {task.status === "in_progress" && <b>In Progress</b>}
                                   {task.status === "completed" && <b>Completed</b>}
                                 </button>
@@ -227,7 +228,7 @@ const TasksList = () => {
 
       ) : (
         <div className="text-center">
-        <MileStoneAndTask milestones={milestones}/>
+          <MileStoneAndTask milestones={milestones} />
         </div>
       )}
     </div>
