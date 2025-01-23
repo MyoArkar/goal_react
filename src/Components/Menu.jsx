@@ -67,14 +67,14 @@ const Menu = () => {
         <section className="flex overflow-x-hidden w-full font-Pridi">
             {/* Logout Confirmation Modal */}
             {showLogoutModal && (
-                <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
-                    <div className="bg-white rounded-lg p-6 w-96 shadow-xl">
-                        <h2 className="text-xl font-semibold text-gray-800 mb-4">Confirm Logout</h2>
-                        <p className="text-gray-600 mb-6">Are you sure you want to logout?</p>
+                <div className="flex fixed inset-0 z-50 justify-center items-center bg-black bg-opacity-50">
+                    <div className="p-6 w-96 bg-white rounded-lg shadow-xl">
+                        <h2 className="mb-4 text-xl font-semibold text-gray-800">Confirm Logout</h2>
+                        <p className="mb-6 text-gray-600">Are you sure you want to logout?</p>
                         <div className="flex justify-end space-x-4">
                             <button
                                 onClick={handleLogoutCancel}
-                                className="px-4 py-2 text-gray-600 hover:text-gray-800 font-medium"
+                                className="px-4 py-2 font-medium text-gray-600 hover:text-gray-800"
                             >
                                 Cancel
                             </button>
@@ -82,8 +82,7 @@ const Menu = () => {
                                 onClick={handleLogoutConfirm}
                                 disabled={isLoggingOut}
                                 className={`px-4 py-2 bg-red-500 text-white rounded hover:bg-red-600 font-medium ${
-                                    isLoggingOut ? 'opacity-50 cursor-not-allowed' : ''
-                                }`}
+                                    isLoggingOut ? 'opacity-50 cursor-not-allowed' : ''}`}
                             >
                                 {isLoggingOut ? 'Logging out...' : 'Logout'}
                             </button>
@@ -124,7 +123,7 @@ const Menu = () => {
                             >
                                 <div className="relative group/icon">
                                     <div>{React.createElement(menu.icon, { size: "20" })}</div>
-                                    <span className={`${open ? 'hidden' : ''} fixed ml-16 bg-gray-800 text-white text-xs px-2 py-1 rounded-md opacity-0 group-hover/icon:opacity-100 transition-opacity duration-300 whitespace-nowrap z-50 min-w-[120px] shadow-lg`}>
+                                    <span className={`${open ? 'hidden' : ''} fixed z-50 px-2 py-1 ml-16 text-xs text-white whitespace-nowrap bg-gray-800 rounded-md shadow-lg opacity-0 transition-opacity duration-300 group-hover/icon:opacity-100 min-w-[120px]`}>
                                         {menu.name}
                                     </span>
                                 </div>
@@ -147,7 +146,7 @@ const Menu = () => {
                             >
                                 <div className="relative group/icon">
                                     <div>{React.createElement(menu.icon, { size: "20" })}</div>
-                                    <span className={`${open ? 'hidden' : ''} fixed ml-16 bg-gray-800 text-white text-xs px-2 py-1 rounded-md opacity-0 group-hover/icon:opacity-100 transition-opacity duration-300 whitespace-nowrap z-50 min-w-[120px] shadow-lg`}>
+                                    <span className={`${open ? 'hidden' : ''} fixed z-50 px-2 py-1 ml-16 text-xs text-white whitespace-nowrap bg-gray-800 rounded-md shadow-lg opacity-0 transition-opacity duration-300 group-hover/icon:opacity-100 min-w-[120px]`}>
                                         {menu.name}
                                     </span>
                                 </div>
@@ -179,7 +178,7 @@ const Menu = () => {
                             size={20}
                             onClick={() => setOpen(true)}
                         />
-                        <span className="fixed ml-16 bg-gray-800 text-white text-xs px-2 py-1 rounded-md opacity-0 group-hover/icon:opacity-100 transition-opacity duration-300 whitespace-nowrap z-50 shadow-lg">
+                        <span className="fixed z-50 px-2 py-1 ml-16 text-xs text-white whitespace-nowrap bg-gray-800 rounded-md shadow-lg opacity-0 transition-opacity duration-300 group-hover/icon:opacity-100">
                             Calendar
                         </span>
                     </div>
