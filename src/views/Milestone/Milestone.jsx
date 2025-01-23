@@ -145,12 +145,12 @@ const Milestone = () => {
                                     {milestones[goal.id].map((milestone) => (
                                         <li
                                             key={milestone.id}
-                                            className="bg-white/10 ring-1 ring-black/5 text-sm  rounded-md  shadow-lg grid grid-cols-3 place-content-center px-5 py-4 mb-5 relative
+                                            className="bg-white/10 ring-1 ring-black/5 text-sm  rounded-md  shadow-lg flex flex-col gap-2 md:gap-3 lg:flex-row justify-between place-content-center px-5 py-4 mb-5 relative
                                             "
                                         >
                                             <div className=" flex flex-col justify-center items-start text-slate-700 gap-3">
                                                 <h3 className="text-sm font-semibold">{milestone.title}</h3>
-                                                <p className="w-2/3 h-[60px] overflow-scroll no-scrollbar">{milestone.description || "No description provided."} Lorem ipsum dolor sit amet consectetur adipisicing elit. Quas odio facere autem eligendi dolores adipisci perferendis voluptatum debitis velit sapiente quo est, consequatur, necessitatibus vero nostrum laudantium. Quod, ratione delectus?</p>
+                                                <p className="w-2/3 h-[20px] lg:h-[50px] overflow-scroll no-scrollbar">{milestone.description || "No description provided."}</p>
                                                 <div className=" flex gap-3 items-center text-sm font-semibold">
                                                     <b className="">Task Count</b>
                                                     <p className="">{milestone.task_count}</p>
@@ -160,7 +160,7 @@ const Milestone = () => {
                                                 </span>
                                             </div>
                                             {/* 2sec */}
-                                            <div className="text-sm flex flex-col justify-center items-center gap-4 ">
+                                            <div className="text-sm flex flex-row lg:flex-col justify-center items-center gap-4 ">
                                                 <span
                                                     className={`capitalize w-[150px] px-4 py-3 rounded text-sm text-center  ${milestone.priority === "high"
                                                         ? "bg-red-500 text-white"
@@ -175,7 +175,7 @@ const Milestone = () => {
                                                     {(milestone.task_count > 0 && milestone.status != 'completed') && (
                                                         <button
                                                             onClick={() => handleDetail(milestone.goal_id)}
-                                                            className="capitalize w-[150px] px-4 py-3 rounded text-sm text-center bg-purple-500 hover:bg-purple-600"
+                                                            className="capitalize w-[150px] px-4 py-3 rounded text-sm text-white text-center bg-purple-500 hover:bg-purple-600"
                                                         >
                                                             In Progress
                                                         </button>
@@ -183,7 +183,7 @@ const Milestone = () => {
                                                     {(milestone.task_count > 0 && milestone.status == 'completed') && (
                                                         <button
                                                             onClick={() => handleDetail(milestone.goal_id)}
-                                                            className="capitalize w-[150px] px-4 py-3 rounded text-sm text-center font-bold bg-purple-500 hover:bg-purple-600"
+                                                            className="capitalize w-[150px] px-4 py-3 rounded text-sm text-center text-white font-bold bg-purple-500 hover:bg-purple-600"
                                                         >
                                                             Completed
                                                         </button>
@@ -191,7 +191,7 @@ const Milestone = () => {
                                                     {milestone.task_count == 0 && (
                                                         <button
                                                             onClick={() => handleStatus(milestone)}
-                                                            className={`capitalize w-[150px] px-4 py-3 rounded text-sm text-center font-bold ${milestone.status === "in_progress"
+                                                            className={`capitalize w-[150px] px-4 py-3 rounded text-sm text-white text-center font-bold ${milestone.status === "in_progress"
                                                                 ? "bg-blue-500 hover:bg-blue-600"
                                                                 : "bg-green-500 hover:bg-green-600"
                                                                 }`}

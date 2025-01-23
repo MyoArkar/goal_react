@@ -62,7 +62,7 @@ export default function TaskList({ milestoneId, task, taskUpdate, taskDelete, fe
     >
       {/* Left Section */}
       <div className="flex items-center">
-        <div className=" group">
+        <div className="relative group">
           {/* Ellipsis Icon */}
           <span className="cursor-pointer text-gray-500 hover:text-gray-700">
             <ion-icon name="ellipsis-horizontal-outline" size="small"></ion-icon>

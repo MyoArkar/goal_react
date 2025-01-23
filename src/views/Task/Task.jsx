@@ -145,75 +145,72 @@ const TasksList = () => {
                 <div key={goal.id} >
                   {milestones[goal.id].map((milestone) => (
                     <div key={milestone.id} className="">
-                      <ul className="list-none grid grid-cols-2 gap-4">
+                      <ul className="list-none grid grid-cols-1 md:grid-cols-2 gap-4">
 
                         {tasks[milestone.id].map((task) => (
-                          <li
-                            key={task.id}
-                            className="p-3  rounded-lg hover:bg-gray-700 transition-all mb-4 flex justify-between"
+                        <li
+                        key={task.id}
+                        className="bg-white/10 ring-1 ring-black/5 text-sm rounded-md shadow-lg flex flex-col gap-2 md:gap-0 lg:flex-row justify-between place-content-center px-5 py-4 mb-5 relative"
+                      >
+                        <div className="flex flex-col justify-center items-start text-slate-700 gap-3">
+                          <h4 className="text-sm font-semibold">{task.title}</h4>
+                          <p className="w-2/3 h-[20px] lg:h-[50px] overflow-scroll no-scrollbar">
+                            {task.description || "No description provided."}
+                          </p>
+                          <span className="text-gray-400">
+                            <b>Due Date:</b> {formatDate(task.due_date) || "N/A"}
+                          </span>
+                        </div>
+                        <div className="text-sm flex flex-col justify-center items-center gap-4">
+                          <span
+                            className={`capitalize w-full lg:w-[150px] px-4 py-3 rounded text-sm text-center ${
+                              task.priority === "high"
+                                ? "bg-red-500 text-white"
+                                : task.priority === "medium"
+                                ? "bg-yellow-500 text-black"
+                                : "bg-green-500 text-white"
+                            }`}
                           >
-                            <div className="flex justify-between items-center">
-                              <div>
-                                <div className="flex gap-2">
-                                  <h4 className="font-semibold text-lg">{task.title}</h4>
-                                  <span
-                                    className={`capitalize px-1 h-[20px] rounded-lg text-xs ${task.priority === "high"
-                                      ? "bg-red-500 text-white"
-                                      : task.priority === "medium"
-                                        ? "bg-yellow-500 text-black"
-                                        : "bg-green-500 text-white"
-                                      }`}
-                                  >
-                                    {task.priority || "Low"}
-                                  </span>
-                                </div>
-
-                                <p className="w-2/3 h-[60px] overflow-scroll no-scrollbar text-sm text-gray-400">{task.description || "No description provided."} Lorem ipsum dolor sit amet consectetur adipisicing elit. Quas odio facere autem eligendi dolores adipisci perferendis voluptatum debitis velit sapiente quo est, consequatur, necessitatibus vero nostrum laudantium. Quod, ratione delectus?</p>
-                              </div>
-                            </div>
-                            <div className="text-sm flex flex-col items-end">
-                              <div className="group">
-
-                                <span className="cursor-pointer">
-                                  <ion-icon name="ellipsis-horizontal-outline"></ion-icon>
-                                </span>
-
-
-                                <div className="absolute z-30  p-2 bg-white border rounded shadow-md opacity-0 group-hover:opacity-100 transition-opacity duration-200">
-                                  <span
-                                    onClick={() => handleUpdateClick(task)}
-                                    className="flex items-center cursor-pointer text-blue-500 hover:text-blue-700 mb-1"
-                                  >
-                                    <ion-icon name="cloud-upload-outline" className="mr-1"></ion-icon> Update
-                                  </span>
-                                  <span
-                                    onClick={() => confirmDelete(task)}
-                                    className="flex items-center cursor-pointer text-red-500 hover:text-red-700"
-                                  >
-                                    <ion-icon name="trash-outline" className="mr-1"></ion-icon> Delete
-                                  </span>
-                                </div>
-                              </div>
-                              <span className="text-gray-400">
-                                <b>Due Date:</b> {formatDate(task.due_date) || "N/A"}
-                              </span>
-                              <div>
-
-
-                                <button
-                                  onClick={() => handleStatus(task)}
-                                  className={`w-32 h-12 rounded-lg font-bold text-white shadow-md transition-all duration-200 flex items-center justify-center ${task.status === "in_progress" && "bg-blue-500 hover:bg-blue-600"
-                                    } ${task.status === "pending" && "bg-blue-500 hover:bg-blue-600"
-                                    } ${task.status === "completed" && "bg-green-500 hover:bg-green-600"
-                                    }`}
-                                >
-                                  {task.status === "pending" && <b>In Progress</b>}
-                                  {task.status === "in_progress" && <b>In Progress</b>}
-                                  {task.status === "completed" && <b>Completed</b>}
-                                </button>
-                              </div>
-                            </div>
-                          </li>
+                            {task.priority || "Low"}
+                          </span>
+                          <button
+                            onClick={() => handleStatus(task)}
+                            className={`w-full lg:w-[150px] px-4 py-3 rounded font-bold text-white text-center transition-all duration-200 ${
+                              task.status === "in_progress" || task.status === "pending"
+                                ? "bg-blue-500 hover:bg-blue-600"
+                                : "bg-green-500 hover:bg-green-600"
+                            } text-sm md:text-sm sm:text-xs`}
+                          >
+                            {task.status === "pending" || task.status === "in_progress" ? (
+                              <b>In Progress</b>
+                            ) : (
+                              <b>Completed</b>
+                            )}
+                          </button>
+                        </div>
+                        <div className="group flex justify-center items-center absolute top-0 right-3">
+                          <span className="cursor-pointer">
+                            <ion-icon name="ellipsis-horizontal-outline"></ion-icon>
+                          </span>
+                          <div className="absolute z-30 p-2 bg-white border rounded shadow-md opacity-0 group-hover:opacity-100 transition-opacity duration-200">
+                            <span
+                              onClick={() => handleUpdateClick(task)}
+                              className="flex items-center cursor-pointer text-blue-500 hover:text-blue-700 mb-1"
+                            >
+                              <ion-icon name="cloud-upload-outline" className="mr-1"></ion-icon>{" "}
+                              Update
+                            </span>
+                            <span
+                              onClick={() => confirmDelete(task)}
+                              className="flex items-center cursor-pointer text-red-500 hover:text-red-700"
+                            >
+                              <ion-icon name="trash-outline" className="mr-1"></ion-icon> Delete
+                            </span>
+                          </div>
+                        </div>
+                      </li>
+                      
+                        
                         ))
                         }
 
