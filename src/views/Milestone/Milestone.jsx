@@ -12,6 +12,7 @@ const Milestone = () => {
     const [goals, setGoals] = useState([]);
     const [milestones, setMilestones] = useState({});
     const [loading, setLoading] = useState(true);
+    //const [main, setMain] = useState(true);
     const [showModel, setShowModel] = useState(false);
     const [update, setUpdate] = useState(false);
     const [selectedMile, setSelectedMile] = useState(null);

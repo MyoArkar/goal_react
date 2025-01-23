@@ -162,21 +162,25 @@ export default function MileStoneList({ goalId, fetchGoal, milestone, milestoneU
           {(milestone.task_count > 0 && milestone.status == 'completed') && (
             <button
               onClick={() => toggleMilestone(milestone.id)}
-              className="w-32 h-12 rounded-md font-bold text-white shadow-md transition-all duration-200 flex items-center justify-center bg-purple-500 hover:bg-purple-600"
+              className="w-32 h-12 rounded-md font-bold text-white shadow-md transition-all duration-200 flex items-center justify-center bg-green-500 hover:bg-green-600"
             >
               Completed
             </button>
           )}
           {milestone.task_count == 0 && (
             <button
-              onClick={() => handleStatus(milestone)}
-              className={`w-32 h-12 rounded-md font-bold text-white shadow-md transition-all duration-200 flex items-center justify-center ${milestone.status === "in_progress"
-                ? "bg-blue-500 hover:bg-blue-600"
-                : "bg-green-500 hover:bg-green-600"
-                }`}
-            >
-              {milestone.status === "in_progress" && <b>In Progress</b>}
-              {milestone.status === "completed" && <b>Completed</b>}
+            onClick={() => handleStatus(milestone)}
+            className={`w-32 h-12 rounded-lg font-bold text-white shadow-md transition-all duration-200 flex items-center justify-center ${
+              milestone.status === "in_progress" && "bg-blue-500 hover:bg-blue-600"
+            } ${
+              milestone.status === "pending" && "bg-blue-500 hover:bg-blue-600"
+            } ${
+              milestone.status === "completed" && "bg-green-500 hover:bg-green-600"
+            }`}
+            >   
+                { milestone.status === "pending" && <b>In Progress</b>}
+                { milestone.status === "in_progress" && <b>In Progress</b>}
+                {milestone.status === "completed" && <b>Completed</b>}
             </button>
           )}
         </div>
