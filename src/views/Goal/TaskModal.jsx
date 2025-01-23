@@ -26,7 +26,7 @@ export default function TaskModal({milestoneId,update,visible,onClose,task}) {
       description: descriptionRef.current.value,
       due_date: dueRef.current.value,
       priority: priorityRef.current.value,
-      status: 'pending'
+      status: 'in_progress'
     };
 
     axiosClient.post(`milestones/${milestoneId}/tasks`, payload).then(() => {
@@ -59,7 +59,7 @@ export default function TaskModal({milestoneId,update,visible,onClose,task}) {
   };
 
   return (
-    <div className="fixed inset-0 bg-black bg-opacity-30 backdrop-blur-sm flex justify-center items-center z-10">
+    <div className="fixed inset-0 bg-black bg-opacity-30 backdrop-blur-sm flex justify-center items-center z-50">
       <div className="w-[30rem] flex flex-col justify-center items-center text-slate-300 bg-[#0e0e0e] p-8 rounded-sm gap-5">
         <div className='w-full flex justify-end'>
           <button onClick={onClose}>

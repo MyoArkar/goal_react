@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import axiosClient from "../../axiosClient";
 import TaskModal from "./TaskModal";
 import TaskList from "./TaskList";
+import { formatDate } from '../../utilities/dateFormater';
 export default function MileStoneList({ goalId, fetchGoal, milestone, milestoneUpdate, milestoneDelete, fetchMilestoneList }) {
 
   const [tasks, setTasks] = useState([]);
@@ -111,7 +112,7 @@ export default function MileStoneList({ goalId, fetchGoal, milestone, milestoneU
     setActiveMilestone((prev) => (prev === milestoneId ? null : milestoneId));
   };
   return <>
-    <div key={milestone.id} className="border-[#0e0e0e] border-2 rounded-md">
+    <div key={milestone.id} className="border-[#0e0e0e] border-2 rounded-md overflow-hidden">
       <TaskModal
         milestoneId={milestone.id}
         visible={showModel}
@@ -120,49 +121,16 @@ export default function MileStoneList({ goalId, fetchGoal, milestone, milestoneU
         task={selectedTask}
       />
       <div
-        className="flex justify-between items-center bg-slate-950 text-defaultText px-4 py-3 cursor-pointer"
+        className="flex relative justify-between items-center bg-slate-950 text-defaultText px-4 cursor-pointer"
       >
-        <h3
-          onClick={() => toggleMilestone(milestone.id)} className="font-medium">{milestone.title}</h3>
-        {(milestone.task_count > 0 && milestone.status != 'completed') && (
-          <button
-            onClick={() => toggleMilestone(milestone.id)}
-            className="w-32 h-12 rounded-lg font-bold text-white shadow-md transition-all duration-200 flex items-center justify-center bg-purple-500 hover:bg-purple-600"
-          >
-            Finish the Tasks
-          </button>
-        )}
-        {(milestone.task_count > 0 && milestone.status == 'completed') && (
-          <button
-            onClick={() => handleDetail(goal.id)}
-            className="w-32 h-12 rounded-lg font-bold text-white shadow-md transition-all duration-200 flex items-center justify-center bg-purple-500 hover:bg-purple-600"
-          >
-            Completed
-          </button>
-        )}
-        {milestone.task_count == 0 && (
-          <button
-            onClick={() => handleStatus(milestone)}
-            className={`w-32 h-12 rounded-lg font-bold text-white shadow-md transition-all duration-200 flex items-center justify-center ${milestone.status === "pending"
-              ? "bg-yellow-500 hover:bg-yellow-600"
-              : milestone.status === "in_progress"
-                ? "bg-blue-500 hover:bg-blue-600"
-                : "bg-green-500 hover:bg-green-600"
-              }`}
-          >
-            {milestone.status === "pending" && <b>Start</b>}
-            {milestone.status === "in_progress" && <b>In Progress</b>}
-            {milestone.status === "completed" && <b>Completed</b>}
-          </button>
-        )}
-        <div className="relative group">
+        <div className="group">
 
           <span className="cursor-pointer">
             <ion-icon name="ellipsis-horizontal-outline"></ion-icon>
           </span>
 
 
-          <div className="absolute z-50 right-0 mt-2 p-2 bg-white border rounded shadow-md opacity-0 group-hover:opacity-100 transition-opacity duration-200">
+          <div className="absolute z-30 top-0 left-0 p-2 bg-white border rounded shadow-md opacity-0 group-hover:opacity-100 transition-opacity duration-200">
             <span
               onClick={() => milestoneUpdate(milestone)}
               className="flex items-center cursor-pointer text-blue-500 hover:text-blue-700 mb-1"
@@ -177,8 +145,45 @@ export default function MileStoneList({ goalId, fetchGoal, milestone, milestoneU
             </span>
           </div>
         </div>
+        <div
+          onClick={() => toggleMilestone(milestone.id)}
+          className="w-2/3 pl-6 py-4 ">
+        <h3 className="font-medium text-lg">{milestone.title}</h3>
+        <span className="text-slate-300"><b>Due Date:</b> {formatDate(milestone.due_date)}</span>
+        </div>
+        
+        <div>
+          {(milestone.task_count > 0 && milestone.status != 'completed') && (
+            <button
+              onClick={() => toggleMilestone(milestone.id)}
+              className="w-32 h-12 rounded-lg font-bold text-white shadow-md transition-all duration-200 flex items-center justify-center bg-purple-500 hover:bg-purple-600"
+            >
+              In Progress
+            </button>
+          )}
+          {(milestone.task_count > 0 && milestone.status == 'completed') && (
+            <button
+              onClick={() => toggleMilestone(milestone.id)}
+              className="w-32 h-12 rounded-lg font-bold text-white shadow-md transition-all duration-200 flex items-center justify-center bg-purple-500 hover:bg-purple-600"
+            >
+              Completed
+            </button>
+          )}
+          {milestone.task_count == 0 && (
+            <button
+              onClick={() => handleStatus(milestone)}
+              className={`w-32 h-12 rounded-lg font-bold text-white shadow-md transition-all duration-200 flex items-center justify-center ${milestone.status === "in_progress"
+                ? "bg-blue-500 hover:bg-blue-600"
+                : "bg-green-500 hover:bg-green-600"
+                }`}
+            >
+              {milestone.status === "in_progress" && <b>In Progress</b>}
+              {milestone.status === "completed" && <b>Completed</b>}
+            </button>
+          )}
+        </div>
       </div>
-      <div className='relative w-full bg-white rounded overflow-hidden h-2'>
+      <div className='relative w-full bg-black  overflow-hidden h-2'>
         <div style={{ width: `${milestone.progress_percentage}%` }} className='absolute h-2 bg-sky-500'></div>
       </div>
 
