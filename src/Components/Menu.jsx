@@ -14,8 +14,10 @@ import Calendar from "./Calendar";
 
 const Menu = () => {
     const menus = [
+
+        { name: "Profile", link: "/profile", icon: AiOutlineUser },
         { name: "Goal", link: "/goals", icon: GoGoal },
-        { name: "Profile", link: "/profile", icon: AiOutlineUser },        { name: "Milestone", link: "/milestones", icon: VscMilestone },
+        { name: "Milestone", link: "/milestones", icon: VscMilestone },
         { name: "Task", link: "/tasks", icon: GoTasklist },
         { name: "My Progress", link: "/progress", icon: GiProgression, margin: true },
         { name: "Log out", link: "/", icon: RiLogoutCircleLine },
@@ -25,9 +27,8 @@ const Menu = () => {
     return (
         <section className="flex overflow-x-hidden w-full font-Pridi">
             <div
-                className={`fixed left-0 top-0 h-screen bg-sidebar py-5 ${
-                    open ? "w-72" : "w-16"
-                } duration-500 text-gray-100 px-4 z-40 overflow-y-auto scrollbar-thin scrollbar-track-transparent scrollbar-thumb-gray-600`}
+                className={`fixed left-0 top-0 h-screen bg-sidebar overflow-x-hidden py-5 ${open ? "w-72" : "w-16"
+                    } duration-500 text-gray-100 px-4 z-40 overflow-y-auto scrollbar-thin scrollbar-track-transparent scrollbar-thumb-gray-600`}
             >
                 <div className="flex justify-end">
                     {open ? (
@@ -62,16 +63,14 @@ const Menu = () => {
                                 style={{
                                     transitionDelay: `${i + 3}00ms`,
                                 }}
-                                className={`whitespace-pre duration-500 ${
-                                    !open && "opacity-0 translate-x-28 overflow-hidden"
-                                }`}
+                                className={`whitespace-pre duration-500 ${!open && "opacity-0 translate-x-28 overflow-hidden"
+                                    }`}
                             >
                                 {menu.name}
                             </h2>
                             <div
-                                className={`${
-                                    open && "hidden"
-                                } absolute left-14 bg-white text-gray-900 px-2 py-1 rounded-md shadow-md whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity duration-300`}
+                                className={`${open && "hidden"
+                                    } absolute left-14 bg-white text-gray-900 px-2 py-1 rounded-md shadow-md whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity duration-300`}
                             >
                                 {menu.name}
                             </div>
@@ -80,8 +79,8 @@ const Menu = () => {
                 </div>
                 {open ? <Calendar open={open} className="" /> :
                     <div className="relative group/icon">
-                        <FaRegCalendarAlt 
-                            className="flex items-center mt-5 ml-2 cursor-pointer" 
+                        <FaRegCalendarAlt
+                            className="flex items-center mt-5 ml-2 cursor-pointer"
                             size={20}
                             onClick={() => setOpen(true)}
                         />
@@ -93,10 +92,9 @@ const Menu = () => {
             </div>
 
             {/* Main Content with Left Margin */}
-            <div 
-                className={`flex-1 transition-all duration-500 ${
-                    open ? "ml-72" : "ml-16"
-                }`}
+            <div
+                className={`flex-1 transition-all duration-500 ${open ? "ml-72" : "ml-16"
+                    }`}
             >
                 <div className="min-h-screen">
                     <Outlet />

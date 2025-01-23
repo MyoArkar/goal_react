@@ -58,10 +58,10 @@ export default function TaskList({ milestoneId, task, taskUpdate, taskDelete, fe
   return <>
     <li
       key={task.id}
-      className="bg-gray-50 border border-gray-300 rounded-lg p-4 shadow-sm flex flex-col md:flex-row justify-between items-start md:items-center gap-4"
+      className="bg-gray-50  rounded-md p-4 shadow-md flex  justify-between items-start md:items-center gap-4"
     >
       {/* Left Section */}
-      <div className="flex relative flex-row  items-center gap-4">
+      <div className="flex items-center">
         <div className=" group">
           {/* Ellipsis Icon */}
           <span className="cursor-pointer text-gray-500 hover:text-gray-700">
@@ -89,22 +89,22 @@ export default function TaskList({ milestoneId, task, taskUpdate, taskDelete, fe
 
         <div className="flex flex-col flex-grow">
           <h5 className="font-semibold text-lg text-gray-800">{task.title}
-          <span className={`ml-3 px-2 rounded-lg text-xs text-white ${task.priority === 'High' ? 'bg-red-600' : task.priority === 'Medium' ? 'bg-yellow-500' : 'bg-green-500'}`}>
+            <span className={`ml-3 px-2 rounded-lg text-xs text-white ${task.priority === 'High' ? 'bg-red-600' : task.priority === 'Medium' ? 'bg-yellow-500' : 'bg-green-500'}`}>
               {task.priority}
-          </span>
+            </span>
           </h5>
-          <p>{ task.description}</p>
+          <p>{task.description}</p>
         </div>
       </div>
 
       {/* Right Section */}
       <div className="flex flex-col items-end  gap-2">
-      <span className="text-gray-500"><b>Due Date:</b> {formatDate(task.due_date)}</span>
+        <span className="text-gray-500"><b>Due Date:</b> {formatDate(task.due_date)}</span>
         <button
           onClick={() => handleStatus(task)}
           className={`w-36 h-10 rounded-md text-sm font-medium text-white shadow-md transition-all duration-200 flex items-center justify-center ${task.status === "in_progress"
-              ? "bg-blue-500 hover:bg-blue-600"
-              : "bg-green-500 hover:bg-green-600"
+            ? "bg-blue-500 hover:bg-blue-600"
+            : "bg-green-500 hover:bg-green-600"
             }`}
         >
           {task.status === "in_progress" ? "In Progress" : "Completed"}

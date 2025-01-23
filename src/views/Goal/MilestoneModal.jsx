@@ -76,11 +76,11 @@ export default function MilestoneModal({ goalId, visible, onClose, update, miles
           <input ref={descriptionRef} type="text" name="" id="" className='outline-none p-2 bg-white/40 rounded-md shadow-sm ring-1 ring-black/5' />
         </div>
 
-        <div className='w-1/2 flex flex-col'>
-          <label htmlFor="">Due Date</label>
-          <input ref={dueRef} type="datetime-local" name="" id="" className='outline-none p-2 bg-white/40 rounded-md shadow-sm ring-1 ring-black/5' />
-        </div>
         <div className="w-full flex flex-row justify-between gap-3">
+          <div className='w-1/2 flex flex-col'>
+            <label htmlFor="">Due Date</label>
+            <input ref={dueRef} type="datetime-local" name="" id="" className='outline-none p-2 bg-white/40 rounded-md shadow-sm ring-1 ring-black/5' />
+          </div>
           <div className='w-1/2 flex flex-col'>
             <label htmlFor="">Priority</label>
             <select ref={priorityRef} defaultValue="high" name="" id="" className='outline-none p-2 bg-white/40 rounded-md shadow-sm ring-1 ring-black/5'>
@@ -89,7 +89,6 @@ export default function MilestoneModal({ goalId, visible, onClose, update, miles
               <option value="low">Low</option>
             </select>
           </div>
-          
         </div>
         <div className="w-full flex flex-row-reverse gap-3">
           <button onClick={onClose}
@@ -98,16 +97,16 @@ export default function MilestoneModal({ goalId, visible, onClose, update, miles
           {update ? (
             <button
               className='bg-white/40 ring-2 ring-black/5 px-3 py-2 rounded-md text-bodyText hover:bg-sidebar hover:text-defaultText'
-              onClick={handleUpdate} // Ensure this function is defined for updating
+              onClick={handleUpdate}
             >
-              Update MileStone
+              Update
             </button>
           ) : (
             <button
               className='bg-white/40 ring-2 ring-black/5 px-3 py-2 rounded-md text-bodyText hover:bg-sidebar hover:text-defaultText'
-              onClick={handleCreate} // Ensure this function is defined for creating
+              onClick={handleCreate}
             >
-              Create MileStone
+              Create
             </button>
           )}
         </div>
