@@ -50,10 +50,9 @@ const Sidebar = () => {
                   : "hover:bg-gray-700 text-gray-100 border-2 border-b-4 border-transparent"
                 }`
               }
-
             >
               <span className="text-lg">🎯</span>
-              <span>Goal</span>
+              <span>Goals</span>
             </NavLink>
           </li>
           <li>
