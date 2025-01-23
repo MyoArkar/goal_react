@@ -1,30 +1,14 @@
 import React, { useState, useEffect } from "react";
-import axiosClient from "../../axiosClient";
 import { useNavigate } from "react-router-dom";
 
-const GoalsAndMilestones = () => {
-  const [goals, setGoals] = useState([]);
+const MileStoneAndTask = ({ milestones }) => {
+  const milestoneList = Object.values(milestones).flat();
   const [showModal, setShowModal] = useState(false);
-  const [loading, setLoading] = useState(true);
+  
   const navigate = useNavigate();
 
-  useEffect(() => {
-    const fetchGoals = async () => {
-      try {
-        const response = await axiosClient.get("/goals/"); // Fetch goals
-        setGoals(response.data.data.data); // Assuming response.data is an array of goals
-      } catch (error) {
-        console.error("Error fetching goals:", error);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchGoals();
-  }, []);
-
   const handleButtonClick = () => {
-    setShowModal(true); // Open the modal
+    setShowModal(true); 
   };
   const handleDetail = (id) => {
     navigate(`/goals/${id}`);
@@ -35,16 +19,14 @@ const GoalsAndMilestones = () => {
 
   return (
     <div className="flex flex-col items-center justify-center min-h-screen  text-white">
-      {loading ? (
-        <p className="text-lg font-semibold">Loading...</p>
-      ) : (
+      
         <div className="text-center">
-          <p className="mb-6 text-gray-400">There is no milestones to show.</p>
+          <p className="mb-6 text-gray-400">There is no Task to show.</p>
           <button
             onClick={handleButtonClick}
             className="bg-blue-500 text-white px-6 py-3 rounded-lg shadow-md hover:bg-blue-600 transition-all"
           >
-            Create a Milestone
+            Create a Task
           </button>
   
           {showModal && (
@@ -56,29 +38,29 @@ const GoalsAndMilestones = () => {
                 >
                   ✕
                 </button>
-                {goals.length > 0 ? (
+                {milestoneList.length > 0 ? (
                   <>
-                    <h2 className="text-lg font-bold mb-4">Select a Goal</h2>
+                    <h2 className="text-lg font-bold mb-4">Select a Milestone</h2>
                     <ul className="space-y-3">
-                      {goals.map((goal) => (
+                      {milestoneList.map((milestone) => (
                         <li
-                          key={goal.id}
+                          key={milestone.id}
                           className="p-3 bg-[#2a2a2a] rounded-lg cursor-pointer hover:bg-gray-700 transition-all"
-                          onClick={() => handleDetail(goal.id)}
+                          onClick={() => handleDetail(milestone.goal_id)}
                         >
-                          {goal.title}
+                          {milestone.title}
                         </li>
                       ))}
                     </ul>
                   </>
                 ) : (
                   <div className="text-center">
-                    <p className="mb-4 text-gray-400">No goals found. Please create a goal first.</p>
+                    <p className="mb-4 text-gray-400">No milestone found. Please create a milestone first.</p>
                     <button
-                      onClick={() => navigate("/goals")}
+                      onClick={() => navigate("/milestones")}
                       className="bg-green-500 text-white px-6 py-3 rounded-lg shadow-md hover:bg-green-600 transition-all"
                     >
-                      Create a Goal
+                      Create a Milestone
                     </button>
                   </div>
                 )}
@@ -86,10 +68,10 @@ const GoalsAndMilestones = () => {
             </div>
           )}
         </div>
-      )}
+      
     </div>
   );
   
 };
 
-export default GoalsAndMilestones;
+export default MileStoneAndTask;

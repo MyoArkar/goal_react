@@ -235,13 +235,17 @@ export default function Goal() {
                             )}
                             {goal.milestone_count == 0 && (
                                 <button
-                                    onClick={() => handleStatus(goal)}
-                                    className={`w-32 h-12 rounded-lg font-bold text-white shadow-md transition-all duration-200 flex items-center justify-center ${goal.status === "in_progress"
-                                        ? "bg-blue-500 hover:bg-blue-600"
-                                        : "bg-green-500 hover:bg-green-600"
-                                        }`}
-                                >
-                                    {goal.status === "in_progress" && <b>In Progress</b>}
+                                onClick={() => handleStatus(goal)}
+                                className={`w-32 h-12 rounded-lg font-bold text-white shadow-md transition-all duration-200 flex items-center justify-center ${
+                                    goal.status === "in_progress" && "bg-blue-500 hover:bg-blue-600"
+                                } ${
+                                    goal.status === "pending" && "bg-blue-500 hover:bg-blue-600"
+                                } ${
+                                    goal.status === "completed" && "bg-green-500 hover:bg-green-600"
+                                }`}
+                                >   
+                                    { goal.status === "pending" && <b>In Progress</b>}
+                                    { goal.status === "in_progress" && <b>In Progress</b>}
                                     {goal.status === "completed" && <b>Completed</b>}
                                 </button>
                             )}
