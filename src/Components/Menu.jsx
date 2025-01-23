@@ -28,7 +28,7 @@ const Menu = () => {
     const handleLogoutConfirm = async () => {
         setIsLoggingOut(true);
         setShowLogoutModal(false);
-        
+
         try {
             const response = await axiosClient.post("/auth/logout");
             if (response.status === 200) {
@@ -54,8 +54,9 @@ const Menu = () => {
     };
 
     const menus = [
-        { name: "Goal", link: "/goals", icon: GoGoal },
+
         { name: "Profile", link: "/profile", icon: AiOutlineUser },
+        { name: "Goal", link: "/goals", icon: GoGoal },
         { name: "Milestone", link: "/milestones", icon: VscMilestone },
         { name: "Task", link: "/tasks", icon: GoTasklist },
         { name: "My Progress", link: "/progress", icon: GiProgression, margin: true },
@@ -65,36 +66,9 @@ const Menu = () => {
 
     return (
         <section className="flex overflow-x-hidden w-full font-Pridi">
-            {/* Logout Confirmation Modal */}
-            {showLogoutModal && (
-                <div className="flex fixed inset-0 z-50 justify-center items-center bg-black bg-opacity-50">
-                    <div className="p-6 w-96 bg-white rounded-lg shadow-xl">
-                        <h2 className="mb-4 text-xl font-semibold text-gray-800">Confirm Logout</h2>
-                        <p className="mb-6 text-gray-600">Are you sure you want to logout?</p>
-                        <div className="flex justify-end space-x-4">
-                            <button
-                                onClick={handleLogoutCancel}
-                                className="px-4 py-2 font-medium text-gray-600 hover:text-gray-800"
-                            >
-                                Cancel
-                            </button>
-                            <button
-                                onClick={handleLogoutConfirm}
-                                disabled={isLoggingOut}
-                                className={`px-4 py-2 bg-red-500 text-white rounded hover:bg-red-600 font-medium ${
-                                    isLoggingOut ? 'opacity-50 cursor-not-allowed' : ''}`}
-                            >
-                                {isLoggingOut ? 'Logging out...' : 'Logout'}
-                            </button>
-                        </div>
-                    </div>
-                </div>
-            )}
-
             <div
-                className={`fixed left-0 top-0 h-screen bg-sidebar py-5 ${
-                    open ? "w-72" : "w-16"
-                } duration-500 text-gray-100 px-4 z-40 overflow-y-auto scrollbar-thin scrollbar-track-transparent scrollbar-thumb-gray-600`}
+                className={`fixed left-0 top-0 h-screen bg-sidebar overflow-x-hidden py-5 ${open ? "w-72" : "w-16"
+                    } duration-500 text-gray-100 px-4 z-40 overflow-y-auto scrollbar-thin scrollbar-track-transparent scrollbar-thumb-gray-600`}
             >
                 <div className="flex justify-end">
                     {open ? (
@@ -131,9 +105,8 @@ const Menu = () => {
                                     style={{
                                         transitionDelay: `${i + 3}00ms`,
                                     }}
-                                    className={`whitespace-pre duration-500 ${
-                                        !open && "opacity-0 translate-x-28 overflow-hidden"
-                                    }`}
+                                    className={`whitespace-pre duration-500 ${!open && "opacity-0 translate-x-28 overflow-hidden"
+                                        }`}
                                 >
                                     {isLoggingOut ? 'Logging out...' : menu.name}
                                 </h2>
@@ -154,16 +127,14 @@ const Menu = () => {
                                     style={{
                                         transitionDelay: `${i + 3}00ms`,
                                     }}
-                                    className={`whitespace-pre duration-500 ${
-                                        !open && "opacity-0 translate-x-28 overflow-hidden"
-                                    }`}
+                                    className={`whitespace-pre duration-500 ${!open && "opacity-0 translate-x-28 overflow-hidden"
+                                        }`}
                                 >
                                     {menu.name}
                                 </h2>
                                 <div
-                                    className={`${
-                                        open && "hidden"
-                                    } absolute left-14 bg-white text-gray-900 px-2 py-1 rounded-md shadow-md whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity duration-300`}
+                                    className={`${open && "hidden"
+                                        } absolute left-14 bg-white text-gray-900 px-2 py-1 rounded-md shadow-md whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity duration-300`}
                                 >
                                     {menu.name}
                                 </div>
@@ -173,8 +144,8 @@ const Menu = () => {
                 </div>
                 {open ? <Calendar open={open} className="" /> :
                     <div className="relative group/icon">
-                        <FaRegCalendarAlt 
-                            className="flex items-center mt-5 ml-2 cursor-pointer" 
+                        <FaRegCalendarAlt
+                            className="flex items-center mt-5 ml-2 cursor-pointer"
                             size={20}
                             onClick={() => setOpen(true)}
                         />
@@ -185,10 +156,9 @@ const Menu = () => {
                 }
             </div>
 
-            <div 
-                className={`flex-1 transition-all duration-500 ${
-                    open ? "ml-72" : "ml-16"
-                }`}
+            <div
+                className={`flex-1 transition-all duration-500 ${open ? "ml-72" : "ml-16"
+                    }`}
             >
                 <div className="min-h-screen">
                     <Outlet />

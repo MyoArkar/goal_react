@@ -7,7 +7,8 @@ import { MdManageSearch } from "react-icons/md";
 import { BsPlusCircleDotted } from "react-icons/bs";
 import { GrUpdate } from "react-icons/gr";
 import { AiOutlineDelete } from "react-icons/ai";
-import { motion } from 'framer-motion';
+import { easeIn, easeInOut, motion } from 'framer-motion';
+import { duration } from '@mui/material';
 export default function Goal() {
     const [goals, setGoals] = useState([]);
     const [active, setActive] = useState('All');
@@ -16,9 +17,6 @@ export default function Goal() {
     const [selectedGoal, setSelectedGoal] = useState(null);
     const [searchQuery, setSearchQuery] = useState('');
     const navigate = useNavigate();
-
-
-
     const fetchGoals = async () => {
         try {
             const { data } = await axiosClient.get("/goals");
@@ -129,9 +127,7 @@ export default function Goal() {
 
         return filtered;
     };
-
     const filteredGoals = filterGoals();
-
     return (
         <div className='w-full px-10 py-5 mx-auto gap-10 flex flex-col min-h-screen'
         >
@@ -240,13 +236,12 @@ export default function Goal() {
                             {goal.milestone_count == 0 && (
                                 <button
                                     onClick={() => handleStatus(goal)}
-                                    className={`w-32 h-12 rounded-lg font-bold text-white shadow-md transition-all duration-200 flex items-center justify-center ${
-                                        goal.status === "in_progress"
-                                            ? "bg-blue-500 hover:bg-blue-600"
-                                            : "bg-green-500 hover:bg-green-600"
+                                    className={`w-32 h-12 rounded-lg font-bold text-white shadow-md transition-all duration-200 flex items-center justify-center ${goal.status === "in_progress"
+                                        ? "bg-blue-500 hover:bg-blue-600"
+                                        : "bg-green-500 hover:bg-green-600"
                                         }`}
                                 >
-                                    { goal.status === "in_progress" && <b>In Progress</b>}
+                                    {goal.status === "in_progress" && <b>In Progress</b>}
                                     {goal.status === "completed" && <b>Completed</b>}
                                 </button>
                             )}

@@ -108,14 +108,14 @@ export default function Model({ visible, onClose, update, goal }) {
                             className='bg-white/40 ring-2 ring-black/5 px-3 py-2 rounded-md text-bodyText hover:bg-sidebar hover:text-defaultText'
                             onClick={handleUpdate} // Ensure this function is defined for updating
                         >
-                            Update Goal
+                            Update
                         </button>
                     ) : (
                         <button
                             className='bg-white/40 ring-2 ring-black/5 px-3 py-2 rounded-md text-bodyText hover:bg-sidebar hover:text-defaultText'
                             onClick={handleCreate} // Ensure this function is defined for creating
                         >
-                            Create Goal
+                            Create
                         </button>
                     )}
                 </div>

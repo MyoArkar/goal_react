@@ -154,8 +154,8 @@ export default function GoalDetail() {
           </div>
         </div>
       </motion.div>
-      
-      <div className='flex flex-col gap-5'>
+
+      <div className='flex flex-col gap-5 shadow-lg'>
         <motion.button whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.6 }} onClick={handleCreateClick} class="bg-slate-950 rounded-md text-sm text-defaultText flex items-center justify-between py-2 px-3">
           <span className='text-[12px]'>Add New Milestone</span>
           <BsPlusCircleDotted />
