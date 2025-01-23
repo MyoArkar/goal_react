@@ -27,7 +27,7 @@ const Menu = () => {
             <div
                 className={`fixed left-0 top-0 h-screen bg-sidebar py-5 ${
                     open ? "w-72" : "w-16"
-                } duration-500 text-gray-100 px-4 z-50 overflow-y-auto scrollbar-thin scrollbar-track-transparent scrollbar-thumb-gray-600`}
+                } duration-500 text-gray-100 px-4 z-40 overflow-y-auto scrollbar-thin scrollbar-track-transparent scrollbar-thumb-gray-600`}
             >
                 <div className="flex justify-end">
                     {open ? (
@@ -50,9 +50,14 @@ const Menu = () => {
                         <Link
                             to={menu.link}
                             key={i}
-                            className={`group flex items-center text-sm gap-3.5 font-medium p-2 hover:bg-gray-800 rounded-md`}
+                            className="group flex items-center text-sm gap-3.5 font-medium p-2 hover:bg-gray-800 rounded-md"
                         >
-                            <div>{React.createElement(menu.icon, { size: "20" })}</div>
+                            <div className="relative group/icon">
+                                <div>{React.createElement(menu.icon, { size: "20" })}</div>
+                                <span className={`${open ? 'hidden' : ''} fixed ml-16 bg-gray-800 text-white text-xs px-2 py-1 rounded-md opacity-0 group-hover/icon:opacity-100 transition-opacity duration-300 whitespace-nowrap z-50 min-w-[120px] shadow-lg`}>
+                                    {menu.name}
+                                </span>
+                            </div>
                             <h2
                                 style={{
                                     transitionDelay: `${i + 3}00ms`,
@@ -63,19 +68,28 @@ const Menu = () => {
                             >
                                 {menu.name}
                             </h2>
-                            <h2
+                            <div
                                 className={`${
                                     open && "hidden"
-                                } absolute left-40 bg-white font-semibold whitespace-pre text-gray-900 rounded-md drop-shadow-lg px-0 py-0 w-0 overflow-hidden group-hover:px-2 group-hover:py-1 group-hover:left-14 group-hover:duration-300 group-hover:w-fit`}
+                                } absolute left-14 bg-white text-gray-900 px-2 py-1 rounded-md shadow-md whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity duration-300`}
                             >
                                 {menu.name}
-                            </h2>
+                            </div>
                         </Link>
                     ))}
                 </div>
                 {open ? <Calendar open={open} className="" /> :
-                    <FaRegCalendarAlt className="flex items-center mt-5 ml-2 cursor-pointer" size={20}
-                    />}
+                    <div className="relative group/icon">
+                        <FaRegCalendarAlt 
+                            className="flex items-center mt-5 ml-2 cursor-pointer" 
+                            size={20}
+                            onClick={() => setOpen(true)}
+                        />
+                        <span className="fixed ml-16 bg-gray-800 text-white text-xs px-2 py-1 rounded-md opacity-0 group-hover/icon:opacity-100 transition-opacity duration-300 whitespace-nowrap z-50 shadow-lg">
+                            Calendar
+                        </span>
+                    </div>
+                }
             </div>
 
             {/* Main Content with Left Margin */}
@@ -84,7 +98,7 @@ const Menu = () => {
                     open ? "ml-72" : "ml-16"
                 }`}
             >
-                <div className="p-4 min-h-screen">
+                <div className="min-h-screen">
                     <Outlet />
                 </div>
             </div>

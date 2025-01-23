@@ -20,7 +20,7 @@ const Sidebar = () => {
   };
 
   return (
-    <div className="h-full flex flex-col border-r border-gray-600">
+    <div className="flex flex-col h-full border-r border-gray-600">
       <div className="p-6">
         <h1 className="text-2xl font-bold text-gray-100">My App</h1>
       </div>
@@ -91,7 +91,7 @@ const Sidebar = () => {
         href="#"
         onClick={onLogout}
 
-        className="text-red-500 hover:text-red-700 transition-colors p-4"
+        className="p-4 text-red-500 transition-colors hover:text-red-700"
       
       >
         Logout

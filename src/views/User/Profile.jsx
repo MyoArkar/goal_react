@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import { useStateContext } from '../../contexts/contextprovider';
-import axiosClient from '../../axiosClient';
 import { motion } from 'framer-motion';
 import LoadingSpinner from './components/LoadingSpinner';
 import ProfileHeader from './components/ProfileHeader';
@@ -9,31 +8,18 @@ import PersonalInfo from './components/PersonalInfo';
 import AccountStatus from './components/AccountStatus';
 
 export default function Profile() {
-    const [userData, setUserData] = useState(null);
     const [imageError, setImageError] = useState(false);
-    const { setUser } = useStateContext();
-
-    const fetchUserData = async () => {
-        try {
-            const { data } = await axiosClient.get('/auth/profile');
-            setUserData(data.data);
-            setUser(data.data);
-            setImageError(false);
-        } catch (error) {
-            console.error("Error fetching user profile:", error);
-            alert("Failed to fetch user profile. Please try again.");
-        }
-    };
+    const { user, refreshUserData } = useStateContext();
 
     useEffect(() => {
-        fetchUserData();
-    }, []);
+        refreshUserData();
+    }, [refreshUserData]);
 
     const handleImageError = () => {
         setImageError(true);
     };
 
-    if (!userData) {
+    if (!user) {
         return <LoadingSpinner />;
     }
 
@@ -41,7 +27,7 @@ export default function Profile() {
         <div className="w-full min-h-screen bg-gray-50">
             <ProfileHeader>
                 <ProfilePicture 
-                    userData={userData} 
+                    userData={user} 
                     imageError={imageError} 
                     onImageError={handleImageError}
                 />
@@ -57,13 +43,18 @@ export default function Profile() {
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ delay: 0.2 }}
                     >
-                        <h1 className="text-3xl font-bold text-gray-900">{userData.name}</h1>
-                        <p className="mt-2 text-lg text-gray-600">{userData.email}</p>
+                        <h1 className="text-3xl font-bold text-gray-900">{user.name}</h1>
+                        <p className="mt-2 text-lg text-gray-600">{user.email}</p>
                     </motion.div>
 
                     {/* Profile Information */}
                     <div className="grid grid-cols-1 gap-8 sm:grid-cols-2">
-                        <PersonalInfo userData={userData} />
+                        <PersonalInfo 
+                            userData={user} 
+                            onUpdate={async (updatedData) => {
+                                await refreshUserData();
+                            }} 
+                        />
                         <AccountStatus />
                     </div>
                 </div>

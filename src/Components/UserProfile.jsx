@@ -1,34 +1,21 @@
 import React, { useEffect, useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-import axiosClient from '../axiosClient';
 import { useStateContext } from '../contexts/contextprovider';
 
 export default function UserProfile({ open }) {
-    const [userData, setUserData] = useState(null);
     const [showTooltip, setShowTooltip] = useState(false);
     const [imageError, setImageError] = useState(false);
-    const { setUser } = useStateContext();
-
-    const fetchUserData = async () => {
-        try {
-            const { data } = await axiosClient.get('/auth/profile');
-            setUserData(data.data);
-            setUser(data.data);
-            setImageError(false);
-        } catch (error) {
-            console.error("Error fetching user profile:", error);
-        }
-    };
+    const { user, refreshUserData } = useStateContext();
 
     useEffect(() => {
-        fetchUserData();
-    }, []);
+        refreshUserData();
+    }, [refreshUserData]);
 
     const handleImageError = () => {
         setImageError(true);
     };
 
-    if (!userData) {
+    if (!user) {
         return (
             <motion.div 
                 className={`mt-4 flex items-center gap-4 ${open ? "transition-all duration-300 delay-200" : "-ml-2 transition-all duration-300 delay-100"}`}
@@ -57,17 +44,17 @@ export default function UserProfile({ open }) {
                     whileHover={{ scale: 1.1 }}
                     className="min-w-[3rem] h-[3rem] p-1 relative group overflow-hidden"
                 >
-                    {userData.profile_picture && !imageError ? (
+                    {user.profile_picture && !imageError ? (
                         <img 
-                            src={userData.profile_picture}
-                            alt={userData.name}
+                            src={user.profile_picture}
+                            alt={user.name}
                             onError={handleImageError}
                             className='object-cover w-full h-full rounded-full ring-2 ring-sky-500 ring-offset-2 transition-all duration-300'
                         />
                     ) : (
                         <div className='flex justify-center items-center w-full h-full bg-gradient-to-br from-sky-400 to-sky-600 rounded-full ring-2 ring-sky-500 ring-offset-2 transition-all duration-300'>
                             <span className="text-xl font-bold text-white select-none">
-                                {userData.name?.charAt(0)?.toUpperCase()}
+                                {user.name?.charAt(0)?.toUpperCase()}
                             </span>
                         </div>
                     )}
@@ -81,9 +68,9 @@ export default function UserProfile({ open }) {
                     ${open ? "w-auto opacity-100 duration-500 delay-200" : "w-0 opacity-0 duration-200 delay-100"}`}
                 >
                     <h2 className='text-[1.1rem] text-white truncate max-w-[120px] font-medium'>
-                        {userData.name}
+                        {user.name}
                     </h2>
-                    <span className='text-[0.75rem] text-white/50 truncate max-w-[120px]'>{userData.email}</span>
+                    <span className='text-[0.75rem] text-white/50 truncate max-w-[120px]'>{user.email}</span>
                 </div>
             </motion.div>
 
@@ -99,17 +86,12 @@ export default function UserProfile({ open }) {
                             top: '50%',
                             transform: 'translateY(-50%)',
                             maxWidth: '300px',
-                            wordBreak: 'break-word'
                         }}
                     >
-                        <div className="font-medium">{userData.name}</div>
-                        <div className="mt-1 text-xs text-gray-500">{userData.email}</div>
-                        <div className="absolute left-0 top-1/2 -translate-x-1/2 -translate-y-1/2">
-                            <div className="w-2 h-2 bg-white rotate-45"></div>
-                        </div>
+                        View Profile
                     </motion.div>
                 )}
             </AnimatePresence>
         </div>
-    )
+    );
 }
