@@ -123,7 +123,7 @@ const Menu = () => {
                             >
                                 <div className="relative group/icon">
                                     <div>{React.createElement(menu.icon, { size: "20" })}</div>
-                                    <span className={`${open ? 'hidden' : ''} fixed z-50 px-2 py-1 ml-16 text-xs text-white whitespace-nowrap bg-gray-800 rounded-md shadow-lg opacity-0 transition-opacity duration-300 group-hover/icon:opacity-100 min-w-[120px]`}>
+                                    <span className={`${open ? 'hidden' : ''} fixed z-50 px-2 py-1 ml-16 text-xs text-white whitespace-nowrap bg-gray-800 rounded-md shadow-lg opacity-0 group-hover/icon:opacity-100 transition-opacity duration-300 min-w-[120px]`}>
                                         {menu.name}
                                     </span>
                                 </div>
@@ -146,7 +146,7 @@ const Menu = () => {
                             >
                                 <div className="relative group/icon">
                                     <div>{React.createElement(menu.icon, { size: "20" })}</div>
-                                    <span className={`${open ? 'hidden' : ''} fixed z-50 px-2 py-1 ml-16 text-xs text-white whitespace-nowrap bg-gray-800 rounded-md shadow-lg opacity-0 transition-opacity duration-300 group-hover/icon:opacity-100 min-w-[120px]`}>
+                                    <span className={`${open ? 'hidden' : ''} fixed z-50 px-2 py-1 ml-16 text-xs text-white whitespace-nowrap bg-gray-800 rounded-md shadow-lg opacity-0 group-hover/icon:opacity-100 transition-opacity duration-300 min-w-[120px]`}>
                                         {menu.name}
                                     </span>
                                 </div>
@@ -178,7 +178,7 @@ const Menu = () => {
                             size={20}
                             onClick={() => setOpen(true)}
                         />
-                        <span className="fixed z-50 px-2 py-1 ml-16 text-xs text-white whitespace-nowrap bg-gray-800 rounded-md shadow-lg opacity-0 transition-opacity duration-300 group-hover/icon:opacity-100">
+                        <span className="fixed z-50 px-2 py-1 ml-16 text-xs text-white whitespace-nowrap bg-gray-800 rounded-md shadow-lg opacity-0 group-hover/icon:opacity-100 transition-opacity duration-300">
                             Calendar
                         </span>
                     </div>
