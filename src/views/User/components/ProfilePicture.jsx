@@ -1,11 +1,13 @@
 import { motion } from 'framer-motion';
-import { useState, useRef } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import axiosClient from '../../../axiosClient';
 import { useStateContext } from '../../../contexts/contextprovider';
+import { PROFILE_PICTURE_UPDATE } from '../../../Components/UserProfile';
 
 export default function ProfilePicture({ userData, imageError, onImageError }) {
     const [isUploading, setIsUploading] = useState(false);
     const [uploadError, setUploadError] = useState('');
+    const [localImageUrl, setLocalImageUrl] = useState(null);
     const fileInputRef = useRef(null);
     const { refreshUserData } = useStateContext();
 
@@ -25,6 +27,15 @@ export default function ProfilePicture({ userData, imageError, onImageError }) {
             return;
         }
 
+        // Create local URL for immediate display
+        const localUrl = URL.createObjectURL(file);
+        setLocalImageUrl(localUrl);
+
+        // Dispatch event for real-time updates
+        window.dispatchEvent(new CustomEvent(PROFILE_PICTURE_UPDATE, {
+            detail: { localUrl }
+        }));
+
         setIsUploading(true);
         setUploadError('');
 
@@ -41,10 +52,20 @@ export default function ProfilePicture({ userData, imageError, onImageError }) {
         } catch (error) {
             console.error('Error uploading image:', error);
             setUploadError(error.response?.data?.message || 'Failed to upload image');
+            setLocalImageUrl(null); // Reset local image on error
         } finally {
             setIsUploading(false);
         }
     };
+
+    // Cleanup function for local URL
+    useEffect(() => {
+        return () => {
+            if (localImageUrl) {
+                URL.revokeObjectURL(localImageUrl);
+            }
+        };
+    }, [userData]);
 
     return (
         <motion.div 
@@ -63,10 +84,10 @@ export default function ProfilePicture({ userData, imageError, onImageError }) {
 
             {/* Profile Picture */}
             <div className="relative cursor-pointer" onClick={() => fileInputRef.current?.click()}>
-                {userData.profile_picture && !imageError ? (
+                {(localImageUrl || (userData.profile_picture && !imageError)) ? (
                     <div className="relative">
                         <img 
-                            src={userData.profile_picture} 
+                            src={localImageUrl || userData.profile_picture} 
                             alt={userData.name}
                             onError={onImageError}
                             className="object-cover w-48 h-48 rounded-full ring-4 ring-white shadow-2xl transition-transform duration-300"
