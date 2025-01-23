@@ -19,9 +19,11 @@ const Menu = () => {
     const navigate = useNavigate();
     const [isLoggingOut, setIsLoggingOut] = useState(false);
     const [showLogoutModal, setShowLogoutModal] = useState(false);
+    const [open, setOpen] = useState(true);
 
     const handleLogoutClick = (e) => {
         e.preventDefault();
+        console.log('Logout clicked');
         setShowLogoutModal(true);
     };
 
@@ -30,16 +32,17 @@ const Menu = () => {
         setShowLogoutModal(false);
 
         try {
-            const response = await axiosClient.post("/auth/logout");
-            if (response.status === 200) {
-                localStorage.clear();
-                setUser(null);
-                setToken(null);
-                navigate('/login');
-            }
+            await axiosClient.post("/auth/logout");
+            localStorage.clear();
+            setUser(null);
+            setToken(null);
+            navigate('/login');
         } catch (error) {
             console.error("Logout error:", error);
-            // Force logout even if API call fails
+            if (error.response?.data?.message) {
+                console.error("Server error:", error.response.data.message);
+            }
+            // Force logout for security even if API call fails
             localStorage.clear();
             setUser(null);
             setToken(null);
@@ -54,7 +57,6 @@ const Menu = () => {
     };
 
     const menus = [
-
         { name: "Profile", link: "/profile", icon: AiOutlineUser },
         { name: "Goal", link: "/goals", icon: GoGoal },
         { name: "Milestone", link: "/milestones", icon: VscMilestone },
@@ -62,10 +64,35 @@ const Menu = () => {
         { name: "My Progress", link: "/progress", icon: GiProgression, margin: true },
         { name: "Log out", onClick: handleLogoutClick, icon: RiLogoutCircleLine },
     ];
-    const [open, setOpen] = useState(true);
 
     return (
         <section className="flex overflow-x-hidden w-full font-Pridi">
+            {/* Logout Confirmation Modal */}
+            {showLogoutModal && (
+                <div className="fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center">
+                    <div className="bg-white rounded-lg p-6 max-w-sm w-full mx-4">
+                        <h3 className="text-lg font-semibold text-gray-900 mb-4">Confirm Logout</h3>
+                        <p className="text-gray-600 mb-6">Are you sure you want to logout?</p>
+                        <div className="flex justify-end gap-4">
+                            <button
+                                onClick={handleLogoutCancel}
+                                className="px-4 py-2 text-gray-600 hover:text-gray-800 font-medium rounded-md"
+                            >
+                                Cancel
+                            </button>
+                            <button
+                                onClick={handleLogoutConfirm}
+                                disabled={isLoggingOut}
+                                className={`px-4 py-2 bg-red-600 text-white rounded-md hover:bg-red-700 font-medium ${
+                                    isLoggingOut ? 'opacity-50 cursor-not-allowed' : ''
+                                }`}
+                            >
+                                {isLoggingOut ? 'Logging out...' : 'Logout'}
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            )}
             <div
                 className={`fixed left-0 top-0 h-screen bg-sidebar overflow-x-hidden py-5 ${open ? "w-72" : "w-16"
                     } duration-500 text-gray-100 px-4 z-40 overflow-y-auto scrollbar-thin scrollbar-track-transparent scrollbar-thumb-gray-600`}
@@ -97,7 +124,7 @@ const Menu = () => {
                             >
                                 <div className="relative group/icon">
                                     <div>{React.createElement(menu.icon, { size: "20" })}</div>
-                                    <span className={`${open ? 'hidden' : ''} fixed z-50 px-2 py-1 ml-16 text-xs text-white whitespace-nowrap bg-gray-800 rounded-md shadow-lg opacity-0 group-hover/icon:opacity-100 transition-opacity duration-300 min-w-[120px]`}>
+                                    <span className={`${open ? 'hidden' : 'fixed'} z-50 px-2 py-1 ml-16 text-xs text-white whitespace-nowrap bg-gray-800 rounded-md shadow-lg opacity-0 transition-opacity duration-300 group-hover/icon:opacity-100 min-w-[120px]`}>
                                         {menu.name}
                                     </span>
                                 </div>
@@ -119,7 +146,7 @@ const Menu = () => {
                             >
                                 <div className="relative group/icon">
                                     <div>{React.createElement(menu.icon, { size: "20" })}</div>
-                                    <span className={`${open ? 'hidden' : ''} fixed z-50 px-2 py-1 ml-16 text-xs text-white whitespace-nowrap bg-gray-800 rounded-md shadow-lg opacity-0 group-hover/icon:opacity-100 transition-opacity duration-300 min-w-[120px]`}>
+                                    <span className={`${open ? 'hidden' : 'fixed'} z-50 px-2 py-1 ml-16 text-xs text-white whitespace-nowrap bg-gray-800 rounded-md shadow-lg opacity-0 transition-opacity duration-300 group-hover/icon:opacity-100 min-w-[120px]`}>
                                         {menu.name}
                                     </span>
                                 </div>
@@ -149,7 +176,7 @@ const Menu = () => {
                             size={20}
                             onClick={() => setOpen(true)}
                         />
-                        <span className="fixed z-50 px-2 py-1 ml-16 text-xs text-white whitespace-nowrap bg-gray-800 rounded-md shadow-lg opacity-0 group-hover/icon:opacity-100 transition-opacity duration-300">
+                        <span className="fixed z-50 px-2 py-1 ml-16 text-xs text-white whitespace-nowrap bg-gray-800 rounded-md shadow-lg opacity-0 transition-opacity duration-300 group-hover/icon:opacity-100">
                             Calendar
                         </span>
                     </div>
