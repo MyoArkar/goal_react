@@ -20,7 +20,7 @@ const TasksList = () => {
       const goalsData = goalsResponse.data.data.data;
 
       // Fetch milestones for each goal
-     
+
       const tasksData = {};
       for (const goal of goalsData) {
         const milestonesResponse = await axiosClient.get(`/goals/${goal.id}/milestones`);
@@ -110,11 +110,11 @@ const TasksList = () => {
         }
       });
     }
-    
+
     fetchData();
   }
   useEffect(() => {
-    
+
 
     fetchData();
   }, []);
@@ -126,17 +126,16 @@ const TasksList = () => {
   const hasTasks = Object.values(tasks).some((taskList) => taskList.length > 0);
 
   return (
-    <div className="w-full px-10 py-5 mx-auto  flex flex-col min-h-screen bg-[#0e0e0e] text-white">
+    <div className="w-full px-10 py-5 mx-auto gap-10 flex flex-col min-h-screen">
       {selectedTask && (
-         <TaskModal
-                milestoneId={selectedTask.milestone_id}
-                visible={showModel}
-                onClose={handleClose}
-                update={true}
-                task={selectedTask}
-              />
+        <TaskModal
+          milestoneId={selectedTask.milestone_id}
+          visible={showModel}
+          onClose={handleClose}
+          update={true}
+          task={selectedTask}
+        />
       )}
-      <h1 className="text-2xl font-bold mb-4 text-center">Tasks</h1>
 
       {hasTasks ? (
         <div>
@@ -151,12 +150,12 @@ const TasksList = () => {
                         {tasks[milestone.id].map((task) => (
                           <li
                             key={task.id}
-                            className="p-3 bg-[#2a2a2a] rounded-lg hover:bg-gray-700 transition-all mb-4 flex justify-between"
+                            className="p-3  rounded-lg hover:bg-gray-700 transition-all mb-4 flex justify-between"
                           >
                             <div className="flex justify-between items-center">
                               <div>
                                 <div className="flex gap-2">
-                                  <h4 className="font-bold text-2xl">{task.title}</h4>
+                                  <h4 className="font-semibold text-lg">{task.title}</h4>
                                   <span
                                     className={`capitalize px-1 h-[20px] rounded-lg text-xs ${task.priority === "high"
                                       ? "bg-red-500 text-white"
@@ -201,7 +200,7 @@ const TasksList = () => {
                               <div>
 
 
-                              <button
+                                <button
                                   onClick={() => handleStatus(task)}
                                   className={`w-32 h-12 rounded-lg font-bold text-white shadow-md transition-all duration-200 flex items-center justify-center ${task.status === "in_progress" && "bg-blue-500 hover:bg-blue-600"
                                     } ${task.status === "pending" && "bg-blue-500 hover:bg-blue-600"
@@ -227,7 +226,7 @@ const TasksList = () => {
 
       ) : (
         <div className="text-center">
-        <MileStoneAndTask milestones={milestones}/>
+          <MileStoneAndTask milestones={milestones} />
         </div>
       )}
     </div>

@@ -114,7 +114,7 @@ const Milestone = () => {
         }
         fetchData();
     }
-    
+
     useEffect(() => {
         fetchData();
     }, []);
@@ -127,51 +127,42 @@ const Milestone = () => {
     const hasMilestones = Object.values(milestones).some((m) => m.length > 0);
 
     return (
-        <div className="w-full px-10 py-5 mx-auto flex flex-col min-h-screen bg-[#0e0e0e] text-[#ffffff]">
-            
+        <div className="w-full px-10 py-5 mx-auto flex flex-col min-h-screen">
+
             {selectedMile && (<MilestoneModal
                 goalId={selectedMile.goal_id}
                 visible={showModel}
                 onClose={handleClose}
                 update={true}
                 milestone={selectedMile} />)}
-            <h1 className="text-2xl text-[#ffffff] font-bold mb-6 text-center">Milestones</h1>
-
             {hasMilestones ? (
 
                 goals.map(
                     (goal) =>
                         milestones[goal.id]?.length > 0 && (
-                            <div key={goal.id}>
-                                <ul className="list-disc pl-6 w-full  border-gray-500 rounded-lg ">
+                            <div key={goal.id} className=" flex flex-col items-center">
+                                <ul className="list-none  rounded-md w-[80%]  ">
                                     {milestones[goal.id].map((milestone) => (
                                         <li
                                             key={milestone.id}
-                                            className="bg-[#1a1a1a] text-white overflow-hidden mb-4 rounded-lg  shadow-lg flex justify-between items-center p-4 
+                                            className="bg-white/10 ring-1 ring-black/5 text-sm  rounded-md  shadow-lg grid grid-cols-3 place-content-center px-5 py-4 mb-5 relative
                                             "
                                         >
-                                            <div className="w-2/3">
-                                                <div className="flex justify-between items-center mb-2">
-                                                    <h3 className="text-2xl font-semibold">{milestone.title}</h3>
-                                                    <span className="text-gray-400">
-                                                        <b>Due Date:</b> {formatDate(milestone.due_date) || "N/A"}
-                                                    </span>
+                                            <div className=" flex flex-col justify-center items-start text-slate-700 gap-3">
+                                                <h3 className="text-sm font-semibold">{milestone.title}</h3>
+                                                <p className="w-2/3 h-[60px] overflow-scroll no-scrollbar">{milestone.description || "No description provided."} Lorem ipsum dolor sit amet consectetur adipisicing elit. Quas odio facere autem eligendi dolores adipisci perferendis voluptatum debitis velit sapiente quo est, consequatur, necessitatibus vero nostrum laudantium. Quod, ratione delectus?</p>
+                                                <div className=" flex gap-3 items-center text-sm font-semibold">
+                                                    <b className="">Task Count</b>
+                                                    <p className="">{milestone.task_count}</p>
                                                 </div>
-
-                                                <div className="flex justify-between items-center">
-                                                    <p className="w-2/3 h-[60px] overflow-scroll no-scrollbar text-sm text-gray-400">{milestone.description || "No description provided."} Lorem ipsum dolor sit amet consectetur adipisicing elit. Quas odio facere autem eligendi dolores adipisci perferendis voluptatum debitis velit sapiente quo est, consequatur, necessitatibus vero nostrum laudantium. Quod, ratione delectus?</p>
-                                                    <div className="text-gray-400 flex justify-start items-center">
-                                                        <b className="text-xl pr-4">Task Count</b>
-                                                        <p className="text-xl font-bold">{milestone.task_count}</p>
-                                                    </div>
-                                                </div>
-
-
-
+                                                <span className="">
+                                                    <b>Due Date:</b> {formatDate(milestone.due_date) || "N/A"}
+                                                </span>
                                             </div>
-                                            <div className="text-sm flex flex-col justify-between gap-4">
+                                            {/* 2sec */}
+                                            <div className="text-sm flex flex-col justify-center items-center gap-4 ">
                                                 <span
-                                                    className={`capitalize w-[150px] px-4 py-3 rounded text-sm text-center font-bold ${milestone.priority === "high"
+                                                    className={`capitalize w-[150px] px-4 py-3 rounded text-sm text-center  ${milestone.priority === "high"
                                                         ? "bg-red-500 text-white"
                                                         : milestone.priority === "medium"
                                                             ? "bg-yellow-500 text-black"
@@ -184,7 +175,7 @@ const Milestone = () => {
                                                     {(milestone.task_count > 0 && milestone.status != 'completed') && (
                                                         <button
                                                             onClick={() => handleDetail(milestone.goal_id)}
-                                                            className="capitalize w-[150px] px-4 py-3 rounded text-sm text-center font-bold bg-purple-500 hover:bg-purple-600"
+                                                            className="capitalize w-[150px] px-4 py-3 rounded text-sm text-center bg-purple-500 hover:bg-purple-600"
                                                         >
                                                             In Progress
                                                         </button>
@@ -211,8 +202,9 @@ const Milestone = () => {
                                                     )}
                                                 </div>
                                             </div>
+                                            {/* 3rd sec */}
 
-                                            <div className=" text-center text-2xl relative">
+                                            <div className=" text-center text-2xl  flex items-center justify-center">
                                                 <div className="w-[100px] h-[100px]">
                                                     <CircularProgressbar value={milestone.progress_percentage} text={`${milestone.progress_percentage}%`} styles={buildStyles({
                                                         pathColor: "#fcd34d",
@@ -221,13 +213,10 @@ const Milestone = () => {
                                                     })} />
                                                 </div>
                                             </div>
-                                            <div className="group">
-
+                                            <div className="group flex justify-center items-center absolute top-3 right-3">
                                                 <span className="cursor-pointer">
                                                     <ion-icon name="ellipsis-horizontal-outline"></ion-icon>
                                                 </span>
-
-
                                                 <div className="absolute z-30  p-2 bg-white border rounded shadow-md opacity-0 group-hover:opacity-100 transition-opacity duration-200">
                                                     <span
                                                         onClick={() => handleUpdateClick(milestone)}
