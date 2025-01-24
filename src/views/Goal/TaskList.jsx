@@ -10,7 +10,10 @@ export default function TaskList({ milestoneId, task, taskUpdate, taskDelete, fe
       };
 
       axiosClient.put(`milestones/${milestoneId}/tasks/${task.id}`, payload).then(() => {
-        console.log('Status Updated')
+        console.log('Status Updated');
+        fetchGoal();
+        fetchMilestoneList();
+        fetchTaksList();
       }).catch(err => {
         const response = err.response;
         if (response && response.status === 422) {
@@ -24,7 +27,10 @@ export default function TaskList({ milestoneId, task, taskUpdate, taskDelete, fe
       };
 
       axiosClient.put(`milestones/${milestoneId}/tasks/${task.id}`, payload).then(() => {
-        console.log('Status Updated')
+        console.log('Status Updated');
+        fetchGoal();
+        fetchMilestoneList();
+        fetchTaksList();
       }).catch(err => {
         const response = err.response;
         if (response && response.status === 422) {
@@ -38,7 +44,10 @@ export default function TaskList({ milestoneId, task, taskUpdate, taskDelete, fe
       };
 
       axiosClient.put(`milestones/${milestoneId}/tasks/${task.id}`, payload).then(() => {
-        console.log('Status Updated')
+        console.log('Status Updated');
+        fetchGoal();
+        fetchMilestoneList();
+        fetchTaksList();
       }).catch(err => {
         const response = err.response;
         if (response && response.status === 422) {
@@ -46,15 +55,9 @@ export default function TaskList({ milestoneId, task, taskUpdate, taskDelete, fe
         }
       });
     }
-    fetchGoal();
-    fetchMilestoneList();
-    fetchTaksList();
   }
-  useEffect(() => {
-    fetchGoal();
-    fetchMilestoneList();
-    fetchTaksList();
-  }, [])
+  
+  useEffect(() => {}, [])
   return <>
     <li
       key={task.id}

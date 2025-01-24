@@ -10,6 +10,7 @@ import Task from './views/Task/Task.jsx';
 import Progress from './views/User/Progress.jsx';
 import Profile from './views/User/Profile.jsx';
 import Milestone from './views/Milestone/Milestone.jsx';
+import Documentation from './views/Documentation.jsx';
 
 const router = createBrowserRouter([
   {
@@ -40,6 +41,10 @@ const router = createBrowserRouter([
       {
         path: '/tasks',
         element: <Task />
+      },
+      {
+        path: '/documentation',
+        element: <Documentation />
       },
     ]
   },

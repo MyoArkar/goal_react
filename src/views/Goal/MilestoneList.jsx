@@ -60,7 +60,9 @@ export default function MileStoneList({ goalId, fetchGoal, milestone, milestoneU
       };
 
       axiosClient.put(`/goals/${goalId}/milestones/${milestone.id}`, payload).then(() => {
-        console.log('Status Updated')
+        console.log('Status Updated');
+        fetchGoal();
+        fetchMilestoneList();
       }).catch(err => {
         const response = err.response;
         if (response && response.status === 422) {
@@ -75,7 +77,9 @@ export default function MileStoneList({ goalId, fetchGoal, milestone, milestoneU
       };
 
       axiosClient.put(`/goals/${goalId}/milestones/${milestone.id}`, payload).then(() => {
-        console.log('Status Updated')
+        console.log('Status Updated');
+        fetchGoal();
+        fetchMilestoneList();
       }).catch(err => {
         const response = err.response;
         if (response && response.status === 422) {
@@ -89,7 +93,9 @@ export default function MileStoneList({ goalId, fetchGoal, milestone, milestoneU
       };
 
       axiosClient.put(`/goals/${goalId}/milestones/${milestone.id}`, payload).then(() => {
-        console.log('Status Updated')
+        console.log('Status Updated');
+        fetchGoal();
+        fetchMilestoneList();
       }).catch(err => {
         const response = err.response;
         if (response && response.status === 422) {
@@ -97,12 +103,8 @@ export default function MileStoneList({ goalId, fetchGoal, milestone, milestoneU
         }
       });
     }
-    fetchGoal();
-    fetchMilestoneList();
   }
   useEffect(() => {
-    fetchGoal();
-    fetchMilestoneList();
     fetchTaksList();
   }, [])
 

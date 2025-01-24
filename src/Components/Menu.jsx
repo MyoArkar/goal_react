@@ -7,7 +7,7 @@ import { VscMilestone } from "react-icons/vsc";
 import { GiProgression } from "react-icons/gi";
 import { RiLogoutCircleLine } from "react-icons/ri";
 import { FaRegCalendarAlt } from "react-icons/fa";
-import { Link, Outlet, useNavigate } from "react-router-dom";
+import { Link, Outlet, useNavigate, useLocation } from "react-router-dom";
 import UserProfile from "./UserProfile";
 import { AiOutlineUser } from "react-icons/ai";
 import Calendar from "./Calendar";
@@ -17,6 +17,7 @@ import axiosClient from "../axiosClient";
 const Menu = () => {
     const { setUser, setToken } = useStateContext();
     const navigate = useNavigate();
+    const location = useLocation();
     const [isLoggingOut, setIsLoggingOut] = useState(false);
     const [showLogoutModal, setShowLogoutModal] = useState(false);
     const [open, setOpen] = useState(true);
@@ -62,6 +63,7 @@ const Menu = () => {
         { name: "Milestone", link: "/milestones", icon: VscMilestone },
         { name: "Task", link: "/tasks", icon: GoTasklist },
         { name: "My Progress", link: "/progress", icon: GiProgression, margin: true },
+        // { name: "Documentation", link: "/documentation", icon: FaRegCalendarAlt },
         { name: "Log out", onClick: handleLogoutClick, icon: RiLogoutCircleLine },
     ];
 
@@ -69,14 +71,14 @@ const Menu = () => {
         <section className="flex overflow-x-hidden w-full font-Pridi">
             {/* Logout Confirmation Modal */}
             {showLogoutModal && (
-                <div className="fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center">
-                    <div className="bg-white rounded-lg p-6 max-w-sm w-full mx-4">
-                        <h3 className="text-lg font-semibold text-gray-900 mb-4">Confirm Logout</h3>
-                        <p className="text-gray-600 mb-6">Are you sure you want to logout?</p>
-                        <div className="flex justify-end gap-4">
+                <div className="flex fixed inset-0 z-50 justify-center items-center bg-black bg-opacity-50">
+                    <div className="p-6 mx-4 w-full max-w-sm bg-white rounded-lg">
+                        <h3 className="mb-4 text-lg font-semibold text-gray-900">Confirm Logout</h3>
+                        <p className="mb-6 text-gray-600">Are you sure you want to logout?</p>
+                        <div className="flex gap-4 justify-end">
                             <button
                                 onClick={handleLogoutCancel}
-                                className="px-4 py-2 text-gray-600 hover:text-gray-800 font-medium rounded-md"
+                                className="px-4 py-2 font-medium text-gray-600 rounded-md hover:text-gray-800"
                             >
                                 Cancel
                             </button>
@@ -84,8 +86,7 @@ const Menu = () => {
                                 onClick={handleLogoutConfirm}
                                 disabled={isLoggingOut}
                                 className={`px-4 py-2 bg-red-600 text-white rounded-md hover:bg-red-700 font-medium ${
-                                    isLoggingOut ? 'opacity-50 cursor-not-allowed' : ''
-                                }`}
+                                    isLoggingOut ? 'opacity-50 cursor-not-allowed' : ''}`}
                             >
                                 {isLoggingOut ? 'Logging out...' : 'Logout'}
                             </button>

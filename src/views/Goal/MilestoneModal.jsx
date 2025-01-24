@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import { convertToISOString } from '../../utilities/dateFormater';
 import axiosClient from '../../axiosClient';
 import { convertToDateTime } from '../../utilities/dateFormater';
@@ -8,19 +8,27 @@ export default function MilestoneModal({ goalId, visible, onClose, update, miles
   const descriptionRef = useRef();
   const dueRef = useRef();
   const priorityRef = useRef();
+  const [errors, setErrors] = useState({});
 
   useEffect(() => {
-    if (update && milestone) {
-      titleRef.current.value = milestone.title;
-      descriptionRef.current.value = milestone.description;
-      dueRef.current.value = convertToDateTime(milestone.due_date);
+    if (visible && update && milestone && 
+        titleRef.current && 
+        descriptionRef.current && 
+        dueRef.current && 
+        priorityRef.current) {
+      titleRef.current.value = milestone.title || '';
+      descriptionRef.current.value = milestone.description || '';
+      dueRef.current.value = milestone.due_date ? convertToDateTime(milestone.due_date) : '';
       priorityRef.current.value = milestone.priority;
     }
-  }, [update, milestone]);
+    // Clear errors when modal opens/closes
+    setErrors({});
+  }, [update, milestone, visible]);
 
   if (!visible) return null;
 
   const handleCreate = () => {
+    setErrors({});
     const payload = {
       title: titleRef.current.value,
       description: descriptionRef.current.value,
@@ -34,13 +42,13 @@ export default function MilestoneModal({ goalId, visible, onClose, update, miles
     }).catch(err => {
       const response = err.response;
       if (response && response.status === 422) {
-        console.log(response.data.errors);
+        setErrors(response.data.errors);
       }
     });
-    console.log(payload)
   };
 
   const handleUpdate = () => {
+    setErrors({});
     const payload = {
       title: titleRef.current.value,
       description: descriptionRef.current.value,
@@ -53,7 +61,7 @@ export default function MilestoneModal({ goalId, visible, onClose, update, miles
     }).catch(err => {
       const response = err.response;
       if (response && response.status === 422) {
-        console.log(response.data.errors);
+        setErrors(response.data.errors);
       }
     });
   };
@@ -69,41 +77,65 @@ export default function MilestoneModal({ goalId, visible, onClose, update, miles
         <h3>{update ? 'Update Milestone' : 'Create New Milestone'}</h3>
         <div className='w-full flex flex-col'>
           <label htmlFor="">Title</label>
-          <input ref={titleRef} type="text" name="" id="" className='outline-none p-2 bg-white/40 rounded-md shadow-sm ring-1 ring-black/5' />
+          <input 
+            ref={titleRef} 
+            type="text" 
+            className={`outline-none p-2 bg-white/40 rounded-md shadow-sm ring-1 ${errors.title ? 'ring-red-500' : 'ring-black/5'}`} 
+          />
+          {errors.title && <span className="mt-1 text-xs text-red-500">{errors.title[0]}</span>}
         </div>
         <div className='w-full flex flex-col'>
           <label htmlFor="">Description</label>
-          <input ref={descriptionRef} type="text" name="" id="" className='outline-none p-2 bg-white/40 rounded-md shadow-sm ring-1 ring-black/5' />
+          <input 
+            ref={descriptionRef} 
+            type="text" 
+            className={`outline-none p-2 bg-white/40 rounded-md shadow-sm ring-1 ${errors.description ? 'ring-red-500' : 'ring-black/5'}`} 
+          />
+          {errors.description && <span className="mt-1 text-xs text-red-500">{errors.description[0]}</span>}
         </div>
 
         <div className="w-full flex flex-row justify-between gap-3">
           <div className='w-1/2 flex flex-col'>
             <label htmlFor="">Due Date</label>
-            <input ref={dueRef} type="datetime-local" name="" id="" className='outline-none p-2 bg-white/40 rounded-md shadow-sm ring-1 ring-black/5' />
+            <input 
+              ref={dueRef} 
+              type="datetime-local" 
+              className={`outline-none p-2 bg-white/40 rounded-md shadow-sm ring-1 ${errors.due_date ? 'ring-red-500' : 'ring-black/5'}`} 
+            />
+            {errors.due_date && <span className="mt-1 text-xs text-red-500">{errors.due_date[0]}</span>}
           </div>
           <div className='w-1/2 flex flex-col'>
             <label htmlFor="">Priority</label>
-            <select ref={priorityRef} defaultValue="high" name="" id="" className='outline-none p-2 bg-white/40 rounded-md shadow-sm ring-1 ring-black/5'>
-              <option value="high" selected>High</option>
+            <select 
+              ref={priorityRef} 
+              defaultValue="high" 
+              className={`outline-none p-2 bg-white/40 rounded-md shadow-sm ring-1 ${errors.priority ? 'ring-red-500' : 'ring-black/5'}`}
+            >
+              <option value="high">High</option>
               <option value="medium">Medium</option>
               <option value="low">Low</option>
             </select>
+            {errors.priority && <span className="mt-1 text-xs text-red-500">{errors.priority[0]}</span>}
           </div>
         </div>
         <div className="w-full flex flex-row-reverse gap-3">
-          <button onClick={onClose}
-            className='bg-white/40 ring-2 ring-black/5 px-3 py-2 rounded-md text-bodyText hover:bg-sidebar hover:text-defaultText'>Cancel</button>
+          <button 
+            onClick={onClose}
+            className='px-3 py-2 rounded-md ring-2 bg-white/40 ring-black/5 text-bodyText hover:bg-sidebar hover:text-defaultText'
+          >
+            Cancel
+          </button>
 
           {update ? (
             <button
-              className='bg-white/40 ring-2 ring-black/5 px-3 py-2 rounded-md text-bodyText hover:bg-sidebar hover:text-defaultText'
+              className='px-3 py-2 rounded-md ring-2 bg-white/40 ring-black/5 text-bodyText hover:bg-sidebar hover:text-defaultText'
               onClick={handleUpdate}
             >
               Update
             </button>
           ) : (
             <button
-              className='bg-white/40 ring-2 ring-black/5 px-3 py-2 rounded-md text-bodyText hover:bg-sidebar hover:text-defaultText'
+              className='px-3 py-2 rounded-md ring-2 bg-white/40 ring-black/5 text-bodyText hover:bg-sidebar hover:text-defaultText'
               onClick={handleCreate}
             >
               Create
@@ -112,5 +144,5 @@ export default function MilestoneModal({ goalId, visible, onClose, update, miles
         </div>
       </div>
     </div>
-  )
+  );
 }

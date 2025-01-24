@@ -69,6 +69,7 @@ export default function Goal() {
             };
             axiosClient.put(`/goals/${goal.id}`, payload).then(() => {
                 console.log('Status Updated')
+                fetchGoals();
             }).catch(err => {
                 const response = err.response;
                 if (response && response.status === 422) {
@@ -83,6 +84,7 @@ export default function Goal() {
             };
             axiosClient.put(`/goals/${goal.id}`, payload).then(() => {
                 console.log('Status Updated')
+                fetchGoals();
             }).catch(err => {
                 const response = err.response;
                 if (response && response.status === 422) {
@@ -97,6 +99,7 @@ export default function Goal() {
             };
             axiosClient.put(`/goals/${goal.id}`, payload).then(() => {
                 console.log('Status Updated')
+                fetchGoals();
             }).catch(err => {
                 const response = err.response;
                 if (response && response.status === 422) {
@@ -129,7 +132,7 @@ export default function Goal() {
     };
     const filteredGoals = filterGoals();
     return (
-        <div className='w-full px-10 py-5 mx-auto gap-10 flex flex-col min-h-screen'
+        <div className='flex flex-col gap-10 px-10 py-5 mx-auto w-full min-h-screen'
         >
             <Model
                 visible={showModel}
@@ -137,24 +140,24 @@ export default function Goal() {
                 update={update}
                 goal={selectedGoal}
             />
-            <div className="flex justify-between items-center text-sm gap-3">
+            <div className="flex gap-3 justify-between items-center text-sm">
                 <motion.button whileHover={{ scale: 1.1 }}
                     whileTap={{ scale: 0.7 }} className='w-full sm:w-60 md:w-80 lg:w-96 bg-transparent ring-2 ring-black/5 shadow-md px-3 py-[11px] rounded-md text-bodyText hover:bg-sidebar hover:text-defaultText' onClick={() => setShowModel(true)}>Create Goal</motion.button>
-                <motion.div whileHover={{ scale: 1.05 }} className='flex flex-row justify-center items-center  w-full  rounded-md shadow-md bg-transparent ring-2 ring-black/5 overflow-hidden'>
-                    <button className='bg-transparent py-2 px-2 rounded-l-md ring-1 ring-black/5'>
+                <motion.div whileHover={{ scale: 1.05 }} className='flex overflow-hidden flex-row justify-center items-center w-full bg-transparent rounded-md ring-2 shadow-md ring-black/5'>
+                    <button className='px-2 py-2 bg-transparent rounded-l-md ring-1 ring-black/5'>
                         <MdManageSearch size={26}
                             className="cursor-pointer text-bodyText" />
                     </button>
                     <input
                         type="text"
                         name="search"
-                        className='w-full  py-2 px-1 rounded-r-md outline-none   text-slate-900 flex' placeholder='Search'
+                        className='flex px-1 py-2 w-full rounded-r-md outline-none text-slate-900' placeholder='Search'
                         value={searchQuery}
                         onChange={(e) => setSearchQuery(e.target.value)}
                     />
                 </motion.div>
             </div>
-            <div className='w-full grid grid-cols-2 lg:grid-cols-4 lg:gap-5 gap-3 text-sm'>
+            <div className='grid grid-cols-2 gap-3 w-full text-sm lg:grid-cols-4 lg:gap-5'>
                 {['All', 'In_Progress', 'Completed'].map((status) => (
                     <motion.button whileTap={{ scale: 0.5 }} whileHover={{ scale: 1.08 }}
                         key={status}
@@ -165,26 +168,25 @@ export default function Goal() {
                     </motion.button>
                 ))}
             </div>
-            <div className="card grid grid-cols-1 gap-5 w-full 
-              sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 place-content-center">
+            <div className="grid grid-cols-1 gap-5 place-content-center w-full card sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
                 {filteredGoals.map((goal) => (
-                    <motion.div whileHover={{ scale: 1.05 }} key={goal.id} className="bg-white/10  flex flex-col gap-5 rounded-md p-5 text-sm text-bodyText shadow-lg ring-1 ring-black/5">
+                    <motion.div whileHover={{ scale: 1.05 }} key={goal.id} className="flex flex-col gap-5 p-5 text-sm rounded-md ring-1 shadow-lg bg-white/10 text-bodyText ring-black/5">
                         <div className='flex justify-between items-center'>
                             <h2>{goal.title}</h2>
                             <div className="relative group">
                                 <span className="cursor-pointer">
                                     <ion-icon name="ellipsis-horizontal-outline"></ion-icon>
                                 </span>
-                                <div className="absolute right-0 mt-2 p-2 bg-white border rounded shadow-md opacity-0 group-hover:opacity-100 transition-opacity duration-200">
+                                <div className="absolute right-0 p-2 mt-2 bg-white rounded border shadow-md opacity-0 transition-opacity duration-200 group-hover:opacity-100">
                                     <span
                                         onClick={() => handleUpdateClick(goal)}
-                                        className="flex items-center cursor-pointer text-blue-500 hover:text-blue-700 mb-1"
+                                        className="flex items-center mb-1 text-blue-500 cursor-pointer hover:text-blue-700"
                                     >
                                         <ion-icon name="cloud-upload-outline" className="mr-1"></ion-icon> Update
                                     </span>
                                     <span
                                         onClick={() => confirmDelete(goal.id)}
-                                        className="flex items-center cursor-pointer text-red-500 hover:text-red-700"
+                                        className="flex items-center text-red-500 cursor-pointer hover:text-red-700"
                                     >
                                         <ion-icon name="trash-outline" className="mr-1"></ion-icon> Delete
                                     </span>
@@ -198,7 +200,7 @@ export default function Goal() {
                                 <p className=''>{formatDate(goal.start_date)}</p>
                             </div>
                             <div className="flex flex-col">
-                                <h5 className='text-slate-500 text-right'>End Date</h5>
+                                <h5 className='text-right text-slate-500'>End Date</h5>
                                 <p className='text-right'>{formatDate(goal.end_date)}</p>
                             </div>
                         </div>
@@ -207,20 +209,20 @@ export default function Goal() {
                                 <h5>Progress</h5>
                                 <h5>{goal.progress_percentage}%</h5>
                             </div>
-                            <div className='relative w-full bg-black h-1'>
+                            <div className='relative w-full h-1 bg-black'>
                                 <div style={{ width: `${goal.progress_percentage}%` }} className='absolute h-1 bg-sky-500'></div>
                             </div>
                         </div>
                         <div className='flex flex-row justify-between'>
                             <motion.button whileHover={{ scale: 1.1 }}
                                 onClick={() => handleDetail(goal.id)}
-                                className='bg-sky-500 px-3 py-1 rounded-md text-white hover:bg-sky-600'>
+                                className='px-3 py-1 text-white bg-sky-500 rounded-md hover:bg-sky-600'>
                                 Detail
                             </motion.button>
                             {(goal.milestone_count > 0 && goal.status != 'completed') && (
                                 <button
                                     onClick={() => handleDetail(goal.id)}
-                                    className="w-32 h-12 rounded-lg font-bold text-white shadow-md transition-all duration-200 flex items-center justify-center bg-blue-500 hover:bg-blue-600"
+                                    className="flex justify-center items-center w-32 h-12 font-bold text-white bg-blue-500 rounded-lg shadow-md transition-all duration-200 hover:bg-blue-600"
                                 >
                                     In Progress
                                 </button>
@@ -228,7 +230,7 @@ export default function Goal() {
                             {(goal.milestone_count > 0 && goal.status == 'completed') && (
                                 <button
                                     onClick={() => handleDetail(goal.id)}
-                                    className="w-32 h-12 rounded-lg font-bold text-white shadow-md transition-all duration-200 flex items-center justify-center bg-green-500 hover:bg-green-600"
+                                    className="flex justify-center items-center w-32 h-12 font-bold text-white bg-green-500 rounded-lg shadow-md transition-all duration-200 hover:bg-green-600"
                                 >
                                     Completed
                                 </button>
@@ -244,7 +246,6 @@ export default function Goal() {
                                     goal.status === "completed" && "bg-green-500 hover:bg-green-600"
                                 }`}
                                 >   
-                                    { goal.status === "pending" && <b>In Progress</b>}
                                     { goal.status === "in_progress" && <b>In Progress</b>}
                                     {goal.status === "completed" && <b>Completed</b>}
                                 </button>
@@ -253,7 +254,7 @@ export default function Goal() {
                     </motion.div>
                 ))}
                 <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.7 }} onClick={handleCreateClick}
-                    className="flex flex-col gap-5 rounded-md p-5 text-sm justify-center items-center bg-white/10 shadow-lg ring-1 ring-black/5">
+                    className="flex flex-col gap-5 justify-center items-center p-5 text-sm rounded-md ring-1 shadow-lg bg-white/10 ring-black/5">
                     <BsPlusCircleDotted size={26}
                         className="cursor-pointer" />
                     <h5>Add New Goal</h5>
