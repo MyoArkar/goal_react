@@ -1,5 +1,5 @@
 import { useStateContext } from "../contexts/contextprovider";
-import { Navigate } from "react-router-dom";
+import { Navigate, Outlet } from "react-router-dom";
 
 import Menu from "./Menu";
 
@@ -11,6 +11,7 @@ export default function DefaultLayout() {
   return (
     <main>
       <Menu />
+      <Outlet />
     </main>
   );
 }

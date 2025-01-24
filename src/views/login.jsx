@@ -18,7 +18,8 @@ export default function Login() {
     }
     axiosClient.post("auth/login", payload).then(({ data }) => {
       setUser(data.data.user.email);
-      setToken(data.data.authorization.token)
+      setToken(data.data.authorization.token);
+      window.location.href = '/goals';
     }).catch(err => {
       const response = err.response;
       if (response && response.status === 401) {

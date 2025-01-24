@@ -25,6 +25,7 @@ export default function register(){
         axiosClient.post("auth/register",payload).then(({data})=>{
             setUser(data.data.user.email);
             setToken(data.data.authorization.token);
+            window.location.href = '/goals';
         }).catch(err => {
             const response = err.response;
             if(response && response.status === 422){
