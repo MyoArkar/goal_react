@@ -11,7 +11,6 @@ export default function DefaultLayout() {
   return (
     <main>
       <Menu />
-      <Outlet />
     </main>
   );
 }
